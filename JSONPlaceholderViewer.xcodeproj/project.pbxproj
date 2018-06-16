@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
+		E3F6E05D20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E05C20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift */; };
+		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
+		E3F6E06320D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E3F6E06D20D4F32A0069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
 		E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */; };
 		E3FCF2B520D4EF3300D14E3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B420D4EF3300D14E3D /* ViewController.swift */; };
 		E3FCF2B820D4EF3300D14E3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FCF2B620D4EF3300D14E3D /* Main.storyboard */; };
@@ -16,6 +22,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E3F6E05720D4F0E80069D2C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E3FCF2A720D4EF3300D14E3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E3F6E04C20D4F0E70069D2C1;
+			remoteInfo = JSONPlaceholderViewerApi;
+		};
+		E3F6E06020D4F0E80069D2C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E3FCF2A720D4EF3300D14E3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E3F6E04C20D4F0E70069D2C1;
+			remoteInfo = JSONPlaceholderViewerApi;
+		};
 		E3FCF2C420D4EF3500D14E3D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E3FCF2A720D4EF3300D14E3D /* Project object */;
@@ -25,7 +45,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E3F6E06920D4F0E80069D2C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E3F6E06320D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONPlaceholderViewerApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderViewerApi.h; sourceTree = "<group>"; };
+		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3F6E05520D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONPlaceholderViewerApiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3F6E05C20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderViewerApiTests.swift; sourceTree = "<group>"; };
+		E3F6E05E20D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3FCF2AF20D4EF3300D14E3D /* JSONPlaceholderViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSONPlaceholderViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3FCF2B420D4EF3300D14E3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,10 +79,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E3F6E04920D4F0E70069D2C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F6E05220D4F0E80069D2C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E3FCF2AC20D4EF3300D14E3D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,18 +106,47 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3F6E06D20D4F32A0069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderViewerApi */ = {
+			isa = PBXGroup;
+			children = (
+				E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */,
+				E3F6E05020D4F0E80069D2C1 /* Info.plist */,
+			);
+			path = JSONPlaceholderViewerApi;
+			sourceTree = "<group>";
+		};
+		E3F6E05B20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests */ = {
+			isa = PBXGroup;
+			children = (
+				E3F6E05C20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift */,
+				E3F6E05E20D4F0E80069D2C1 /* Info.plist */,
+			);
+			path = JSONPlaceholderViewerApiTests;
+			sourceTree = "<group>";
+		};
+		E3F6E06C20D4F32A0069D2C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E3FCF2A620D4EF3300D14E3D = {
 			isa = PBXGroup;
 			children = (
 				E3FCF2B120D4EF3300D14E3D /* JSONPlaceholderViewer */,
+				E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderViewerApi */,
 				E3FCF2C620D4EF3500D14E3D /* JSONPlaceholderViewerTests */,
+				E3F6E05B20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests */,
 				E3FCF2B020D4EF3300D14E3D /* Products */,
+				E3F6E06C20D4F32A0069D2C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +155,8 @@
 			children = (
 				E3FCF2AF20D4EF3300D14E3D /* JSONPlaceholderViewer.app */,
 				E3FCF2C320D4EF3500D14E3D /* JSONPlaceholderViewerTests.xctest */,
+				E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */,
+				E3F6E05520D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,7 +185,54 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		E3F6E04A20D4F0E70069D2C1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		E3F6E04C20D4F0E70069D2C1 /* JSONPlaceholderViewerApi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3F6E06820D4F0E80069D2C1 /* Build configuration list for PBXNativeTarget "JSONPlaceholderViewerApi" */;
+			buildPhases = (
+				E3F6E04820D4F0E70069D2C1 /* Sources */,
+				E3F6E04920D4F0E70069D2C1 /* Frameworks */,
+				E3F6E04A20D4F0E70069D2C1 /* Headers */,
+				E3F6E04B20D4F0E70069D2C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JSONPlaceholderViewerApi;
+			productName = JSONPlaceholderViewerApi;
+			productReference = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E3F6E05420D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3F6E06A20D4F0E80069D2C1 /* Build configuration list for PBXNativeTarget "JSONPlaceholderViewerApiTests" */;
+			buildPhases = (
+				E3F6E05120D4F0E80069D2C1 /* Sources */,
+				E3F6E05220D4F0E80069D2C1 /* Frameworks */,
+				E3F6E05320D4F0E80069D2C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E3F6E05820D4F0E80069D2C1 /* PBXTargetDependency */,
+			);
+			name = JSONPlaceholderViewerApiTests;
+			productName = JSONPlaceholderViewerApiTests;
+			productReference = E3F6E05520D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E3FCF2AE20D4EF3300D14E3D /* JSONPlaceholderViewer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3FCF2CC20D4EF3500D14E3D /* Build configuration list for PBXNativeTarget "JSONPlaceholderViewer" */;
@@ -106,10 +240,12 @@
 				E3FCF2AB20D4EF3300D14E3D /* Sources */,
 				E3FCF2AC20D4EF3300D14E3D /* Frameworks */,
 				E3FCF2AD20D4EF3300D14E3D /* Resources */,
+				E3F6E06920D4F0E80069D2C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E3F6E06120D4F0E80069D2C1 /* PBXTargetDependency */,
 			);
 			name = JSONPlaceholderViewer;
 			productName = JSONPlaceholderViewer;
@@ -144,6 +280,12 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Yoshikuni Kato";
 				TargetAttributes = {
+					E3F6E04C20D4F0E70069D2C1 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					E3F6E05420D4F0E80069D2C1 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 					E3FCF2AE20D4EF3300D14E3D = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -167,12 +309,28 @@
 			projectRoot = "";
 			targets = (
 				E3FCF2AE20D4EF3300D14E3D /* JSONPlaceholderViewer */,
+				E3F6E04C20D4F0E70069D2C1 /* JSONPlaceholderViewerApi */,
 				E3FCF2C220D4EF3500D14E3D /* JSONPlaceholderViewerTests */,
+				E3F6E05420D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E3F6E04B20D4F0E70069D2C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F6E05320D4F0E80069D2C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E3FCF2AD20D4EF3300D14E3D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -193,6 +351,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E3F6E04820D4F0E70069D2C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F6E05120D4F0E80069D2C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F6E05D20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E3FCF2AB20D4EF3300D14E3D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -213,6 +386,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E3F6E05820D4F0E80069D2C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E3F6E04C20D4F0E70069D2C1 /* JSONPlaceholderViewerApi */;
+			targetProxy = E3F6E05720D4F0E80069D2C1 /* PBXContainerItemProxy */;
+		};
+		E3F6E06120D4F0E80069D2C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E3F6E04C20D4F0E70069D2C1 /* JSONPlaceholderViewerApi */;
+			targetProxy = E3F6E06020D4F0E80069D2C1 /* PBXContainerItemProxy */;
+		};
 		E3FCF2C520D4EF3500D14E3D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E3FCF2AE20D4EF3300D14E3D /* JSONPlaceholderViewer */;
@@ -240,6 +423,100 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E3F6E06420D4F0E80069D2C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4DNR887AL8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = JSONPlaceholderViewerApi/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yoshikuni-web.JSONPlaceholderViewerApi";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E3F6E06520D4F0E80069D2C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4DNR887AL8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = JSONPlaceholderViewerApi/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yoshikuni-web.JSONPlaceholderViewerApi";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E3F6E06620D4F0E80069D2C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4DNR887AL8;
+				INFOPLIST_FILE = JSONPlaceholderViewerApiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yoshikuni-web.JSONPlaceholderViewerApiTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E3F6E06720D4F0E80069D2C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4DNR887AL8;
+				INFOPLIST_FILE = JSONPlaceholderViewerApiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yoshikuni-web.JSONPlaceholderViewerApiTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E3FCF2CA20D4EF3500D14E3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -435,6 +712,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E3F6E06820D4F0E80069D2C1 /* Build configuration list for PBXNativeTarget "JSONPlaceholderViewerApi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3F6E06420D4F0E80069D2C1 /* Debug */,
+				E3F6E06520D4F0E80069D2C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E3F6E06A20D4F0E80069D2C1 /* Build configuration list for PBXNativeTarget "JSONPlaceholderViewerApiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3F6E06620D4F0E80069D2C1 /* Debug */,
+				E3F6E06720D4F0E80069D2C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E3FCF2AA20D4EF3300D14E3D /* Build configuration list for PBXProject "JSONPlaceholderViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
