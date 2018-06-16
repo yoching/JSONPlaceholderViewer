@@ -1,0 +1,5 @@
+output_dir: JSONPlaceholderViewer/Generated/
+storyboards:
+  paths: JSONPlaceholderViewer
+  templateName: swift4
+  output: Storyboards.swift
