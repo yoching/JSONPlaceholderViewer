@@ -1,0 +1,2 @@
+github "ReactiveCocoa/ReactiveCocoa" ~> 7.0
+github "ishkawa/APIKit" ~> 3.1
