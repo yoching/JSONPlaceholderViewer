@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
-		E3F6E05D20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E05C20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift */; };
 		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
 		E3F6E06320D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -29,6 +28,11 @@
 		E3F6E08720D50CBF0069D2C1 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E08620D50CBF0069D2C1 /* ReactiveSwift.framework */; };
 		E3F6E08820D50CC50069D2C1 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E07120D508890069D2C1 /* Result.framework */; };
 		E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */; };
+		E3F6E08D20D510290069D2C1 /* StubConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E08C20D510290069D2C1 /* StubConfigurator.swift */; };
+		E3F6E09020D510950069D2C1 /* ApiRequestSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E08F20D510950069D2C1 /* ApiRequestSetting.swift */; };
+		E3F6E09420D512180069D2C1 /* PostsRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09320D512180069D2C1 /* PostsRequestSpec.swift */; };
+		E3F6E09620D514830069D2C1 /* JSONPlaceholderSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09520D514830069D2C1 /* JSONPlaceholderSetting.swift */; };
+		E3F6E09820D514E00069D2C1 /* JSONPlaceholderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */; };
 		E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */; };
 		E3FCF2B520D4EF3300D14E3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B420D4EF3300D14E3D /* ViewController.swift */; };
 		E3FCF2B820D4EF3300D14E3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FCF2B620D4EF3300D14E3D /* Main.storyboard */; };
@@ -103,7 +107,6 @@
 		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderViewerApi.h; sourceTree = "<group>"; };
 		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3F6E05520D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONPlaceholderViewerApiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3F6E05C20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderViewerApiTests.swift; sourceTree = "<group>"; };
 		E3F6E05E20D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3F6E06F20D508840069D2C1 /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = "<group>"; };
 		E3F6E07120D508890069D2C1 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
@@ -113,6 +116,11 @@
 		E3F6E08420D50C9E0069D2C1 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		E3F6E08620D50CBF0069D2C1 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
+		E3F6E08C20D510290069D2C1 /* StubConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubConfigurator.swift; sourceTree = "<group>"; };
+		E3F6E08F20D510950069D2C1 /* ApiRequestSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestSetting.swift; sourceTree = "<group>"; };
+		E3F6E09320D512180069D2C1 /* PostsRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRequestSpec.swift; sourceTree = "<group>"; };
+		E3F6E09520D514830069D2C1 /* JSONPlaceholderSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderSetting.swift; sourceTree = "<group>"; };
+		E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderRequest.swift; sourceTree = "<group>"; };
 		E3FCF2AF20D4EF3300D14E3D /* JSONPlaceholderViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSONPlaceholderViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3FCF2B420D4EF3300D14E3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +181,7 @@
 		E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderViewerApi */ = {
 			isa = PBXGroup;
 			children = (
+				E3F6E08E20D510770069D2C1 /* Network */,
 				E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */,
 				E3F6E05020D4F0E80069D2C1 /* Info.plist */,
 			);
@@ -182,7 +191,8 @@
 		E3F6E05B20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests */ = {
 			isa = PBXGroup;
 			children = (
-				E3F6E05C20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift */,
+				E3F6E08A20D510090069D2C1 /* Network */,
+				E3F6E09120D510E70069D2C1 /* Resources */,
 				E3F6E05E20D4F0E80069D2C1 /* Info.plist */,
 			);
 			path = JSONPlaceholderViewerApiTests;
@@ -208,6 +218,48 @@
 				E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		E3F6E08A20D510090069D2C1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E3F6E09320D512180069D2C1 /* PostsRequestSpec.swift */,
+				E3F6E08B20D510180069D2C1 /* Utilities */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E3F6E08B20D510180069D2C1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E3F6E08C20D510290069D2C1 /* StubConfigurator.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E3F6E08E20D510770069D2C1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E3F6E08F20D510950069D2C1 /* ApiRequestSetting.swift */,
+				E3F6E09520D514830069D2C1 /* JSONPlaceholderSetting.swift */,
+				E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E3F6E09120D510E70069D2C1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E3F6E09220D510F50069D2C1 /* JSON */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E3F6E09220D510F50069D2C1 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = JSON;
 			sourceTree = "<group>";
 		};
 		E3FCF2A620D4EF3300D14E3D = {
@@ -362,6 +414,7 @@
 				TargetAttributes = {
 					E3F6E04C20D4F0E70069D2C1 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 					E3F6E05420D4F0E80069D2C1 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -518,6 +571,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3F6E09820D514E00069D2C1 /* JSONPlaceholderRequest.swift in Sources */,
+				E3F6E09620D514830069D2C1 /* JSONPlaceholderSetting.swift in Sources */,
+				E3F6E09020D510950069D2C1 /* ApiRequestSetting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,7 +581,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3F6E05D20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests.swift in Sources */,
+				E3F6E09420D512180069D2C1 /* PostsRequestSpec.swift in Sources */,
+				E3F6E08D20D510290069D2C1 /* StubConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +647,7 @@
 		E3F6E06420D4F0E80069D2C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -612,6 +670,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yoshikuni-web.JSONPlaceholderViewerApi";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -622,6 +681,7 @@
 		E3F6E06520D4F0E80069D2C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -814,6 +874,7 @@
 		E3FCF2CD20D4EF3500D14E3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4DNR887AL8;
@@ -836,6 +897,7 @@
 		E3FCF2CE20D4EF3500D14E3D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4DNR887AL8;
