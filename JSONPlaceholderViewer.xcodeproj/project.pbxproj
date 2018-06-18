@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E31854B720D7EB1E00D8AC89 /* Request+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854B620D7EB1E00D8AC89 /* Request+Decodable.swift */; };
 		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
 		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
@@ -27,12 +28,19 @@
 		E3F6E08520D50C9E0069D2C1 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E08420D50C9E0069D2C1 /* ReactiveCocoa.framework */; };
 		E3F6E08720D50CBF0069D2C1 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E08620D50CBF0069D2C1 /* ReactiveSwift.framework */; };
 		E3F6E08820D50CC50069D2C1 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E07120D508890069D2C1 /* Result.framework */; };
-		E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */; };
 		E3F6E08D20D510290069D2C1 /* StubConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E08C20D510290069D2C1 /* StubConfigurator.swift */; };
 		E3F6E09020D510950069D2C1 /* ApiRequestSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E08F20D510950069D2C1 /* ApiRequestSetting.swift */; };
 		E3F6E09420D512180069D2C1 /* PostsRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09320D512180069D2C1 /* PostsRequestSpec.swift */; };
-		E3F6E09620D514830069D2C1 /* JSONPlaceholderSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09520D514830069D2C1 /* JSONPlaceholderSetting.swift */; };
 		E3F6E09820D514E00069D2C1 /* JSONPlaceholderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */; };
+		E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */; };
+		E3FB206620D556C400C91CB9 /* PostSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206520D556C400C91CB9 /* PostSpec.swift */; };
+		E3FB206920D558B100C91CB9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206820D558B100C91CB9 /* Post.swift */; };
+		E3FB206B20D55AEF00C91CB9 /* posts.json in Resources */ = {isa = PBXBuildFile; fileRef = E3FB206A20D55AEF00C91CB9 /* posts.json */; };
+		E3FB206D20D55B3F00C91CB9 /* PostsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206C20D55B3F00C91CB9 /* PostsRequest.swift */; };
+		E3FB206E20D55DA000C91CB9 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E07120D508890069D2C1 /* Result.framework */; };
+		E3FB206F20D55DA800C91CB9 /* Result.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E3F6E07120D508890069D2C1 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E3FB207020D55E3300C91CB9 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E06F20D508840069D2C1 /* APIKit.framework */; };
+		E3FB207120D55E3900C91CB9 /* APIKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E3F6E06F20D508840069D2C1 /* APIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */; };
 		E3FCF2B520D4EF3300D14E3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B420D4EF3300D14E3D /* ViewController.swift */; };
 		E3FCF2B820D4EF3300D14E3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FCF2B620D4EF3300D14E3D /* Main.storyboard */; };
@@ -83,6 +91,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				E3FB207120D55E3900C91CB9 /* APIKit.framework in CopyFiles */,
+				E3FB206F20D55DA800C91CB9 /* Result.framework in CopyFiles */,
 				E3F6E08320D50C880069D2C1 /* OHHTTPStubs.framework in CopyFiles */,
 				E3F6E07A20D50BE80069D2C1 /* Nimble.framework in CopyFiles */,
 				E3F6E07B20D50BE80069D2C1 /* Quick.framework in CopyFiles */,
@@ -103,6 +113,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E31854B620D7EB1E00D8AC89 /* Request+Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Decodable.swift"; sourceTree = "<group>"; };
 		E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONPlaceholderViewerApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderViewerApi.h; sourceTree = "<group>"; };
 		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,12 +126,15 @@
 		E3F6E08120D50C800069D2C1 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		E3F6E08420D50C9E0069D2C1 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		E3F6E08620D50CBF0069D2C1 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
-		E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		E3F6E08C20D510290069D2C1 /* StubConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubConfigurator.swift; sourceTree = "<group>"; };
 		E3F6E08F20D510950069D2C1 /* ApiRequestSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestSetting.swift; sourceTree = "<group>"; };
 		E3F6E09320D512180069D2C1 /* PostsRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRequestSpec.swift; sourceTree = "<group>"; };
-		E3F6E09520D514830069D2C1 /* JSONPlaceholderSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderSetting.swift; sourceTree = "<group>"; };
 		E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderRequest.swift; sourceTree = "<group>"; };
+		E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
+		E3FB206520D556C400C91CB9 /* PostSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSpec.swift; sourceTree = "<group>"; };
+		E3FB206820D558B100C91CB9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		E3FB206A20D55AEF00C91CB9 /* posts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = posts.json; sourceTree = "<group>"; };
+		E3FB206C20D55B3F00C91CB9 /* PostsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRequest.swift; sourceTree = "<group>"; };
 		E3FCF2AF20D4EF3300D14E3D /* JSONPlaceholderViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSONPlaceholderViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3FCF2B420D4EF3300D14E3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +165,8 @@
 				E3F6E07620D50BC40069D2C1 /* Quick.framework in Frameworks */,
 				E3F6E07820D50BC80069D2C1 /* Nimble.framework in Frameworks */,
 				E3F6E08220D50C800069D2C1 /* OHHTTPStubs.framework in Frameworks */,
+				E3FB206E20D55DA000C91CB9 /* Result.framework in Frameworks */,
+				E3FB207020D55E3300C91CB9 /* APIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,9 +194,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E31854B520D7EAF300D8AC89 /* APIKit+Decodable */ = {
+			isa = PBXGroup;
+			children = (
+				E31854B620D7EB1E00D8AC89 /* Request+Decodable.swift */,
+			);
+			path = "APIKit+Decodable";
+			sourceTree = "<group>";
+		};
 		E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderViewerApi */ = {
 			isa = PBXGroup;
 			children = (
+				E31854B520D7EAF300D8AC89 /* APIKit+Decodable */,
+				E3FB206720D558A600C91CB9 /* Models */,
 				E3F6E08E20D510770069D2C1 /* Network */,
 				E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */,
 				E3F6E05020D4F0E80069D2C1 /* Info.plist */,
@@ -191,6 +217,7 @@
 		E3F6E05B20D4F0E80069D2C1 /* JSONPlaceholderViewerApiTests */ = {
 			isa = PBXGroup;
 			children = (
+				E3FB206420D556B500C91CB9 /* Models */,
 				E3F6E08A20D510090069D2C1 /* Network */,
 				E3F6E09120D510E70069D2C1 /* Resources */,
 				E3F6E05E20D4F0E80069D2C1 /* Info.plist */,
@@ -210,14 +237,6 @@
 				E3F6E06F20D508840069D2C1 /* APIKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E3F6E09D20D51F360069D2C1 /* Generated */ = {
-			isa = PBXGroup;
-			children = (
-				E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */,
-			);
-			path = Generated;
 			sourceTree = "<group>";
 		};
 		E3F6E08A20D510090069D2C1 /* Network */ = {
@@ -241,8 +260,8 @@
 			isa = PBXGroup;
 			children = (
 				E3F6E08F20D510950069D2C1 /* ApiRequestSetting.swift */,
-				E3F6E09520D514830069D2C1 /* JSONPlaceholderSetting.swift */,
 				E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */,
+				E3FB206C20D55B3F00C91CB9 /* PostsRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -258,8 +277,33 @@
 		E3F6E09220D510F50069D2C1 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				E3FB206A20D55AEF00C91CB9 /* posts.json */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		E3F6E09D20D51F360069D2C1 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		E3FB206420D556B500C91CB9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E3FB206520D556C400C91CB9 /* PostSpec.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E3FB206720D558A600C91CB9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E3FB206820D558B100C91CB9 /* Post.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E3FCF2A620D4EF3300D14E3D = {
@@ -461,6 +505,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3FB206B20D55AEF00C91CB9 /* posts.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,8 +617,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3F6E09820D514E00069D2C1 /* JSONPlaceholderRequest.swift in Sources */,
-				E3F6E09620D514830069D2C1 /* JSONPlaceholderSetting.swift in Sources */,
+				E31854B720D7EB1E00D8AC89 /* Request+Decodable.swift in Sources */,
+				E3FB206D20D55B3F00C91CB9 /* PostsRequest.swift in Sources */,
 				E3F6E09020D510950069D2C1 /* ApiRequestSetting.swift in Sources */,
+				E3FB206920D558B100C91CB9 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +628,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3FB206620D556C400C91CB9 /* PostSpec.swift in Sources */,
 				E3F6E09420D512180069D2C1 /* PostsRequestSpec.swift in Sources */,
 				E3F6E08D20D510290069D2C1 /* StubConfigurator.swift in Sources */,
 			);

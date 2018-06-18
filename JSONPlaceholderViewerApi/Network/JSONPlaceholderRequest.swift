@@ -15,11 +15,13 @@ public struct JSONPlaceholderRequestSetting: ApiRequestSetting {
 }
 
 public protocol JSONPlaceholderRequest: Request {
-    
+
 }
 
 public extension JSONPlaceholderRequest {
     var baseURL: URL {
-        return URL(string: "http://\(JSONPlaceholderRequestSetting.hostname)\(JSONPlaceholderRequestSetting.basePath)")!
+        return URL(
+            string: "https://\(JSONPlaceholderRequestSetting.hostname)\(JSONPlaceholderRequestSetting.basePath)"
+            )!
     }
 }

@@ -12,15 +12,15 @@ import OHHTTPStubs
 @testable import JSONPlaceholderViewerApi
 
 final class StubConfigurator {
-    
+
     // MARK: - Properties
     private let setting: ApiRequestSetting.Type
-    
+
     // MARK: - Methods
     init(setting: ApiRequestSetting.Type) {
         self.setting = setting
     }
-    
+
     func setStub(endPoint: String, jsonObject: [String: Any], statusCode: Int32) {
         stub(condition: isHost(setting.hostname)
             && isPath("\(setting.basePath)\(endPoint)")) { _ -> OHHTTPStubsResponse in
@@ -31,7 +31,7 @@ final class StubConfigurator {
                 )
         }
     }
-    
+
     func setStub(endPoint: String, fromFile fileName: String, statusCode: Int32, caller: Swift.AnyClass) {
         stub(condition: isHost(setting.hostname)
             && isPath("\(setting.basePath)\(endPoint)")) { _ -> OHHTTPStubsResponse in
@@ -42,7 +42,7 @@ final class StubConfigurator {
                 )
         }
     }
-    
+
     // MARK: - Static Methods
     static func removeAllStubs() {
         OHHTTPStubs.removeAllStubs()
