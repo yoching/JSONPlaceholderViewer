@@ -72,14 +72,14 @@
 			containerPortal = E3FCF2A720D4EF3300D14E3D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E3F6E04C20D4F0E70069D2C1;
-			remoteInfo = JSONPlaceholderViewerApi;
+			remoteInfo = JSONPlaceholderApi;
 		};
 		E3F6E06020D4F0E80069D2C1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E3FCF2A720D4EF3300D14E3D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E3F6E04C20D4F0E70069D2C1;
-			remoteInfo = JSONPlaceholderViewerApi;
+			remoteInfo = JSONPlaceholderApi;
 		};
 		E3FCF2C420D4EF3500D14E3D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -449,7 +449,7 @@
 			dependencies = (
 			);
 			name = JSONPlaceholderApi;
-			productName = JSONPlaceholderViewerApi;
+			productName = JSONPlaceholderApi;
 			productReference = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */;
 			productType = "com.apple.product-type.framework";
 		};
@@ -468,7 +468,7 @@
 				E3F6E05820D4F0E80069D2C1 /* PBXTargetDependency */,
 			);
 			name = JSONPlaceholderApiTests;
-			productName = JSONPlaceholderViewerApiTests;
+			productName = JSONPlaceholderApiTests;
 			productReference = E3F6E05520D4F0E80069D2C1 /* JSONPlaceholderApiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
