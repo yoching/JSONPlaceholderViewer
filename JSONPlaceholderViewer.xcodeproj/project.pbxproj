@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		E31854B720D7EB1E00D8AC89 /* Request+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854B620D7EB1E00D8AC89 /* Request+Decodable.swift */; };
+		E31854B920D7ED6A00D8AC89 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = E31854B820D7ED6A00D8AC89 /* user.json */; };
+		E31854BB20D8D78B00D8AC89 /* UserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854BA20D8D78B00D8AC89 /* UserSpec.swift */; };
+		E31854BD20D8D8C500D8AC89 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854BC20D8D8C500D8AC89 /* User.swift */; };
+		E31854BF20D8D90A00D8AC89 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854BE20D8D90A00D8AC89 /* Address.swift */; };
+		E31854C120D8D93700D8AC89 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854C020D8D93700D8AC89 /* Company.swift */; };
+		E31854C320D8D9DC00D8AC89 /* GeoLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854C220D8D9DC00D8AC89 /* GeoLocation.swift */; };
 		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
 		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
@@ -114,6 +120,12 @@
 
 /* Begin PBXFileReference section */
 		E31854B620D7EB1E00D8AC89 /* Request+Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Decodable.swift"; sourceTree = "<group>"; };
+		E31854B820D7ED6A00D8AC89 /* user.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		E31854BA20D8D78B00D8AC89 /* UserSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSpec.swift; sourceTree = "<group>"; };
+		E31854BC20D8D8C500D8AC89 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E31854BE20D8D90A00D8AC89 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		E31854C020D8D93700D8AC89 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		E31854C220D8D9DC00D8AC89 /* GeoLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocation.swift; sourceTree = "<group>"; };
 		E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONPlaceholderViewerApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderViewerApi.h; sourceTree = "<group>"; };
 		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -278,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				E3FB206A20D55AEF00C91CB9 /* posts.json */,
+				E31854B820D7ED6A00D8AC89 /* user.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -294,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				E3FB206520D556C400C91CB9 /* PostSpec.swift */,
+				E31854BA20D8D78B00D8AC89 /* UserSpec.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -302,6 +316,10 @@
 			isa = PBXGroup;
 			children = (
 				E3FB206820D558B100C91CB9 /* Post.swift */,
+				E31854BC20D8D8C500D8AC89 /* User.swift */,
+				E31854BE20D8D90A00D8AC89 /* Address.swift */,
+				E31854C020D8D93700D8AC89 /* Company.swift */,
+				E31854C220D8D9DC00D8AC89 /* GeoLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -505,6 +523,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31854B920D7ED6A00D8AC89 /* user.json in Resources */,
 				E3FB206B20D55AEF00C91CB9 /* posts.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,9 +637,13 @@
 			files = (
 				E3F6E09820D514E00069D2C1 /* JSONPlaceholderRequest.swift in Sources */,
 				E31854B720D7EB1E00D8AC89 /* Request+Decodable.swift in Sources */,
+				E31854BD20D8D8C500D8AC89 /* User.swift in Sources */,
 				E3FB206D20D55B3F00C91CB9 /* PostsRequest.swift in Sources */,
 				E3F6E09020D510950069D2C1 /* ApiRequestSetting.swift in Sources */,
 				E3FB206920D558B100C91CB9 /* Post.swift in Sources */,
+				E31854C320D8D9DC00D8AC89 /* GeoLocation.swift in Sources */,
+				E31854BF20D8D90A00D8AC89 /* Address.swift in Sources */,
+				E31854C120D8D93700D8AC89 /* Company.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +654,7 @@
 				E3FB206620D556C400C91CB9 /* PostSpec.swift in Sources */,
 				E3F6E09420D512180069D2C1 /* PostsRequestSpec.swift in Sources */,
 				E3F6E08D20D510290069D2C1 /* StubConfigurator.swift in Sources */,
+				E31854BB20D8D78B00D8AC89 /* UserSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
