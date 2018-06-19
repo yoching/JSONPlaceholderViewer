@@ -1,5 +1,5 @@
 //
-//  JSONPlaceholderApiError.swift
+//  SessionTaskError.swift
 //  JSONPlaceholderViewerApi
 //
 //  Created by Yoshikuni Kato on 6/19/18.
@@ -9,13 +9,13 @@
 import Foundation
 import APIKit
 
-public enum JSONPlaceholderApiError: Error {
+public enum SessionTaskError: Error {
 
     case connectionError(Error)
     case requestError(Error)
     case responseError(Error)
 
-    init(apiKitError: SessionTaskError) {
+    init(apiKitError: APIKit.SessionTaskError) {
         switch apiKitError {
         case let .connectionError(error):
             self = .connectionError(error)

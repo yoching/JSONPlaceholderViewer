@@ -10,25 +10,25 @@ import Foundation
 import APIKit
 import Result
 
-public protocol JSONPlaceholderApiClientProtocol {
+public protocol ApiClientProtocol {
     func send<RequestType: JSONPlaceholderRequest>(
         _ request: RequestType,
-        handler: @escaping (Result<RequestType.Response, JSONPlaceholderApiError>) -> Void
-        ) -> JSONPlaceholderSessionTask?
+        handler: @escaping (Result<RequestType.Response, SessionTaskError>) -> Void
+        ) -> SessionTask?
 }
 
-public final class JSONPlaceholderApiClient: JSONPlaceholderApiClientProtocol {
+public final class ApiClient: ApiClientProtocol {
 
     private let session = Session.shared
 
     public func send<RequestType: JSONPlaceholderRequest>(
         _ request: RequestType,
-        handler: @escaping (Result<RequestType.Response, JSONPlaceholderApiError>) -> Void
-        ) -> JSONPlaceholderSessionTask? {
+        handler: @escaping (Result<RequestType.Response, SessionTaskError>) -> Void
+        ) -> SessionTask? {
         return session
             .send(request) { result in
-                handler(result.mapError(JSONPlaceholderApiError.init))
+                handler(result.mapError(SessionTaskError.init))
             }
-            .map(JSONPlaceholderSessionTask.init)
+            .map(SessionTask.init)
     }
 }

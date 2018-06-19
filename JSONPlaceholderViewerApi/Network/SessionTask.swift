@@ -9,10 +9,10 @@
 import Foundation
 import APIKit
 
-public class JSONPlaceholderSessionTask {
+public class SessionTask {
 
-    let sessionTask: SessionTask
-    public init(sessionTask: SessionTask) {
+    let sessionTask: APIKit.SessionTask
+    public init(sessionTask: APIKit.SessionTask) {
         self.sessionTask = sessionTask
     }
 

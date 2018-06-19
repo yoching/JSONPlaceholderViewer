@@ -14,7 +14,6 @@ struct UserRequest: JSONPlaceholderRequest {
     typealias Response = User
 
     let method: HTTPMethod = .get
-
     let path: String
 
     init(userIdentifier: Int) {

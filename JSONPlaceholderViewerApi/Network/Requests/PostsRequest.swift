@@ -14,6 +14,5 @@ struct PostsRequest: JSONPlaceholderRequest {
     typealias Response = [Post]
 
     let method: HTTPMethod = .get
-
     let path: String = "/posts"
 }

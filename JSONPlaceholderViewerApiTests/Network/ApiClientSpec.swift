@@ -1,5 +1,5 @@
 //
-//  JSONPlaceholderApiClientSpec.swift
+//  ApiClientSpec.swift
 //  JSONPlaceholderViewerApiTests
 //
 //  Created by Yoshikuni Kato on 6/19/18.
@@ -14,20 +14,20 @@ import APIKit
 
 @testable import JSONPlaceholderViewerApi
 
-class JSONPlaceholderApiClientSpec: QuickSpec {
+class ApiClientSpec: QuickSpec {
     override func spec() {
 
         let stubConfigurator = StubConfigurator(setting: JSONPlaceholderRequestSetting.self)
 
-        var client: JSONPlaceholderApiClient!
+        var client: ApiClient!
         beforeEach {
             StubConfigurator.removeAllStubs()
-            client = JSONPlaceholderApiClient()
+            client = ApiClient()
         }
 
         describe("sending request") {
 
-            it("returns JSONPlaceholderApiTask") {
+            it("returns SessionTask") {
                 // arrange
                 stubConfigurator.setStub(
                     endPoint: "/test",
@@ -39,11 +39,11 @@ class JSONPlaceholderApiClientSpec: QuickSpec {
                 let task = client.send(TestRequest()) { _ in }
 
                 // assert
-                expect(String(describing: task)) == "Optional(JSONPlaceholderViewerApi.JSONPlaceholderSessionTask)"
+                expect(String(describing: task)) == "Optional(JSONPlaceholderViewerApi.SessionTask)"
             }
 
             context("network error") {
-                it("returns JSONPlaceholderApiError") {
+                it("returns ApiError") {
                     // arrange
                     stubConfigurator.setStubForError(
                         endPoint: "/test",
@@ -55,7 +55,7 @@ class JSONPlaceholderApiClientSpec: QuickSpec {
                     )
 
                     // act
-                    var error: JSONPlaceholderApiError?
+                    var error: JSONPlaceholderViewerApi.SessionTaskError?
                     _ = client.send(TestRequest()) { response in
                         error = response.error
                     }
