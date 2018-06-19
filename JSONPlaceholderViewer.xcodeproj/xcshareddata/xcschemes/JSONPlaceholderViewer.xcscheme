@@ -43,8 +43,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E3F6E05420D4F0E80069D2C1"
-               BuildableName = "JSONPlaceholderViewerApiTests.xctest"
-               BlueprintName = "JSONPlaceholderViewerApiTests"
+               BuildableName = "JSONPlaceholderApiTests.xctest"
+               BlueprintName = "JSONPlaceholderApiTests"
                ReferencedContainer = "container:JSONPlaceholderViewer.xcodeproj">
             </BuildableReference>
          </TestableReference>
