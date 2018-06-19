@@ -20,6 +20,10 @@ class UserRequestSpec: QuickSpec {
 
         let stubConfigurator = StubConfigurator(setting: JSONPlaceholderRequestSetting.self)
 
+        beforeEach {
+            StubConfigurator.removeAllStubs()
+        }
+
         describe("initializer") {
             it("add user id to path") {
                 // act

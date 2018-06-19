@@ -20,6 +20,10 @@ class PostsRequestSpec: QuickSpec {
 
         let stubConfigurator = StubConfigurator(setting: JSONPlaceholderRequestSetting.self)
 
+        beforeEach {
+            StubConfigurator.removeAllStubs()
+        }
+
         it("gets posts") {
             // arrange
             stubConfigurator.setStub(

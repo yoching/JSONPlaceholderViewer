@@ -18,6 +18,10 @@ class CommentsRequestSpec: QuickSpec {
 
         let stubConfigurator = StubConfigurator(setting: JSONPlaceholderRequestSetting.self)
 
+        beforeEach {
+            StubConfigurator.removeAllStubs()
+        }
+
         describe("initializer") {
             it("add post id to query") {
                 // act
