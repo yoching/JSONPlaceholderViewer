@@ -21,6 +21,10 @@
 		E31854CD20D9281D00D8AC89 /* CommentsRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854CC20D9281D00D8AC89 /* CommentsRequestSpec.swift */; };
 		E31854CF20D9297A00D8AC89 /* comments.json in Resources */ = {isa = PBXBuildFile; fileRef = E31854CE20D9297A00D8AC89 /* comments.json */; };
 		E31854D120D929B000D8AC89 /* CommentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D020D929B000D8AC89 /* CommentsRequest.swift */; };
+		E31854D320D92C9500D8AC89 /* JSONPlaceholderApiClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D220D92C9500D8AC89 /* JSONPlaceholderApiClientSpec.swift */; };
+		E31854D520D92EF300D8AC89 /* JSONPlaceholderApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D420D92EF300D8AC89 /* JSONPlaceholderApiClient.swift */; };
+		E31854D820D92F6B00D8AC89 /* JSONPlaceholderApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D720D92F6B00D8AC89 /* JSONPlaceholderApiError.swift */; };
+		E31854DA20D92F7A00D8AC89 /* JSONPlaceholderSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D920D92F7A00D8AC89 /* JSONPlaceholderSessionTask.swift */; };
 		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
 		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
@@ -140,6 +144,10 @@
 		E31854CC20D9281D00D8AC89 /* CommentsRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsRequestSpec.swift; sourceTree = "<group>"; };
 		E31854CE20D9297A00D8AC89 /* comments.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = comments.json; sourceTree = "<group>"; };
 		E31854D020D929B000D8AC89 /* CommentsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsRequest.swift; sourceTree = "<group>"; };
+		E31854D220D92C9500D8AC89 /* JSONPlaceholderApiClientSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderApiClientSpec.swift; sourceTree = "<group>"; };
+		E31854D420D92EF300D8AC89 /* JSONPlaceholderApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderApiClient.swift; sourceTree = "<group>"; };
+		E31854D720D92F6B00D8AC89 /* JSONPlaceholderApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderApiError.swift; sourceTree = "<group>"; };
+		E31854D920D92F7A00D8AC89 /* JSONPlaceholderSessionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderSessionTask.swift; sourceTree = "<group>"; };
 		E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONPlaceholderViewerApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderViewerApi.h; sourceTree = "<group>"; };
 		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -228,6 +236,17 @@
 			path = "APIKit+Decodable";
 			sourceTree = "<group>";
 		};
+		E31854D620D92F0E00D8AC89 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */,
+				E3FB206C20D55B3F00C91CB9 /* PostsRequest.swift */,
+				E31854C420D8DEC200D8AC89 /* UserRequest.swift */,
+				E31854D020D929B000D8AC89 /* CommentsRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
 		E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderViewerApi */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +264,7 @@
 			children = (
 				E3FB206420D556B500C91CB9 /* Models */,
 				E3F6E08A20D510090069D2C1 /* Network */,
+				E31854D220D92C9500D8AC89 /* JSONPlaceholderApiClientSpec.swift */,
 				E3F6E09120D510E70069D2C1 /* Resources */,
 				E3F6E05E20D4F0E80069D2C1 /* Info.plist */,
 			);
@@ -288,10 +308,10 @@
 			isa = PBXGroup;
 			children = (
 				E3F6E08F20D510950069D2C1 /* ApiRequestSetting.swift */,
-				E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */,
-				E3FB206C20D55B3F00C91CB9 /* PostsRequest.swift */,
-				E31854C420D8DEC200D8AC89 /* UserRequest.swift */,
-				E31854D020D929B000D8AC89 /* CommentsRequest.swift */,
+				E31854D420D92EF300D8AC89 /* JSONPlaceholderApiClient.swift */,
+				E31854D720D92F6B00D8AC89 /* JSONPlaceholderApiError.swift */,
+				E31854D920D92F7A00D8AC89 /* JSONPlaceholderSessionTask.swift */,
+				E31854D620D92F0E00D8AC89 /* Requests */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -659,12 +679,15 @@
 			files = (
 				E3F6E09820D514E00069D2C1 /* JSONPlaceholderRequest.swift in Sources */,
 				E31854B720D7EB1E00D8AC89 /* Request+Decodable.swift in Sources */,
+				E31854D520D92EF300D8AC89 /* JSONPlaceholderApiClient.swift in Sources */,
 				E31854BD20D8D8C500D8AC89 /* User.swift in Sources */,
 				E3FB206D20D55B3F00C91CB9 /* PostsRequest.swift in Sources */,
+				E31854DA20D92F7A00D8AC89 /* JSONPlaceholderSessionTask.swift in Sources */,
 				E3F6E09020D510950069D2C1 /* ApiRequestSetting.swift in Sources */,
 				E3FB206920D558B100C91CB9 /* Post.swift in Sources */,
 				E31854C320D8D9DC00D8AC89 /* GeoLocation.swift in Sources */,
 				E31854BF20D8D90A00D8AC89 /* Address.swift in Sources */,
+				E31854D820D92F6B00D8AC89 /* JSONPlaceholderApiError.swift in Sources */,
 				E31854C520D8DEC200D8AC89 /* UserRequest.swift in Sources */,
 				E31854CB20D9272500D8AC89 /* Comment.swift in Sources */,
 				E31854C120D8D93700D8AC89 /* Company.swift in Sources */,
@@ -682,6 +705,7 @@
 				E31854C720D8DF2100D8AC89 /* UserRequestSpec.swift in Sources */,
 				E31854CD20D9281D00D8AC89 /* CommentsRequestSpec.swift in Sources */,
 				E3F6E08D20D510290069D2C1 /* StubConfigurator.swift in Sources */,
+				E31854D320D92C9500D8AC89 /* JSONPlaceholderApiClientSpec.swift in Sources */,
 				E31854BB20D8D78B00D8AC89 /* UserSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

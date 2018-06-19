@@ -43,6 +43,13 @@ final class StubConfigurator {
         }
     }
 
+    func setStubForError(endPoint: String, error: Error) {
+        stub(condition: isHost(setting.hostname)
+            && isPath("\(setting.basePath)\(endPoint)")) { _ -> OHHTTPStubsResponse in
+                return OHHTTPStubsResponse(error: error)
+        }
+    }
+
     // MARK: - Static Methods
     static func removeAllStubs() {
         OHHTTPStubs.removeAllStubs()
