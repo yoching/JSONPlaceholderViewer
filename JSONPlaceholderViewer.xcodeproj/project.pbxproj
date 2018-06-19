@@ -14,6 +14,8 @@
 		E31854BF20D8D90A00D8AC89 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854BE20D8D90A00D8AC89 /* Address.swift */; };
 		E31854C120D8D93700D8AC89 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854C020D8D93700D8AC89 /* Company.swift */; };
 		E31854C320D8D9DC00D8AC89 /* GeoLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854C220D8D9DC00D8AC89 /* GeoLocation.swift */; };
+		E31854C520D8DEC200D8AC89 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854C420D8DEC200D8AC89 /* UserRequest.swift */; };
+		E31854C720D8DF2100D8AC89 /* UserRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854C620D8DF2100D8AC89 /* UserRequestSpec.swift */; };
 		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
 		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderViewerApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */; };
@@ -126,6 +128,8 @@
 		E31854BE20D8D90A00D8AC89 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		E31854C020D8D93700D8AC89 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		E31854C220D8D9DC00D8AC89 /* GeoLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocation.swift; sourceTree = "<group>"; };
+		E31854C420D8DEC200D8AC89 /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
+		E31854C620D8DF2100D8AC89 /* UserRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequestSpec.swift; sourceTree = "<group>"; };
 		E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderViewerApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONPlaceholderViewerApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderViewerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderViewerApi.h; sourceTree = "<group>"; };
 		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -255,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				E3F6E09320D512180069D2C1 /* PostsRequestSpec.swift */,
+				E31854C620D8DF2100D8AC89 /* UserRequestSpec.swift */,
 				E3F6E08B20D510180069D2C1 /* Utilities */,
 			);
 			path = Network;
@@ -274,6 +279,7 @@
 				E3F6E08F20D510950069D2C1 /* ApiRequestSetting.swift */,
 				E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */,
 				E3FB206C20D55B3F00C91CB9 /* PostsRequest.swift */,
+				E31854C420D8DEC200D8AC89 /* UserRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -643,6 +649,7 @@
 				E3FB206920D558B100C91CB9 /* Post.swift in Sources */,
 				E31854C320D8D9DC00D8AC89 /* GeoLocation.swift in Sources */,
 				E31854BF20D8D90A00D8AC89 /* Address.swift in Sources */,
+				E31854C520D8DEC200D8AC89 /* UserRequest.swift in Sources */,
 				E31854C120D8D93700D8AC89 /* Company.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,6 +660,7 @@
 			files = (
 				E3FB206620D556C400C91CB9 /* PostSpec.swift in Sources */,
 				E3F6E09420D512180069D2C1 /* PostsRequestSpec.swift in Sources */,
+				E31854C720D8DF2100D8AC89 /* UserRequestSpec.swift in Sources */,
 				E3F6E08D20D510290069D2C1 /* StubConfigurator.swift in Sources */,
 				E31854BB20D8D78B00D8AC89 /* UserSpec.swift in Sources */,
 			);
