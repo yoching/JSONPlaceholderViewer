@@ -257,6 +257,33 @@
 			path = Requests;
 			sourceTree = "<group>";
 		};
+		E38216C920DA42D70064B147 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */,
+				E3FCF2BE20D4EF3500D14E3D /* Info.plist */,
+				E3FCF2B920D4EF3500D14E3D /* Assets.xcassets */,
+				E3FCF2BB20D4EF3500D14E3D /* LaunchScreen.storyboard */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E38216CA20DA42DF0064B147 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E3FCF2B620D4EF3300D14E3D /* Main.storyboard */,
+				E3FCF2B420D4EF3300D14E3D /* ViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E38216CB20DA42E60064B147 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderApi */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,12 +426,9 @@
 		E3FCF2B120D4EF3300D14E3D /* JSONPlaceholderViewer */ = {
 			isa = PBXGroup;
 			children = (
-				E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */,
-				E3FCF2B420D4EF3300D14E3D /* ViewController.swift */,
-				E3FCF2B620D4EF3300D14E3D /* Main.storyboard */,
-				E3FCF2B920D4EF3500D14E3D /* Assets.xcassets */,
-				E3FCF2BB20D4EF3500D14E3D /* LaunchScreen.storyboard */,
-				E3FCF2BE20D4EF3500D14E3D /* Info.plist */,
+				E38216C920DA42D70064B147 /* Application */,
+				E38216CB20DA42E60064B147 /* Components */,
+				E38216CA20DA42DF0064B147 /* UI */,
 				E3F6E09D20D51F360069D2C1 /* Generated */,
 			);
 			path = JSONPlaceholderViewer;
@@ -1014,7 +1038,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = JSONPlaceholderViewer/Info.plist;
+				INFOPLIST_FILE = JSONPlaceholderViewer/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1037,7 +1061,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = JSONPlaceholderViewer/Info.plist;
+				INFOPLIST_FILE = JSONPlaceholderViewer/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
