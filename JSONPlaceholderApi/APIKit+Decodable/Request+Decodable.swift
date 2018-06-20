@@ -9,7 +9,7 @@
 import Foundation
 import APIKit
 
-final class DecodableDataParser: DataParser {
+final class JSONDataParserForDecodable: DataParser {
     var contentType: String? {
         return "application/json"
     }
@@ -21,7 +21,7 @@ final class DecodableDataParser: DataParser {
 
 extension Request where Response: Decodable {
     public var dataParser: DataParser {
-        return DecodableDataParser()
+        return JSONDataParserForDecodable()
     }
 
     func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Response {
