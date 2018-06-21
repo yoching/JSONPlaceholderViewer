@@ -303,13 +303,13 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		E38216CB20DA42E60064B147 /* Components */ = {
+		E38216CB20DA42E60064B147 /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				E3F5DE5820DBB55B00D3AEF7 /* Components.swift */,
 				E38216CC20DA44390064B147 /* Database */,
 			);
-			path = Components;
+			path = Component;
 			sourceTree = "<group>";
 		};
 		E38216CC20DA44390064B147 /* Database */ = {
@@ -495,7 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				E38216C920DA42D70064B147 /* Application */,
-				E38216CB20DA42E60064B147 /* Components */,
+				E38216CB20DA42E60064B147 /* Component */,
 				E38216CA20DA42DF0064B147 /* UI */,
 				E3F6E09D20D51F360069D2C1 /* Generated */,
 			);
