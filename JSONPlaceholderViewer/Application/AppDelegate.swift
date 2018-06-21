@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var dataController: CoreDataStack!
+    private var appDependencies: AppDependencies?
+
+    private var windowCoordinator: WindowCoordinator?
     var window: UIWindow?
 
     func application(
@@ -19,12 +22,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
         ) -> Bool {
 
-        dataController = CoreDataStack {
-            self.window = UIWindow(frame: UIScreen.main.bounds)
-            let viewController = UIViewController()
-            viewController.view.backgroundColor = .orange
-            self.window?.rootViewController = viewController
-            self.window?.makeKeyAndVisible()
+        appDependencies = AppDependenciesImpl()
+
+        windowCoordinator = appDependencies?.coordinatorFactory.window()
+        window = windowCoordinator?.window
+
+        appDependencies?.components.coreDataStack
+            .setupStack()
+            .observe(on: UIScheduler())
+            .startWithResult { [unowned self] result in
+                switch result {
+                case .failure(let error):
+                    fatalError("Failed to load Core Data stack: \(error)")
+                case .success:
+                    self.windowCoordinator?.start()
+                }
         }
 
         return true

@@ -32,6 +32,13 @@
 		E38216D920DA4D1C0064B147 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D820DA4D1C0064B147 /* Managed.swift */; };
 		E38216DB20DA624D0064B147 /* NSManagedObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216DA20DA624D0064B147 /* NSManagedObject+Extension.swift */; };
 		E3F5DE5520DBAF8200D3AEF7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE5420DBAF8200D3AEF7 /* CoreDataStack.swift */; };
+		E3F5DE5720DBB54100D3AEF7 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE5620DBB54100D3AEF7 /* AppDependencies.swift */; };
+		E3F5DE5920DBB55B00D3AEF7 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE5820DBB55B00D3AEF7 /* Components.swift */; };
+		E3F5DE5B20DBB5BF00D3AEF7 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE5A20DBB5BF00D3AEF7 /* ViewFactory.swift */; };
+		E3F5DE5D20DBB5C700D3AEF7 /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE5C20DBB5C700D3AEF7 /* CoordinatorFactory.swift */; };
+		E3F5DE6020DBBD1000D3AEF7 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE5F20DBBD1000D3AEF7 /* WindowCoordinator.swift */; };
+		E3F5DE6220DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE6120DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift */; };
+		E3F5DE6420DBBD7600D3AEF7 /* CoordinatorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE6320DBBD7600D3AEF7 /* CoordinatorProtocols.swift */; };
 		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */; };
 		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */; };
@@ -160,6 +167,13 @@
 		E38216D820DA4D1C0064B147 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		E38216DA20DA624D0064B147 /* NSManagedObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extension.swift"; sourceTree = "<group>"; };
 		E3F5DE5420DBAF8200D3AEF7 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		E3F5DE5620DBB54100D3AEF7 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		E3F5DE5820DBB55B00D3AEF7 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		E3F5DE5A20DBB5BF00D3AEF7 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
+		E3F5DE5C20DBB5C700D3AEF7 /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
+		E3F5DE5F20DBBD1000D3AEF7 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
+		E3F5DE6120DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationCoordinator.swift; sourceTree = "<group>"; };
+		E3F5DE6320DBBD7600D3AEF7 /* CoordinatorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocols.swift; sourceTree = "<group>"; };
 		E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONPlaceholderApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderApi.h; sourceTree = "<group>"; };
 		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -270,6 +284,7 @@
 		E38216C920DA42D70064B147 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				E3F5DE5620DBB54100D3AEF7 /* AppDependencies.swift */,
 				E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */,
 				E3FCF2BE20D4EF3500D14E3D /* Info.plist */,
 				E3FCF2B920D4EF3500D14E3D /* Assets.xcassets */,
@@ -281,16 +296,20 @@
 		E38216CA20DA42DF0064B147 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E3F5DE5C20DBB5C700D3AEF7 /* CoordinatorFactory.swift */,
+				E3F5DE5A20DBB5BF00D3AEF7 /* ViewFactory.swift */,
+				E3F5DE5E20DBBCE400D3AEF7 /* Coordinator */,
 			);
 			path = UI;
 			sourceTree = "<group>";
 		};
-		E38216CB20DA42E60064B147 /* Components */ = {
+		E38216CB20DA42E60064B147 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				E3F5DE5820DBB55B00D3AEF7 /* Components.swift */,
 				E38216CC20DA44390064B147 /* Database */,
 			);
-			path = Components;
+			path = Component;
 			sourceTree = "<group>";
 		};
 		E38216CC20DA44390064B147 /* Database */ = {
@@ -321,6 +340,16 @@
 				E38216DA20DA624D0064B147 /* NSManagedObject+Extension.swift */,
 			);
 			path = CoreDataHelpers;
+			sourceTree = "<group>";
+		};
+		E3F5DE5E20DBBCE400D3AEF7 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				E3F5DE6320DBBD7600D3AEF7 /* CoordinatorProtocols.swift */,
+				E3F5DE5F20DBBD1000D3AEF7 /* WindowCoordinator.swift */,
+				E3F5DE6120DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderApi */ = {
@@ -466,7 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				E38216C920DA42D70064B147 /* Application */,
-				E38216CB20DA42E60064B147 /* Components */,
+				E38216CB20DA42E60064B147 /* Component */,
 				E38216CA20DA42DF0064B147 /* UI */,
 				E3F6E09D20D51F360069D2C1 /* Generated */,
 			);
@@ -786,13 +815,20 @@
 			files = (
 				E38216DB20DA624D0064B147 /* NSManagedObject+Extension.swift in Sources */,
 				E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */,
+				E3F5DE6220DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift in Sources */,
+				E3F5DE6020DBBD1000D3AEF7 /* WindowCoordinator.swift in Sources */,
+				E3F5DE5920DBB55B00D3AEF7 /* Components.swift in Sources */,
 				E38216CF20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld in Sources */,
 				E38216D420DA4B970064B147 /* User.swift in Sources */,
 				E38216D620DA4B9E0064B147 /* Comment.swift in Sources */,
 				E3F5DE5520DBAF8200D3AEF7 /* CoreDataStack.swift in Sources */,
+				E3F5DE5B20DBB5BF00D3AEF7 /* ViewFactory.swift in Sources */,
 				E38216D920DA4D1C0064B147 /* Managed.swift in Sources */,
 				E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */,
+				E3F5DE5720DBB54100D3AEF7 /* AppDependencies.swift in Sources */,
 				E38216D220DA48890064B147 /* Post.swift in Sources */,
+				E3F5DE6420DBBD7600D3AEF7 /* CoordinatorProtocols.swift in Sources */,
+				E3F5DE5D20DBB5C700D3AEF7 /* CoordinatorFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
