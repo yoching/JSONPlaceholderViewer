@@ -25,6 +25,13 @@
 		E31854D520D92EF300D8AC89 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D420D92EF300D8AC89 /* ApiClient.swift */; };
 		E31854D820D92F6B00D8AC89 /* SessionTaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D720D92F6B00D8AC89 /* SessionTaskError.swift */; };
 		E31854DA20D92F7A00D8AC89 /* SessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D920D92F7A00D8AC89 /* SessionTask.swift */; };
+		E38216CF20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E38216CD20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld */; };
+		E38216D220DA48890064B147 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D120DA48890064B147 /* Post.swift */; };
+		E38216D420DA4B970064B147 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D320DA4B970064B147 /* User.swift */; };
+		E38216D620DA4B9E0064B147 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D520DA4B9E0064B147 /* Comment.swift */; };
+		E38216D920DA4D1C0064B147 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D820DA4D1C0064B147 /* Managed.swift */; };
+		E38216DB20DA624D0064B147 /* NSManagedObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216DA20DA624D0064B147 /* NSManagedObject+Extension.swift */; };
+		E3F5DE5520DBAF8200D3AEF7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE5420DBAF8200D3AEF7 /* CoreDataStack.swift */; };
 		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */; };
 		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */; };
@@ -59,8 +66,6 @@
 		E3FB207020D55E3300C91CB9 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E06F20D508840069D2C1 /* APIKit.framework */; };
 		E3FB207120D55E3900C91CB9 /* APIKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E3F6E06F20D508840069D2C1 /* APIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */; };
-		E3FCF2B520D4EF3300D14E3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B420D4EF3300D14E3D /* ViewController.swift */; };
-		E3FCF2B820D4EF3300D14E3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FCF2B620D4EF3300D14E3D /* Main.storyboard */; };
 		E3FCF2BA20D4EF3500D14E3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3FCF2B920D4EF3500D14E3D /* Assets.xcassets */; };
 		E3FCF2BD20D4EF3500D14E3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FCF2BB20D4EF3500D14E3D /* LaunchScreen.storyboard */; };
 		E3FCF2C820D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2C720D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift */; };
@@ -148,6 +153,13 @@
 		E31854D420D92EF300D8AC89 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		E31854D720D92F6B00D8AC89 /* SessionTaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTaskError.swift; sourceTree = "<group>"; };
 		E31854D920D92F7A00D8AC89 /* SessionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTask.swift; sourceTree = "<group>"; };
+		E38216CE20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JSONPlaceholderViewer.xcdatamodel; sourceTree = "<group>"; };
+		E38216D120DA48890064B147 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		E38216D320DA4B970064B147 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E38216D520DA4B9E0064B147 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		E38216D820DA4D1C0064B147 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
+		E38216DA20DA624D0064B147 /* NSManagedObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extension.swift"; sourceTree = "<group>"; };
+		E3F5DE5420DBAF8200D3AEF7 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONPlaceholderApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderApi.h; sourceTree = "<group>"; };
 		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,8 +183,6 @@
 		E3FB206C20D55B3F00C91CB9 /* PostsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRequest.swift; sourceTree = "<group>"; };
 		E3FCF2AF20D4EF3300D14E3D /* JSONPlaceholderViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSONPlaceholderViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E3FCF2B420D4EF3300D14E3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E3FCF2B720D4EF3300D14E3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E3FCF2B920D4EF3500D14E3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3FCF2BC20D4EF3500D14E3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3FCF2BE20D4EF3500D14E3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -271,8 +281,6 @@
 		E38216CA20DA42DF0064B147 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E3FCF2B620D4EF3300D14E3D /* Main.storyboard */,
-				E3FCF2B420D4EF3300D14E3D /* ViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -280,8 +288,39 @@
 		E38216CB20DA42E60064B147 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E38216CC20DA44390064B147 /* Database */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		E38216CC20DA44390064B147 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				E38216D720DA4D120064B147 /* CoreDataHelpers */,
+				E38216D020DA486F0064B147 /* Entities */,
+				E38216CD20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld */,
+				E3F5DE5420DBAF8200D3AEF7 /* CoreDataStack.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		E38216D020DA486F0064B147 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				E38216D120DA48890064B147 /* Post.swift */,
+				E38216D320DA4B970064B147 /* User.swift */,
+				E38216D520DA4B9E0064B147 /* Comment.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		E38216D720DA4D120064B147 /* CoreDataHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				E38216D820DA4D1C0064B147 /* Managed.swift */,
+				E38216DA20DA624D0064B147 /* NSManagedObject+Extension.swift */,
+			);
+			path = CoreDataHelpers;
 			sourceTree = "<group>";
 		};
 		E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderApi */ = {
@@ -608,7 +647,6 @@
 			files = (
 				E3FCF2BD20D4EF3500D14E3D /* LaunchScreen.storyboard in Resources */,
 				E3FCF2BA20D4EF3500D14E3D /* Assets.xcassets in Resources */,
-				E3FCF2B820D4EF3300D14E3D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,9 +784,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E38216DB20DA624D0064B147 /* NSManagedObject+Extension.swift in Sources */,
 				E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */,
-				E3FCF2B520D4EF3300D14E3D /* ViewController.swift in Sources */,
+				E38216CF20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld in Sources */,
+				E38216D420DA4B970064B147 /* User.swift in Sources */,
+				E38216D620DA4B9E0064B147 /* Comment.swift in Sources */,
+				E3F5DE5520DBAF8200D3AEF7 /* CoreDataStack.swift in Sources */,
+				E38216D920DA4D1C0064B147 /* Managed.swift in Sources */,
 				E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */,
+				E38216D220DA48890064B147 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,14 +825,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E3FCF2B620D4EF3300D14E3D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E3FCF2B720D4EF3300D14E3D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E3FCF2BB20D4EF3500D14E3D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1172,6 +1208,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E38216CD20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E38216CE20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodel */,
+			);
+			currentVersion = E38216CE20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodel */;
+			path = JSONPlaceholderViewer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E3FCF2A720D4EF3300D14E3D /* Project object */;
 }

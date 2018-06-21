@@ -11,13 +11,22 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var dataController: CoreDataStack!
     var window: UIWindow?
 
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
         ) -> Bool {
-        // Override point for customization after application launch.
+
+        dataController = CoreDataStack {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let viewController = UIViewController()
+            viewController.view.backgroundColor = .orange
+            self.window?.rootViewController = viewController
+            self.window?.makeKeyAndVisible()
+        }
+
         return true
     }
 }
