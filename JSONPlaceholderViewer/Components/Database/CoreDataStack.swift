@@ -8,12 +8,22 @@
 
 import CoreData
 
-final class CoreDataStack {
+protocol CoreDataStack {
+    func setupStack(completion: @escaping () -> Void)
+}
+
+final class CoreDataStackImpl {
 
     private let persistentContainer: NSPersistentContainer
 
-    init(completion: @escaping () -> Void) {
+    init() {
         persistentContainer = NSPersistentContainer(name: "JSONPlaceholderViewer")
+    }
+}
+
+// MARK: - CoreDataStack
+extension CoreDataStackImpl: CoreDataStack {
+    func setupStack(completion: @escaping () -> Void) {
         persistentContainer.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("Failed to load store: \(error)")

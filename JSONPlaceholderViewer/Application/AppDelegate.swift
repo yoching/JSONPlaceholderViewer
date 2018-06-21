@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var dataController: CoreDataStack!
+    var appDependencies: AppDependencies?
     var window: UIWindow?
 
     func application(
@@ -19,11 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
         ) -> Bool {
 
-        dataController = CoreDataStack {
+        appDependencies = AppDependenciesImpl()
+        appDependencies?.components.coreDataStack.setupStack {
             self.window = UIWindow(frame: UIScreen.main.bounds)
-            let viewController = UIViewController()
-            viewController.view.backgroundColor = .orange
-            self.window?.rootViewController = viewController
+            self.window?.rootViewController = self.appDependencies?.viewFactory.root()
             self.window?.makeKeyAndVisible()
         }
 
