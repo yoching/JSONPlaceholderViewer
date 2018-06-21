@@ -10,10 +10,17 @@ import UIKit
 
 protocol ViewFactory {
     func root() -> UIViewController
+    func posts() -> UIViewController
 }
 
 final class ViewFactoryImpl: ViewFactory {
     func root() -> UIViewController {
+        let rootViewController = UIViewController()
+        rootViewController.view.backgroundColor = .orange
+        return rootViewController
+    }
+
+    func posts() -> UIViewController {
         let rootViewController = UIViewController()
         rootViewController.view.backgroundColor = .orange
         return rootViewController

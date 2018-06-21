@@ -12,7 +12,9 @@ import ReactiveSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var appDependencies: AppDependencies?
+    private var appDependencies: AppDependencies?
+
+    private var windowCoordinator: WindowCoordinator?
     var window: UIWindow?
 
     func application(
@@ -22,7 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         appDependencies = AppDependenciesImpl()
 
-        appDependencies!.components.coreDataStack
+        windowCoordinator = appDependencies?.coordinatorFactory.window()
+        window = windowCoordinator?.window
+
+        appDependencies?.components.coreDataStack
             .setupStack()
             .observe(on: UIScheduler())
             .startWithResult { [unowned self] result in
@@ -30,9 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case .failure(let error):
                     fatalError("Failed to load Core Data stack: \(error)")
                 case .success:
-                    self.window = UIWindow(frame: UIScreen.main.bounds)
-                    self.window?.rootViewController = self.appDependencies?.viewFactory.root()
-                    self.window?.makeKeyAndVisible()
+                    self.windowCoordinator?.start()
                 }
         }
 
