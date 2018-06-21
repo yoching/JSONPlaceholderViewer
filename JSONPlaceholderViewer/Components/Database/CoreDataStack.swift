@@ -7,9 +7,14 @@
 //
 
 import CoreData
+import ReactiveSwift
 
 protocol CoreDataStack {
-    func setupStack(completion: @escaping () -> Void)
+    func setupStack() -> SignalProducer<Void, CoreDataStackError>
+}
+
+enum CoreDataStackError: Error {
+    case load(Error)
 }
 
 final class CoreDataStackImpl {
@@ -23,13 +28,15 @@ final class CoreDataStackImpl {
 
 // MARK: - CoreDataStack
 extension CoreDataStackImpl: CoreDataStack {
-    func setupStack(completion: @escaping () -> Void) {
-        persistentContainer.loadPersistentStores { _, error in
-            if let error = error {
-                fatalError("Failed to load store: \(error)")
-            }
-            DispatchQueue.main.async {
-                completion()
+    func setupStack() -> SignalProducer<Void, CoreDataStackError> {
+        return .init { [unowned self] (observer, _) in
+            self.persistentContainer.loadPersistentStores { _, error in
+                if let error = error {
+                    observer.send(error: .load(error))
+                    return
+                }
+                observer.send(value: ())
+                observer.sendCompleted()
             }
         }
     }
