@@ -39,6 +39,8 @@
 		E3F5DE6020DBBD1000D3AEF7 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE5F20DBBD1000D3AEF7 /* WindowCoordinator.swift */; };
 		E3F5DE6220DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE6120DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift */; };
 		E3F5DE6420DBBD7600D3AEF7 /* CoordinatorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE6320DBBD7600D3AEF7 /* CoordinatorProtocols.swift */; };
+		E3F5DE6720DBC45E00D3AEF7 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE6620DBC45E00D3AEF7 /* Network.swift */; };
+		E3F5DE6920DBC47D00D3AEF7 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F5DE6820DBC47D00D3AEF7 /* NetworkError.swift */; };
 		E3F6E05620D4F0E80069D2C1 /* JSONPlaceholderApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */; };
 		E3F6E05F20D4F0E80069D2C1 /* JSONPlaceholderApi.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E3F6E06220D4F0E80069D2C1 /* JSONPlaceholderApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */; };
@@ -174,6 +176,8 @@
 		E3F5DE5F20DBBD1000D3AEF7 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		E3F5DE6120DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationCoordinator.swift; sourceTree = "<group>"; };
 		E3F5DE6320DBBD7600D3AEF7 /* CoordinatorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocols.swift; sourceTree = "<group>"; };
+		E3F5DE6620DBC45E00D3AEF7 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		E3F5DE6820DBC47D00D3AEF7 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		E3F6E04D20D4F0E70069D2C1 /* JSONPlaceholderApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONPlaceholderApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F6E04F20D4F0E80069D2C1 /* JSONPlaceholderApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONPlaceholderApi.h; sourceTree = "<group>"; };
 		E3F6E05020D4F0E80069D2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -307,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				E3F5DE5820DBB55B00D3AEF7 /* Components.swift */,
+				E3F5DE6520DBC44500D3AEF7 /* Network */,
 				E38216CC20DA44390064B147 /* Database */,
 			);
 			path = Component;
@@ -350,6 +355,15 @@
 				E3F5DE6120DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		E3F5DE6520DBC44500D3AEF7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E3F5DE6620DBC45E00D3AEF7 /* Network.swift */,
+				E3F5DE6820DBC47D00D3AEF7 /* NetworkError.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		E3F6E04E20D4F0E80069D2C1 /* JSONPlaceholderApi */ = {
@@ -823,10 +837,12 @@
 				E38216D620DA4B9E0064B147 /* Comment.swift in Sources */,
 				E3F5DE5520DBAF8200D3AEF7 /* CoreDataStack.swift in Sources */,
 				E3F5DE5B20DBB5BF00D3AEF7 /* ViewFactory.swift in Sources */,
+				E3F5DE6720DBC45E00D3AEF7 /* Network.swift in Sources */,
 				E38216D920DA4D1C0064B147 /* Managed.swift in Sources */,
 				E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */,
 				E3F5DE5720DBB54100D3AEF7 /* AppDependencies.swift in Sources */,
 				E38216D220DA48890064B147 /* Post.swift in Sources */,
+				E3F5DE6920DBC47D00D3AEF7 /* NetworkError.swift in Sources */,
 				E3F5DE6420DBBD7600D3AEF7 /* CoordinatorProtocols.swift in Sources */,
 				E3F5DE5D20DBB5C700D3AEF7 /* CoordinatorFactory.swift in Sources */,
 			);
