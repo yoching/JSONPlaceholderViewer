@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Result
 
 extension NSManagedObjectContext {
 
@@ -17,37 +18,37 @@ extension NSManagedObjectContext {
         return store
     }
 
-    public var metaData: [String: AnyObject] {
-        get {
-            guard let psc = persistentStoreCoordinator else { fatalError("must have PSC") }
-            return psc.metadata(for: store) as [String: AnyObject]
-        }
-        set {
-            performChanges {
-                guard let psc = self.persistentStoreCoordinator else { fatalError("PSC missing") }
-                psc.setMetadata(newValue, for: self.store)
-            }
-        }
-    }
+//    public var metaData: [String: AnyObject] {
+//        get {
+//            guard let psc = persistentStoreCoordinator else { fatalError("must have PSC") }
+//            return psc.metadata(for: store) as [String: AnyObject]
+//        }
+//        set {
+//            performChanges {
+//                guard let psc = self.persistentStoreCoordinator else { fatalError("PSC missing") }
+//                psc.setMetadata(newValue, for: self.store)
+//            }
+//        }
+//    }
 
-    public func setMetaData(object: AnyObject?, forKey key: String) {
-        var md = metaData
-        md[key] = object
-        metaData = md
-    }
+//    public func setMetaData(object: AnyObject?, forKey key: String) {
+//        var md = metaData
+//        md[key] = object
+//        metaData = md
+//    }
 
     public func insertObject<A: NSManagedObject>() -> A where A: Managed {
         guard let obj = NSEntityDescription.insertNewObject(forEntityName: A.entityName, into: self) as? A else { fatalError("Wrong object type") }
         return obj
     }
 
-    public func saveOrRollback() -> Bool {
+    func saveOrRollback() -> Result<Void, ManagedObjectContextError> {
         do {
             try save()
-            return true
+            return .success(())
         } catch {
             rollback()
-            return false
+            return .failure(.general(error))
         }
     }
 
@@ -57,13 +58,12 @@ extension NSManagedObjectContext {
         }
     }
 
-    public func performChanges(block: @escaping () -> Void) {
+    func performChanges(block: @escaping () -> Void, completion: @escaping (Result<Void, ManagedObjectContextError>) -> Void) {
         perform {
             block()
-            _ = self.saveOrRollback()
+            completion(self.saveOrRollback())
         }
     }
-
 }
 
 private let SingleObjectCacheKey = "SingleObjectCache" //swiftlint:disable:this identifier_name

@@ -9,14 +9,14 @@
 import Foundation
 import APIKit
 
-struct UserRequest: JSONPlaceholderRequest {
+public struct UserRequest: JSONPlaceholderRequest {
 
-    typealias Response = User
+    public typealias Response = User
 
-    let method: HTTPMethod = .get
-    let path: String
+    public let method: HTTPMethod = .get
+    public let path: String
 
-    init(userIdentifier: Int) {
+    public init(userIdentifier: Int) {
         path = "/users/\(userIdentifier)"
     }
 }

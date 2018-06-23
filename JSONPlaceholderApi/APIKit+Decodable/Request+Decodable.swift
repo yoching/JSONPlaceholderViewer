@@ -24,7 +24,7 @@ extension Request where Response: Decodable {
         return JSONDataParserForDecodable()
     }
 
-    func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Response {
+    public func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Response {
         let data = object as! Data // swiftlint:disable:this force_cast
         return try JSONDecoder().decode(Response.self, from: data)
     }

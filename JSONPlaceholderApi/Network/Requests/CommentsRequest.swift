@@ -9,15 +9,15 @@
 import Foundation
 import APIKit
 
-struct CommentsRequest: JSONPlaceholderRequest {
+public struct CommentsRequest: JSONPlaceholderRequest {
 
-    typealias Response = [Comment]
+    public typealias Response = [Comment]
 
-    let method: HTTPMethod = .get
-    let path: String = "/comments"
-    let parameters: Any?
+    public let method: HTTPMethod = .get
+    public let path: String = "/comments"
+    public let parameters: Any?
 
-    init(postIdentifier: Int) {
+    public init(postIdentifier: Int) {
         parameters = ["postId": postIdentifier]
     }
 }

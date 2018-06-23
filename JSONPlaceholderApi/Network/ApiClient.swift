@@ -19,7 +19,11 @@ public protocol ApiClientProtocol {
 
 public final class ApiClient: ApiClientProtocol {
 
-    private let session = Session.shared
+    private let session: Session
+
+    public init() {
+        session = Session.shared
+    }
 
     public func send<RequestType: JSONPlaceholderRequest>(
         _ request: RequestType,

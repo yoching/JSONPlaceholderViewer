@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct User: Decodable {
-    let identifier: Int
-    let name: String
-    let userName: String
-    let email: String
-    let address: Address
-    let phone: String
-    let website: String
-    let company: Company
+public struct User: Decodable {
+    public let identifier: Int
+    public let name: String
+    public let userName: String
+    public let email: String
+    public let address: Address
+    public let phone: String
+    public let website: String
+    public let company: Company
 
     enum CodingKeys: String, CodingKey {
         case identifier = "id"

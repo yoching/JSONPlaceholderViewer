@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct Company: Decodable, Equatable {
-    let name: String
-    let catchPhrase: String
-    let business: String
+public struct Company: Decodable, Equatable {
+    public let name: String
+    public let catchPhrase: String
+    public let business: String
 
     enum CodingKeys: String, CodingKey {
         case name
