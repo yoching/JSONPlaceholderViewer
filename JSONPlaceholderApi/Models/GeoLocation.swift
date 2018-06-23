@@ -9,6 +9,6 @@
 import Foundation
 
 public struct GeoLocation: Decodable, Equatable {
-    let lat: String
-    let lng: String
+    public let lat: String
+    public let lng: String
 }

@@ -9,10 +9,10 @@
 import Foundation
 
 public struct Post: Decodable {
-    let identifier: Int
-    let userIdentifier: Int
-    let title: String
-    let body: String
+    public let identifier: Int
+    public let userIdentifier: Int
+    public let title: String
+    public let body: String
 
     enum CodingKeys: String, CodingKey {
         case identifier = "id"

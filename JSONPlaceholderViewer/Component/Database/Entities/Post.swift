@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import JSONPlaceholderApi
 
 protocol PostProtocol {
 }
@@ -32,6 +33,14 @@ final class Post: NSManagedObject, PostProtocol {
         self.title = title
         self.comments = comments
         self.user = user
+    }
+
+    func configure(_ postFromApi: JSONPlaceholderApi.Post) {
+        self.identifier = Int64(postFromApi.identifier)
+        self.body = postFromApi.body
+        self.title = postFromApi.title
+        self.comments = Set<Comment>()
+        self.user = nil
     }
 }
 

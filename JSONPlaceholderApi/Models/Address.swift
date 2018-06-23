@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Address: Decodable, Equatable {
-    let street: String
-    let suite: String
-    let city: String
-    let zipcode: String
-    let geo: GeoLocation
+    public let street: String
+    public let suite: String
+    public let city: String
+    public let zipcode: String
+    public let geo: GeoLocation
 }

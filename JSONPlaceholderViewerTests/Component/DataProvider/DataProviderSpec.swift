@@ -45,6 +45,43 @@ class DataProviderSpec: QuickSpec {
                 let request = networkMock.executedRequests[0] as? PostsRequest
                 expect(request).toNot(beNil())
             }
+
+            context("network request success") {
+
+                beforeEach {
+                    networkMock.isReturningError = false
+                    networkMock.entityToReturn = [JSONPlaceholderApi.Post()]
+                }
+
+                it("saves posts in database") {
+                    // arrange
+                    databaseMock.timesSavePostsCalled = 0
+
+                    // act
+                    dataProvider.fetchPosts()
+
+                    // assert
+                    expect(databaseMock.timesSavePostsCalled) == 1
+                }
+            }
+
+            context("network request failure") {
+
+                beforeEach {
+                    networkMock.isReturningError = true
+                }
+
+                it("doesn't save posts in database") {
+                    // arrange
+                    databaseMock.timesSavePostsCalled = 0
+
+                    // act
+                    dataProvider.fetchPosts()
+
+                    // assert
+                    expect(databaseMock.timesSavePostsCalled) == 0
+                }
+            }
         }
 
         describe("posts") {
@@ -91,6 +128,7 @@ class NetworkMock: Networking {
 }
 
 final class DatabaseMock: DatabaseManaging {
+    var timesSavePostsCalled: Int = 0
     var mutablePosts = MutableProperty<[PostProtocol]>([])
     var posts: Property<[PostProtocol]> {
         return Property(mutablePosts)
@@ -98,5 +136,18 @@ final class DatabaseMock: DatabaseManaging {
 
     func fetchPosts() {
 
+    }
+
+    func savePosts(_ posts: [PostFromApi]) {
+        timesSavePostsCalled += 1
+    }
+}
+
+extension JSONPlaceholderApi.Post {
+    init() {
+        self.identifier = 1
+        self.userIdentifier = 1
+        self.title = ""
+        self.body = ""
     }
 }

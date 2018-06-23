@@ -23,11 +23,13 @@ final class DataProvider {
     let posts: Property<[PostProtocol]>
 
     private let network: Networking
+    private let database: DatabaseManaging
 
     private let fetchPostsPipe = Signal<Void, NoError>.pipe()
 
     init(network: Networking, database: DatabaseManaging) {
         self.network = network
+        self.database = database
         self.posts = database.posts
 
         fetchPostsPipe.output
@@ -37,8 +39,13 @@ final class DataProvider {
                 }
                 return strongSelf.network.getResponse(of: PostsRequest()).resultWrapped()
             }
-            .observeValues { _ in
-                // do something
+            .observeValues { [weak self] result in
+                switch result {
+                case .success(let posts):
+                    self?.database.savePosts(posts)
+                case .failure(let error):
+                    break // TODO: do somethinf
+                }
         }
     }
 }

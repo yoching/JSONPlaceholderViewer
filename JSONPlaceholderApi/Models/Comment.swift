@@ -9,11 +9,11 @@
 import Foundation
 
 public struct Comment: Decodable {
-    let postIdentifier: Int
-    let identifier: Int
-    let name: String
-    let email: String
-    let body: String
+    public let postIdentifier: Int
+    public let identifier: Int
+    public let name: String
+    public let email: String
+    public let body: String
 
     enum CodingKeys: String, CodingKey {
         case postIdentifier = "postId"

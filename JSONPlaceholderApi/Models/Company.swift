@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Company: Decodable, Equatable {
-    let name: String
-    let catchPhrase: String
-    let business: String
+    public let name: String
+    public let catchPhrase: String
+    public let business: String
 
     enum CodingKeys: String, CodingKey {
         case name
