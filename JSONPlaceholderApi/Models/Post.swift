@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Post: Decodable {
+public struct Post: Decodable {
     let identifier: Int
     let userIdentifier: Int
     let title: String

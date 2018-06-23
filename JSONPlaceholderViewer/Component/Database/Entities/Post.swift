@@ -9,7 +9,10 @@
 import Foundation
 import CoreData
 
-final class Post: NSManagedObject {
+protocol PostProtocol {
+}
+
+final class Post: NSManagedObject, PostProtocol {
     @NSManaged private(set) var identifier: Int64
     @NSManaged private(set) var body: String
     @NSManaged private(set) var title: String

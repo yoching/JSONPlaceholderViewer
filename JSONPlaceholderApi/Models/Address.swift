@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Address: Decodable, Equatable {
+public struct Address: Decodable, Equatable {
     let street: String
     let suite: String
     let city: String

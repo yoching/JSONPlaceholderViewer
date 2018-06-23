@@ -9,10 +9,14 @@
 import Foundation
 import APIKit
 
-struct PostsRequest: JSONPlaceholderRequest {
+public struct PostsRequest: JSONPlaceholderRequest {
 
-    typealias Response = [Post]
+    public typealias Response = [Post]
 
-    let method: HTTPMethod = .get
-    let path: String = "/posts"
+    public let method: HTTPMethod = .get
+    public let path: String = "/posts"
+
+    public init() {
+
+    }
 }
