@@ -15,6 +15,7 @@ private typealias PostsFetchResult = Result<[JSONPlaceholderApi.Post], NetworkEr
 
 protocol DataProviding {
     var posts: Property<[PostProtocol]> { get }
+
     func fetchPosts()
 }
 
@@ -37,7 +38,9 @@ final class DataProvider {
                 guard let strongSelf = self else {
                     return .empty
                 }
-                return strongSelf.network.getResponse(of: PostsRequest()).resultWrapped()
+                return strongSelf.network
+                    .getResponse(of: PostsRequest())
+                    .resultWrapped()
             }
             .observeValues { [weak self] result in
                 switch result {

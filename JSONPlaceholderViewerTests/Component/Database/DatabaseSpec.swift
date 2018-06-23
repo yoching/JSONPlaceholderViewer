@@ -57,8 +57,7 @@ class DatabaseSpec: QuickSpec {
                 database.savePosts(posts)
 
                 // assert
-                let fetchedPosts = try? coreDataStackMock.viewContext.fetch(Post.sortedFetchRequest)
-                expect(fetchedPosts?.count) == 3
+                expect((try? coreDataStackMock.viewContext.fetch(Post.sortedFetchRequest))?.count).toEventually(equal(3))
             }
         }
     }

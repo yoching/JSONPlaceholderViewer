@@ -37,7 +37,7 @@ final class Database {
     init(coreDataStack: CoreDataStack) {
         self.stack = coreDataStack
         fetchPostsPipe.output
-            .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<[Post], AnyError>, NoError> in
+            .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<[Post], ManagedObjectContextError>, NoError> in
                 guard let strongSelf = self else {
                     return .empty
                 }
@@ -55,25 +55,21 @@ final class Database {
         }
 
         savePostsPipe.output
-            .flatMap(.concat) { [weak self] posts -> SignalProducer<Result<Void, AnyError>, NoError> in
+            .flatMap(.latest) { [weak self] posts -> SignalProducer<Result<Void, ManagedObjectContextError>, NoError> in
                 guard let strongSelf = self else {
                     return .empty
                 }
 
-                return .init { observer, lifetime in
+                let insertOperation: (NSManagedObjectContext) -> Void = { context in
                     for postFromApi in posts {
-                        let post = NSEntityDescription.insertNewObject(forEntityName: "Post", into: strongSelf.viewContext) as! Post // swiftlint:disable:this force_cast
+                        let post: Post = context.insertObject()
                         post.configure(postFromApi)
                     }
-
-                    do {
-                        try strongSelf.viewContext.save()
-                        observer.send(value: .success(()))
-                        observer.sendCompleted()
-                    } catch {
-                        observer.send(value: .failure(AnyError(error)))
-                    }
                 }
+
+                return strongSelf.viewContext
+                    .performChangesProducer(block: insertOperation)
+                    .resultWrapped()
             }
             .observeValues { [weak self] _ in
                 // TODO: do something?
