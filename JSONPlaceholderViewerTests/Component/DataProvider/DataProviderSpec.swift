@@ -95,4 +95,8 @@ final class DatabaseMock: DatabaseManaging {
     var posts: Property<[PostProtocol]> {
         return Property(mutablePosts)
     }
+
+    func fetchPosts() {
+
+    }
 }

@@ -28,6 +28,9 @@
 		E32C426920DDFB9D00AB328A /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426820DDFB9D00AB328A /* DataProvider.swift */; };
 		E32C426B20DDFFA400AB328A /* ResultWrappedObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */; };
 		E32C426D20DE03B000AB328A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426C20DE03B000AB328A /* Database.swift */; };
+		E32C427020DE097D00AB328A /* DatabaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426F20DE097D00AB328A /* DatabaseSpec.swift */; };
+		E32C427220DE185600AB328A /* CoreDataStackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C427120DE185600AB328A /* CoreDataStackMock.swift */; };
+		E32C427420DE1E2400AB328A /* NSManagedObjectContext+ReactiveSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C427320DE1E2400AB328A /* NSManagedObjectContext+ReactiveSwift.swift */; };
 		E38216CF20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E38216CD20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld */; };
 		E38216D220DA48890064B147 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D120DA48890064B147 /* Post.swift */; };
 		E38216D420DA4B970064B147 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D320DA4B970064B147 /* User.swift */; };
@@ -169,6 +172,9 @@
 		E32C426820DDFB9D00AB328A /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultWrappedObservable.swift; sourceTree = "<group>"; };
 		E32C426C20DE03B000AB328A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		E32C426F20DE097D00AB328A /* DatabaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseSpec.swift; sourceTree = "<group>"; };
+		E32C427120DE185600AB328A /* CoreDataStackMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackMock.swift; sourceTree = "<group>"; };
+		E32C427320DE1E2400AB328A /* NSManagedObjectContext+ReactiveSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+ReactiveSwift.swift"; sourceTree = "<group>"; };
 		E38216CE20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JSONPlaceholderViewer.xcdatamodel; sourceTree = "<group>"; };
 		E38216D120DA48890064B147 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		E38216D320DA4B970064B147 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -301,6 +307,15 @@
 			path = DataProvider;
 			sourceTree = "<group>";
 		};
+		E32C426E20DE096300AB328A /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				E32C426F20DE097D00AB328A /* DatabaseSpec.swift */,
+				E32C427120DE185600AB328A /* CoreDataStackMock.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		E38216C920DA42D70064B147 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +377,7 @@
 			children = (
 				E38216D820DA4D1C0064B147 /* Managed.swift */,
 				E38216DA20DA624D0064B147 /* NSManagedObject+Extension.swift */,
+				E32C427320DE1E2400AB328A /* NSManagedObjectContext+ReactiveSwift.swift */,
 			);
 			path = CoreDataHelpers;
 			sourceTree = "<group>";
@@ -389,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				E3F5DE6B20DBC69700D3AEF7 /* DataProvider */,
+				E32C426E20DE096300AB328A /* Database */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -881,6 +898,7 @@
 				E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */,
 				E3F5DE5720DBB54100D3AEF7 /* AppDependencies.swift in Sources */,
 				E38216D220DA48890064B147 /* Post.swift in Sources */,
+				E32C427420DE1E2400AB328A /* NSManagedObjectContext+ReactiveSwift.swift in Sources */,
 				E3F5DE6920DBC47D00D3AEF7 /* NetworkError.swift in Sources */,
 				E3F5DE6420DBBD7600D3AEF7 /* CoordinatorProtocols.swift in Sources */,
 				E3F5DE5D20DBB5C700D3AEF7 /* CoordinatorFactory.swift in Sources */,
@@ -891,6 +909,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E32C427020DE097D00AB328A /* DatabaseSpec.swift in Sources */,
+				E32C427220DE185600AB328A /* CoreDataStackMock.swift in Sources */,
 				E3FCF2C820D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift in Sources */,
 				E3F5DE6D20DBC6A700D3AEF7 /* DataProviderSpec.swift in Sources */,
 			);

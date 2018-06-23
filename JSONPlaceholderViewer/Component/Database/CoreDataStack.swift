@@ -9,25 +9,14 @@
 import CoreData
 import ReactiveSwift
 
-protocol CoreDataStack {
+protocol CoreDataStack: class {
     func setupStack() -> SignalProducer<Void, CoreDataStackError>
+    var viewContext: NSManagedObjectContext { get }
+
+    var persistentContainer: NSPersistentContainer { get }
 }
 
-enum CoreDataStackError: Error {
-    case load(Error)
-}
-
-final class CoreDataStackImpl {
-
-    private let persistentContainer: NSPersistentContainer
-
-    init() {
-        persistentContainer = NSPersistentContainer(name: "JSONPlaceholderViewer")
-    }
-}
-
-// MARK: - CoreDataStack
-extension CoreDataStackImpl: CoreDataStack {
+extension CoreDataStack {
     func setupStack() -> SignalProducer<Void, CoreDataStackError> {
         return .init { [unowned self] (observer, _) in
             self.persistentContainer.loadPersistentStores { _, error in
@@ -39,5 +28,21 @@ extension CoreDataStackImpl: CoreDataStack {
                 observer.sendCompleted()
             }
         }
+    }
+
+    var viewContext: NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
+}
+
+enum CoreDataStackError: Error {
+    case load(Error)
+}
+
+final class CoreDataStackImpl: CoreDataStack {
+    let persistentContainer: NSPersistentContainer
+
+    init() {
+        persistentContainer = NSPersistentContainer(name: "JSONPlaceholderViewer")
     }
 }

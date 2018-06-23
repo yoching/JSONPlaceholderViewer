@@ -19,4 +19,22 @@ final class Post: NSManagedObject, PostProtocol {
 
     @NSManaged private(set) var comments: Set<Comment>
     @NSManaged private(set) var user: User?
+
+    func configure(
+        identifier: Int64,
+        body: String,
+        title: String,
+        comments: Set<Comment>,
+        user: User?
+        ) {
+        self.identifier = identifier
+        self.body = body
+        self.title = title
+        self.comments = comments
+        self.user = user
+    }
+}
+
+extension Post: Managed {
+    static let entityName: String = "Post"
 }
