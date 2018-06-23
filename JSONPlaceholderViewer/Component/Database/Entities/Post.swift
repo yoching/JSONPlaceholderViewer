@@ -11,6 +11,8 @@ import CoreData
 import JSONPlaceholderApi
 
 protocol PostProtocol {
+    var identifier: Int64 { get }
+    var title: String { get }
 }
 
 final class Post: NSManagedObject, PostProtocol {

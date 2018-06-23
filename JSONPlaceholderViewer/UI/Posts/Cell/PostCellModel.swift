@@ -9,11 +9,14 @@
 import Foundation
 
 protocol PostCellModeling {
-
+    var title: String { get }
 }
 
 final class PostCellModel {
-
+    let title: String
+    init(post: PostProtocol) {
+        title = post.title
+    }
 }
 
 // MARK: - PostCellModeling

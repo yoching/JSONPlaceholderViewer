@@ -32,15 +32,6 @@ final class PostsViewModel {
     private let didSelectRowPipe = Signal<Int, NoError>.pipe()
 
     init() {
-
-        mutableCellModels.value = [
-            PostCellModel(),
-            PostCellModel(),
-            PostCellModel(),
-            PostCellModel(),
-            PostCellModel()
-        ] // TODO: test data
-
         didSelectRowPipe.output
             .map { _ -> PostsViewRoute in
                 return .postDetail // TODO: implement

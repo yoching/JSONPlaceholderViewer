@@ -87,7 +87,11 @@ class DataProviderSpec: QuickSpec {
         describe("posts") {
             it("provides posts in database") {
                 // arrange
-                let samplePosts = [PostMock(), PostMock(), PostMock()]
+                let samplePosts = [
+                    PostMock(identifier: 1, title: "1"),
+                    PostMock(identifier: 2, title: "2"),
+                    PostMock(identifier: 3, title: "3")
+                ]
                 databaseMock.mutablePosts.value = samplePosts
 
                 // act & assert
@@ -98,7 +102,8 @@ class DataProviderSpec: QuickSpec {
 }
 
 struct PostMock: PostProtocol, Equatable {
-
+    let identifier: Int64
+    let title: String
 }
 
 class NetworkMock: Networking {
