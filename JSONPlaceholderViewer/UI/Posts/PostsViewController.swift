@@ -53,5 +53,7 @@ extension PostsViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension PostsViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectRow(index: indexPath.row)
+    }
 }

@@ -344,9 +344,9 @@
 		E32C428820DE4CC200AB328A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				E32C428620DE4C8500AB328A /* PostCellModel.swift */,
-				E32C428C20DE4DD700AB328A /* PostCell.swift */,
 				E32C428E20DE4DE000AB328A /* PostCell.xib */,
+				E32C428C20DE4DD700AB328A /* PostCell.swift */,
+				E32C428620DE4C8500AB328A /* PostCellModel.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";

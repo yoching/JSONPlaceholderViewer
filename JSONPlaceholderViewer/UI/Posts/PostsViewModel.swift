@@ -11,7 +11,11 @@ import ReactiveSwift
 import Result
 
 protocol PostsViewModeling {
+    // View States
     var cellModels: Property<[PostCellModeling]> { get }
+
+    // View -> View Model
+    func didSelectRow(index: Int)
 }
 
 enum PostsViewRoute {
@@ -25,6 +29,24 @@ protocol PostsViewRouting {
 final class PostsViewModel {
     private let mutableCellModels = MutableProperty<[PostCellModeling]>([])
     private let routeSelectedPipe = Signal<PostsViewRoute, NoError>.pipe()
+    private let didSelectRowPipe = Signal<Int, NoError>.pipe()
+
+    init() {
+
+        mutableCellModels.value = [
+            PostCellModel(),
+            PostCellModel(),
+            PostCellModel(),
+            PostCellModel(),
+            PostCellModel()
+        ] // TODO: test data
+
+        didSelectRowPipe.output
+            .map { _ -> PostsViewRoute in
+                return .postDetail // TODO: implement
+            }
+            .observe(routeSelectedPipe.input)
+    }
 }
 
 // MARK: - PostsViewModeling
@@ -38,5 +60,8 @@ extension PostsViewModel: PostsViewModeling {
 extension PostsViewModel: PostsViewRouting {
     var routeSelected: Signal<PostsViewRoute, NoError> {
         return routeSelectedPipe.output
+    }
+    func didSelectRow(index: Int) {
+        didSelectRowPipe.input.send(value: index)
     }
 }
