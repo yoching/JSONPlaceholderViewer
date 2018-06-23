@@ -31,12 +31,17 @@ final class PostsViewModel {
     private let routeSelectedPipe = Signal<PostsViewRoute, NoError>.pipe()
     private let didSelectRowPipe = Signal<Int, NoError>.pipe()
 
-    init() {
+    init(dataProvider: DataProviding) {
         didSelectRowPipe.output
             .map { _ -> PostsViewRoute in
                 return .postDetail // TODO: implement
             }
             .observe(routeSelectedPipe.input)
+
+        mutableCellModels <~ dataProvider.posts
+            .map { posts -> [PostCellModeling] in
+                return posts.map(PostCellModel.init)
+        }
     }
 }
 

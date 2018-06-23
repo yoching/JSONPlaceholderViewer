@@ -39,6 +39,7 @@
 		E32C428D20DE4DD700AB328A /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C428C20DE4DD700AB328A /* PostCell.swift */; };
 		E32C428F20DE4DE000AB328A /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32C428E20DE4DE000AB328A /* PostCell.xib */; };
 		E32C429220DE55CF00AB328A /* PostCellModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */; };
+		E32C429620DE58C700AB328A /* PostsViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C429520DE58C700AB328A /* PostsViewModelSpec.swift */; };
 		E38216CF20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E38216CD20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld */; };
 		E38216D220DA48890064B147 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D120DA48890064B147 /* Post.swift */; };
 		E38216D420DA4B970064B147 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D320DA4B970064B147 /* User.swift */; };
@@ -191,6 +192,7 @@
 		E32C428C20DE4DD700AB328A /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		E32C428E20DE4DE000AB328A /* PostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellModelSpec.swift; sourceTree = "<group>"; };
+		E32C429520DE58C700AB328A /* PostsViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModelSpec.swift; sourceTree = "<group>"; };
 		E38216CE20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JSONPlaceholderViewer.xcdatamodel; sourceTree = "<group>"; };
 		E38216D120DA48890064B147 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		E38216D320DA4B970064B147 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */,
+				E32C429520DE58C700AB328A /* PostsViewModelSpec.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -975,6 +978,7 @@
 				E32C427020DE097D00AB328A /* DatabaseSpec.swift in Sources */,
 				E32C427220DE185600AB328A /* CoreDataStackMock.swift in Sources */,
 				E3FCF2C820D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift in Sources */,
+				E32C429620DE58C700AB328A /* PostsViewModelSpec.swift in Sources */,
 				E32C429220DE55CF00AB328A /* PostCellModelSpec.swift in Sources */,
 				E3F5DE6D20DBC6A700D3AEF7 /* DataProviderSpec.swift in Sources */,
 			);

@@ -13,9 +13,16 @@ protocol ViewFactory {
 }
 
 final class ViewFactoryImpl: ViewFactory {
+
+    private let components: Components
+
+    init(components: Components) {
+        self.components = components
+    }
+
     func posts() -> (UIViewController, PostsViewRouting) {
         let viewController = StoryboardScene.PostsViewController.initialScene.instantiate()
-        let viewModel = PostsViewModel()
+        let viewModel = PostsViewModel(dataProvider: components.dataProvider)
         viewController.configure(with: viewModel)
         return (viewController, viewModel)
     }
