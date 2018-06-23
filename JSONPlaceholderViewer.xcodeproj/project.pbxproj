@@ -366,8 +366,8 @@
 		E32C429020DE557300AB328A /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */,
 				E32C429520DE58C700AB328A /* PostsViewModelSpec.swift */,
+				E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";

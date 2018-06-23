@@ -17,7 +17,32 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GGN-XQ-AY9" id="rCn-lE-aqZ">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZtK-FN-Alz">
+                        <rect key="frame" x="20" y="0.0" width="335" height="43.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Title&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1LS-ro-RcR">
+                                <rect key="frame" x="0.0" y="0.0" width="335" height="43.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43.5" id="AmK-mr-i1d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ZtK-FN-Alz" secondAttribute="trailing" constant="20" id="Z4G-ql-E3j"/>
+                    <constraint firstAttribute="bottom" secondItem="ZtK-FN-Alz" secondAttribute="bottom" id="aRg-17-o1I"/>
+                    <constraint firstItem="ZtK-FN-Alz" firstAttribute="top" secondItem="rCn-lE-aqZ" secondAttribute="top" id="eb0-Qx-Hrd"/>
+                    <constraint firstItem="ZtK-FN-Alz" firstAttribute="leading" secondItem="rCn-lE-aqZ" secondAttribute="leading" constant="20" id="gM8-xe-1Sn"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="titleLabel" destination="1LS-ro-RcR" id="v1u-1w-O4d"/>
+            </connections>
             <point key="canvasLocation" x="229" y="181"/>
         </tableViewCell>
     </objects>

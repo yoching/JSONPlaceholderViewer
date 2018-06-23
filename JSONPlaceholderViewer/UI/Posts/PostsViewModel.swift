@@ -19,7 +19,7 @@ protocol PostsViewModeling {
 }
 
 enum PostsViewRoute {
-    case postDetail
+    case postDetail(postIdentifier: Int64)
 }
 
 protocol PostsViewRouting {
@@ -32,9 +32,10 @@ final class PostsViewModel {
     private let didSelectRowPipe = Signal<Int, NoError>.pipe()
 
     init(dataProvider: DataProviding) {
-        didSelectRowPipe.output
-            .map { _ -> PostsViewRoute in
-                return .postDetail // TODO: implement
+        cellModels.signal
+            .sample(with: didSelectRowPipe.output)
+            .map { (cellModels, row) -> PostsViewRoute in
+                return .postDetail(postIdentifier: cellModels[row].postIdentifier)
             }
             .observe(routeSelectedPipe.input)
 
@@ -42,6 +43,8 @@ final class PostsViewModel {
             .map { posts -> [PostCellModeling] in
                 return posts.map(PostCellModel.init)
         }
+
+        dataProvider.fetchPosts() // current implementation
     }
 }
 

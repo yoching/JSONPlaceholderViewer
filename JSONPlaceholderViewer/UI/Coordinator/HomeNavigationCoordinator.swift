@@ -24,8 +24,8 @@ final class HomeNavigationCoordinator: NavigationCoordinator {
         postsViewRouting.routeSelected
             .observeValues { [weak self] route in
                 switch route {
-                case .postDetail:
-                    self?.presentPostDetail()
+                case .postDetail(let postIdentifier):
+                    self?.presentPostDetail(postIdentifier: postIdentifier)
                 }
         }
 
@@ -38,7 +38,7 @@ final class HomeNavigationCoordinator: NavigationCoordinator {
 
 // MARK: - Private Methods
 private extension HomeNavigationCoordinator {
-    func presentPostDetail() {
-        print("😆")
+    func presentPostDetail(postIdentifier: Int64) {
+        print("😆, \(postIdentifier)")
     }
 }

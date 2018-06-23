@@ -10,8 +10,10 @@ import UIKit
 
 final class PostCell: UITableViewCell {
 
-    func configure(with cellModel: PostCellModeling) {
+    @IBOutlet weak var titleLabel: UILabel!
 
+    func configure(with cellModel: PostCellModeling) {
+        titleLabel.text = cellModel.title
     }
 
 }

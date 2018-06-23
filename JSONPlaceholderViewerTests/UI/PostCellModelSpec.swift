@@ -27,6 +27,7 @@ class PostCellModelSpec: QuickSpec {
 
                 // assert
                 expect(cellModel.title) == "test title"
+                expect(cellModel.postIdentifier) == 1
             }
         }
     }

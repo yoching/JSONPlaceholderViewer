@@ -72,6 +72,7 @@ final class Database {
                     .resultWrapped()
             }
             .observeValues { [weak self] _ in
+                self?.fetchPosts() // TODO: temporary implementation
                 // TODO: do something?
         }
 

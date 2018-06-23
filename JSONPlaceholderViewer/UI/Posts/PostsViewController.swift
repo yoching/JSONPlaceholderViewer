@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveSwift
 import Result
+import ReactiveCocoa
 
 final class PostsViewController: UIViewController {
 
@@ -27,6 +28,8 @@ final class PostsViewController: UIViewController {
         super.viewDidLoad()
 
         configureTableView()
+
+        tableView.reactive.reloadData <~ viewModel.cellModels.signal.map { _ in () }
     }
 }
 
