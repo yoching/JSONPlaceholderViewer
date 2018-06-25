@@ -24,7 +24,7 @@ final class AppDependenciesImpl: AppDependencies {
     init() {
         components = ComponentsImpl()
 
-        viewFactory = ViewFactoryImpl()
+        viewFactory = ViewFactoryImpl(components: components)
         coordinatorFactory = CoordinatorFactoryImpl(viewFactory: viewFactory)
     }
 }

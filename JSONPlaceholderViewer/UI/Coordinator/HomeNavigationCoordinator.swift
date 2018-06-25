@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 final class HomeNavigationCoordinator: NavigationCoordinator {
     let viewFactory: ViewFactory
@@ -19,10 +20,25 @@ final class HomeNavigationCoordinator: NavigationCoordinator {
     }
 
     func start() {
-        let postsViewController = viewFactory.posts()
+        let (postsViewController, postsViewRouting) = viewFactory.posts()
+        postsViewRouting.routeSelected
+            .observeValues { [weak self] route in
+                switch route {
+                case .postDetail(let postIdentifier):
+                    self?.presentPostDetail(postIdentifier: postIdentifier)
+                }
+        }
+
         navigationController.pushViewController(
             postsViewController,
             animated: false
         )
+    }
+}
+
+// MARK: - Private Methods
+private extension HomeNavigationCoordinator {
+    func presentPostDetail(postIdentifier: Int64) {
+        print("😆, \(postIdentifier)")
     }
 }

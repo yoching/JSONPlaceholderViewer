@@ -9,20 +9,21 @@
 import UIKit
 
 protocol ViewFactory {
-    func root() -> UIViewController
-    func posts() -> UIViewController
+    func posts() -> (UIViewController, PostsViewRouting)
 }
 
 final class ViewFactoryImpl: ViewFactory {
-    func root() -> UIViewController {
-        let rootViewController = UIViewController()
-        rootViewController.view.backgroundColor = .orange
-        return rootViewController
+
+    private let components: Components
+
+    init(components: Components) {
+        self.components = components
     }
 
-    func posts() -> UIViewController {
-        let rootViewController = UIViewController()
-        rootViewController.view.backgroundColor = .orange
-        return rootViewController
+    func posts() -> (UIViewController, PostsViewRouting) {
+        let viewController = StoryboardScene.PostsViewController.initialScene.instantiate()
+        let viewModel = PostsViewModel(dataProvider: components.dataProvider)
+        viewController.configure(with: viewModel)
+        return (viewController, viewModel)
     }
 }
