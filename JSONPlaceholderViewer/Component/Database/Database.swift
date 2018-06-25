@@ -71,9 +71,13 @@ final class Database {
                     .performChangesProducer(block: insertOperation)
                     .resultWrapped()
             }
-            .observeValues { [weak self] _ in
-                self?.fetchPosts() // TODO: temporary implementation
-                // TODO: do something?
+            .observeValues { [weak self] result in
+                switch result {
+                case .success:
+                    self?.fetchPosts()
+                case .failure(let error):
+                    break // TODO: handle error
+                }
         }
 
     }
