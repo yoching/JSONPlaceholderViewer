@@ -10,6 +10,7 @@ import UIKit
 
 protocol ViewFactory {
     func posts() -> (UIViewController, PostsViewRouting)
+    func postDetail() -> (UIViewController, PostDetailViewRouting)
 }
 
 final class ViewFactoryImpl: ViewFactory {
@@ -23,6 +24,13 @@ final class ViewFactoryImpl: ViewFactory {
     func posts() -> (UIViewController, PostsViewRouting) {
         let viewController = StoryboardScene.PostsViewController.initialScene.instantiate()
         let viewModel = PostsViewModel(dataProvider: components.dataProvider)
+        viewController.configure(with: viewModel)
+        return (viewController, viewModel)
+    }
+
+    func postDetail() -> (UIViewController, PostDetailViewRouting) {
+        let viewController = StoryboardScene.PostDetailViewController.initialScene.instantiate()
+        let viewModel = PostDetailViewModel()
         viewController.configure(with: viewModel)
         return (viewController, viewModel)
     }

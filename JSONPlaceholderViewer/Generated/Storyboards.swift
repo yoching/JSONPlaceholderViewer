@@ -58,6 +58,11 @@ internal enum StoryboardScene {
 
     internal static let initialScene = InitialSceneType<UIViewController>(storyboard: LaunchScreen.self)
   }
+  internal enum PostDetailViewController: StoryboardType {
+    internal static let storyboardName = "PostDetailViewController"
+
+    internal static let initialScene = InitialSceneType<JSONPlaceholderViewer.PostDetailViewController>(storyboard: PostDetailViewController.self)
+  }
   internal enum PostsViewController: StoryboardType {
     internal static let storyboardName = "PostsViewController"
 

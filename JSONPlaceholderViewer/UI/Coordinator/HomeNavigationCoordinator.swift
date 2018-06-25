@@ -39,6 +39,18 @@ final class HomeNavigationCoordinator: NavigationCoordinator {
 // MARK: - Private Methods
 private extension HomeNavigationCoordinator {
     func presentPostDetail(postIdentifier: Int64) {
-        print("😆, \(postIdentifier)")
+        let (viewController, routing) = viewFactory.postDetail()
+        routing.routeSelected
+            .observeValues { [weak self] route in
+                switch route {
+                case .pop:
+                    self?.navigationController.popViewController(animated: true)
+                }
+        }
+
+        navigationController.pushViewController(
+            viewController,
+            animated: true
+        )
     }
 }
