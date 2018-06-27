@@ -13,20 +13,23 @@ import CoreData
 import JSONPlaceholderApi
 
 typealias PostFromApi = JSONPlaceholderApi.Post
+private typealias ContextPerformResult = Result<Void, ManagedObjectContextError>
 
 protocol DatabaseManaging {
-    var posts: Property<[PostProtocol]> { get }
+    var posts: Property<[PostProtocol]?> { get }
 
-    func fetchPosts()
+    func fetchPosts() -> SignalProducer<Void, DatabaseError>
 
-    func savePosts(_ posts: [PostFromApi])
+    func savePosts(_ posts: [PostFromApi]) -> SignalProducer<Void, DatabaseError>
+}
+
+enum DatabaseError: Error {
+    case context(ManagedObjectContextError)
+    case notFetchedInitially
 }
 
 final class Database {
-    private let mutablePosts = MutableProperty<[PostProtocol]>([])
-
-    private let fetchPostsPipe = Signal<Void, NoError>.pipe()
-    private let savePostsPipe = Signal<[PostFromApi], NoError>.pipe()
+    private let mutablePosts = MutableProperty<[Post]?>(nil)
 
     private let stack: CoreDataStack
 
@@ -36,63 +39,59 @@ final class Database {
 
     init(coreDataStack: CoreDataStack) {
         self.stack = coreDataStack
-        fetchPostsPipe.output
-            .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<[Post], ManagedObjectContextError>, NoError> in
-                guard let strongSelf = self else {
-                    return .empty
-                }
-                return strongSelf.viewContext
-                    .fetchProducer(request: Post.sortedFetchRequest)
-                    .resultWrapped()
-            }
-            .observeValues { [weak self] result in
-                switch result {
-                case .success(let posts):
-                    self?.mutablePosts.value = posts
-                case .failure:
-                    break // TODO: do something
-                }
-        }
-
-        savePostsPipe.output
-            .flatMap(.latest) { [weak self] posts -> SignalProducer<Result<Void, ManagedObjectContextError>, NoError> in
-                guard let strongSelf = self else {
-                    return .empty
-                }
-
-                let insertOperation: (NSManagedObjectContext) -> Void = { context in
-                    for postFromApi in posts {
-                        let post: Post = context.insertObject()
-                        post.configure(postFromApi)
-                    }
-                }
-
-                return strongSelf.viewContext
-                    .performChangesProducer(block: insertOperation)
-                    .resultWrapped()
-            }
-            .observeValues { [weak self] result in
-                switch result {
-                case .success:
-                    self?.fetchPosts()
-                case .failure(let error):
-                    break // TODO: handle error
-                }
-        }
-
     }
 }
 
 extension Database: DatabaseManaging {
-    var posts: Property<[PostProtocol]> {
-        return Property(mutablePosts)
+    var posts: Property<[PostProtocol]?> {
+        return Property(mutablePosts.map { $0 })
     }
 
-    func fetchPosts() {
-        fetchPostsPipe.input.send(value: ())
+    func fetchPosts() -> SignalProducer<Void, DatabaseError> {
+        return viewContext
+            .fetchProducer(request: Post.sortedFetchRequest)
+            .on(value: { [weak self] posts in
+                self?.mutablePosts.value = posts
+            })
+            .map { _ in () }
+            .mapError(DatabaseError.context)
     }
 
-    func savePosts(_ posts: [PostFromApi]) {
-        savePostsPipe.input.send(value: posts)
+    func savePosts(_ postsToSave: [PostFromApi]) -> SignalProducer<Void, DatabaseError> {
+        return mutablePosts.producer
+            .promoteError(DatabaseError.self)
+            .attemptMap { posts -> Result<[Post], DatabaseError> in
+                guard let posts = posts else {
+                    return .failure(.notFetchedInitially)
+                }
+                return .success(posts)
+            }
+            .flatMap(.latest) { [weak self] currentPosts
+                -> SignalProducer<Void, DatabaseError> in
+
+                guard let strongSelf = self else {
+                    return .empty
+                }
+
+                var currentPostsDictionary = Dictionary(
+                    uniqueKeysWithValues: currentPosts.map { ($0.identifier, $0) }
+                )
+
+                let operation: (NSManagedObjectContext) -> Void = { context in
+                    for post in postsToSave {
+                        let removedValue = currentPostsDictionary.removeValue(forKey: Int64(post.identifier))
+                        let postToSave = removedValue ?? context.insertObject()
+                        postToSave.configure(post)
+                    }
+
+                    for (_, postToDelete) in currentPostsDictionary {
+                        context.delete(postToDelete)
+                    }
+                }
+
+                return strongSelf.viewContext
+                    .performChangesProducer(block: operation)
+                    .mapError(DatabaseError.context)
+        }
     }
 }

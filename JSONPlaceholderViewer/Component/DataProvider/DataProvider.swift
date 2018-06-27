@@ -14,14 +14,14 @@ import Result
 private typealias PostsFetchResult = Result<[JSONPlaceholderApi.Post], NetworkError>
 
 protocol DataProviding {
-    var posts: Property<[PostProtocol]> { get }
+    var posts: Property<[PostProtocol]?> { get }
 
     func fetchPosts()
 }
 
 final class DataProvider {
 
-    let posts: Property<[PostProtocol]>
+    let posts: Property<[PostProtocol]?>
 
     private let network: Networking
     private let database: DatabaseManaging
@@ -33,23 +33,36 @@ final class DataProvider {
         self.database = database
         self.posts = database.posts
 
-        fetchPostsPipe.output
-            .flatMap(.latest) { [weak self] _ -> SignalProducer<PostsFetchResult, NoError> in
-                guard let strongSelf = self else {
-                    return .empty
+        database.posts
+            .producer
+            .sample(on: fetchPostsPipe.output.producer)
+            .flatMap(.latest) { [unowned self] posts -> SignalProducer<Void, NoError> in
+                if posts == nil {
+                    return self.database
+                        .fetchPosts()
+                        .flatMapError { _ -> SignalProducer<Void, NoError> in
+                            return .init(value: ()) // TODO: handle error
+                    }
                 }
-                return strongSelf.network
+                return .init(value: ())
+            }
+            .flatMap(.latest) { [unowned self] _ -> SignalProducer<PostsFetchResult, NoError> in
+                return self.network
                     .getResponse(of: PostsRequest())
                     .resultWrapped()
             }
-            .observeValues { [weak self] result in
+            .flatMap(.latest) { [unowned self] result -> SignalProducer<Result<Void, DatabaseError>, NoError> in
                 switch result {
                 case .success(let posts):
-                    self?.database.savePosts(posts)
-                case .failure(let error):
-                    break // TODO: do somethinf
+                    return self.database.savePosts(posts)
+                        .resultWrapped()
+                case .failure:
+                    return .init(value: .success(()))
+                    // TODO: handle error
                 }
-        }
+            }
+            .start()
+
     }
 }
 

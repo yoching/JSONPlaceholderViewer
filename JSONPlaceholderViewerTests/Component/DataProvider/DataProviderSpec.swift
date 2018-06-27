@@ -15,6 +15,8 @@ import JSONPlaceholderApi
 @testable import JSONPlaceholderViewer
 
 class DataProviderSpec: QuickSpec {
+
+    // swiftlint:disable function_body_length
     override func spec() {
 
         var networkMock: NetworkMock!
@@ -33,6 +35,23 @@ class DataProviderSpec: QuickSpec {
         }
 
         describe("fetch posts") {
+
+            context("data hasn't been fetched from database") {
+                beforeEach {
+                    databaseMock.mutablePosts.value = nil
+                }
+                it("fetch data from database") {
+                    // arrange
+                    databaseMock.timesFetchPostsCalled = 0
+
+                    // act
+                    dataProvider.fetchPosts()
+
+                    // assert
+                    expect(databaseMock.timesFetchPostsCalled).toEventually(equal(1))
+                }
+            }
+
             it("sends network request") {
                 // arrange
                 networkMock.executedRequests = []
@@ -113,38 +132,46 @@ class NetworkMock: Networking {
     var executedRequests = [Any]()
     var entityToReturn: Any?
 
-    func getResponse<RequestType: JSONPlaceholderRequest>(of request: RequestType) -> SignalProducer<RequestType.Response, NetworkError> {
-        timesGetResponseCalled += 1
-        lastRequest = request
-        executedRequests.append(request)
-        return SignalProducer { observer, _ in
-            if self.isReturningError {
-                let error = NSError(domain: "domain", code: 100, userInfo: nil)
-                observer.send(error: NetworkError(sessionTaskError: .responseError(error)))
-            } else {
-                if let entityToReturn = self.entityToReturn {
-                    // swiftlint:disable:next force_cast
-                    observer.send(value: entityToReturn as! RequestType.Response)
+    func getResponse<RequestType: JSONPlaceholderRequest>(of request: RequestType)
+        -> SignalProducer<RequestType.Response, NetworkError> {
+            timesGetResponseCalled += 1
+            lastRequest = request
+            executedRequests.append(request)
+            return SignalProducer { observer, _ in
+                if self.isReturningError {
+                    let error = NSError(domain: "domain", code: 100, userInfo: nil)
+                    observer.send(error: NetworkError(sessionTaskError: .responseError(error)))
+                } else {
+                    if let entityToReturn = self.entityToReturn {
+                        // swiftlint:disable:next force_cast
+                        observer.send(value: entityToReturn as! RequestType.Response)
+                    }
+                    observer.sendCompleted()
                 }
-                observer.sendCompleted()
             }
-        }
     }
 }
 
 final class DatabaseMock: DatabaseManaging {
     var timesSavePostsCalled: Int = 0
-    var mutablePosts = MutableProperty<[PostProtocol]>([])
-    var posts: Property<[PostProtocol]> {
+    var timesFetchPostsCalled: Int = 0
+    var mutablePosts = MutableProperty<[PostProtocol]?>(nil)
+    var posts: Property<[PostProtocol]?> {
         return Property(mutablePosts)
     }
 
-    func fetchPosts() {
-
+    func fetchPosts() -> SignalProducer<Void, DatabaseError> {
+        return SignalProducer<Void, DatabaseError>(value: ())
+            .on(started: {
+                self.timesFetchPostsCalled += 1
+            })
     }
 
-    func savePosts(_ posts: [PostFromApi]) {
-        timesSavePostsCalled += 1
+    func savePosts(_ posts: [PostFromApi]) -> SignalProducer<Void, DatabaseError> {
+        return SignalProducer<Void, DatabaseError>(value: ())
+            .on(started: {
+                self.timesSavePostsCalled += 1
+            })
     }
 }
 

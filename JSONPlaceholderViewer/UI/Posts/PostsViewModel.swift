@@ -41,7 +41,7 @@ final class PostsViewModel {
 
         mutableCellModels <~ dataProvider.posts
             .map { posts -> [PostCellModeling] in
-                return posts.map(PostCellModel.init)
+                return posts?.map(PostCellModel.init) ?? []
         }
 
         dataProvider.fetchPosts() // current implementation

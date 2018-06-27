@@ -25,7 +25,7 @@ final class CoreDataStackMock: CoreDataStack {
     }
 
     func addPost(identifier: Int64) {
-        let post = NSEntityDescription.insertNewObject(forEntityName: "Post", into: viewContext) as! Post  // swiftlint:disable:this force_cast
+        let post: Post = viewContext.insertObject()
 
         post.configure(
             identifier: identifier,

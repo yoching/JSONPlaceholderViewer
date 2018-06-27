@@ -38,7 +38,9 @@ extension NSManagedObjectContext {
 //    }
 
     public func insertObject<A: NSManagedObject>() -> A where A: Managed {
-        guard let obj = NSEntityDescription.insertNewObject(forEntityName: A.entityName, into: self) as? A else { fatalError("Wrong object type") }
+        guard let obj = NSEntityDescription.insertNewObject(forEntityName: A.entityName, into: self) as? A else {
+            fatalError("Wrong object type")
+        }
         return obj
     }
 
@@ -58,7 +60,10 @@ extension NSManagedObjectContext {
         }
     }
 
-    func performChanges(block: @escaping () -> Void, completion: @escaping (Result<Void, ManagedObjectContextError>) -> Void) {
+    func performChanges(
+        block: @escaping () -> Void,
+        completion: @escaping (Result<Void, ManagedObjectContextError>) -> Void
+        ) {
         perform {
             block()
             completion(self.saveOrRollback())
