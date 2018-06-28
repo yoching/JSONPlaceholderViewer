@@ -53,7 +53,7 @@ class DatabaseSpec: QuickSpec {
 
         describe("savePosts") {
             let posts = [JSONPlaceholderApi.Post(), JSONPlaceholderApi.Post(), JSONPlaceholderApi.Post()]
-            context("initial has been already executed") {
+            context("initial fetch has been already executed") {
                 it("save posts to CoreData") {
                     // arrange
                     database.fetchPosts().start()
@@ -65,8 +65,10 @@ class DatabaseSpec: QuickSpec {
                     expect((try? coreDataStackMock.viewContext.fetch(Post.sortedFetchRequest))?.count)
                         .toEventually(equal(3))
                 }
+
+                // TODO: add update, delete test
             }
-            context("initial has not been executed") {
+            context("initial fetch has not been executed") {
                 it("returns error") {
                     // act
                     var fetchedResult: Result<Void, DatabaseError>?
@@ -80,7 +82,6 @@ class DatabaseSpec: QuickSpec {
                 }
             }
 
-            // TODO: add update, delete test
         }
     }
 }
