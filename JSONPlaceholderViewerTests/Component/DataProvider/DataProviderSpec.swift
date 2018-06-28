@@ -45,7 +45,7 @@ class DataProviderSpec: QuickSpec {
                     databaseMock.timesFetchPostsCalled = 0
 
                     // act
-                    dataProvider.fetchPosts()
+                    dataProvider.fetchPosts().start()
 
                     // assert
                     expect(databaseMock.timesFetchPostsCalled).toEventually(equal(1))
@@ -57,12 +57,11 @@ class DataProviderSpec: QuickSpec {
                 networkMock.executedRequests = []
 
                 // act
-                dataProvider.fetchPosts()
+                dataProvider.fetchPosts().start()
 
                 // assert
-                expect(networkMock.executedRequests.count) == 1
-                let request = networkMock.executedRequests[0] as? PostsRequest
-                expect(request).toNot(beNil())
+                expect(networkMock.executedRequests.count).toEventually(equal(1))
+                expect(networkMock.executedRequests.first as? PostsRequest).toEventuallyNot(beNil())
             }
 
             context("network request success") {
@@ -77,7 +76,7 @@ class DataProviderSpec: QuickSpec {
                     databaseMock.timesSavePostsCalled = 0
 
                     // act
-                    dataProvider.fetchPosts()
+                    dataProvider.fetchPosts().start()
 
                     // assert
                     expect(databaseMock.timesSavePostsCalled) == 1
@@ -95,7 +94,7 @@ class DataProviderSpec: QuickSpec {
                     databaseMock.timesSavePostsCalled = 0
 
                     // act
-                    dataProvider.fetchPosts()
+                    dataProvider.fetchPosts().start()
 
                     // assert
                     expect(databaseMock.timesSavePostsCalled) == 0

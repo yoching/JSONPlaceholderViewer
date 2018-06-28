@@ -11,12 +11,15 @@ import JSONPlaceholderApi
 import ReactiveSwift
 import Result
 
-private typealias PostsFetchResult = Result<[JSONPlaceholderApi.Post], NetworkError>
-
 protocol DataProviding {
     var posts: Property<[PostProtocol]?> { get }
 
-    func fetchPosts()
+    func fetchPosts() -> SignalProducer<Void, DataProviderError>
+}
+
+enum DataProviderError: Error {
+    case network(NetworkError)
+    case database(DatabaseError)
 }
 
 final class DataProvider {
@@ -26,48 +29,34 @@ final class DataProvider {
     private let network: Networking
     private let database: DatabaseManaging
 
-    private let fetchPostsPipe = Signal<Void, NoError>.pipe()
-
     init(network: Networking, database: DatabaseManaging) {
         self.network = network
         self.database = database
         self.posts = database.posts
-
-        database.posts
-            .producer
-            .sample(on: fetchPostsPipe.output.producer)
-            .flatMap(.latest) { [unowned self] posts -> SignalProducer<Void, NoError> in
-                if posts == nil {
-                    return self.database
-                        .fetchPosts()
-                        .flatMapError { _ -> SignalProducer<Void, NoError> in
-                            return .init(value: ()) // TODO: handle error
-                    }
-                }
-                return .init(value: ())
-            }
-            .flatMap(.latest) { [unowned self] _ -> SignalProducer<PostsFetchResult, NoError> in
-                return self.network
-                    .getResponse(of: PostsRequest())
-                    .resultWrapped()
-            }
-            .flatMap(.latest) { [unowned self] result -> SignalProducer<Result<Void, DatabaseError>, NoError> in
-                switch result {
-                case .success(let posts):
-                    return self.database.savePosts(posts)
-                        .resultWrapped()
-                case .failure:
-                    return .init(value: .success(()))
-                    // TODO: handle error
-                }
-            }
-            .start()
-
     }
 }
 
 extension DataProvider: DataProviding {
-    func fetchPosts() {
-        fetchPostsPipe.input.send(value: ())
+    func fetchPosts() -> SignalProducer<Void, DataProviderError> {
+        return database.posts
+            .producer
+            .flatMap(.latest) { [unowned self] posts -> SignalProducer<Void, DataProviderError> in
+                if posts == nil {
+                    return self.database
+                        .fetchPosts()
+                        .mapError(DataProviderError.database)
+                }
+                return .init(value: ())
+            }
+            .flatMap(.latest) { [unowned self] _ -> SignalProducer<PostsRequest.Response, DataProviderError> in
+                return self.network
+                    .getResponse(of: PostsRequest())
+                    .mapError(DataProviderError.network)
+            }
+            .flatMap(.latest) { [unowned self] posts -> SignalProducer<Void, DataProviderError> in
+                return self.database
+                    .savePosts(posts)
+                    .mapError(DataProviderError.database)
+        }
     }
 }

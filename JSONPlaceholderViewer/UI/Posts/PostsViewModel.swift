@@ -44,7 +44,7 @@ final class PostsViewModel {
                 return posts?.map(PostCellModel.init) ?? []
         }
 
-        dataProvider.fetchPosts() // current implementation
+        dataProvider.fetchPosts().start()
     }
 }
 

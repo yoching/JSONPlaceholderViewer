@@ -59,7 +59,7 @@ final class DataProviderMock: DataProviding {
     }
     let mutablePosts = MutableProperty<[PostProtocol]?>(nil)
 
-    func fetchPosts() {
-
+    func fetchPosts() -> SignalProducer<Void, DataProviderError> {
+        return .init(value: ())
     }
 }
