@@ -41,12 +41,15 @@ final class PostsViewModel {
     init(dataProvider: DataProviding) {
         self.dataProvider = dataProvider
 
-        cellModels.signal
+        cellModels.producer
             .sample(with: didSelectRowPipe.output)
-            .map { (cellModels, row) -> PostsViewRoute in
-                return .postDetail(postIdentifier: cellModels[row].postIdentifier)
+            .map { cellModels, row -> PostCellModeling in
+                return cellModels[row]
             }
-            .observe(routeSelectedPipe.input)
+            .map { cellModel -> PostsViewRoute in
+                return .postDetail(postIdentifier: cellModel.postIdentifier)
+            }
+            .start(routeSelectedPipe.input)
 
         mutableCellModels <~ dataProvider.posts
             .map { posts -> [PostCellModeling] in
