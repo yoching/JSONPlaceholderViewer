@@ -116,6 +116,19 @@ class DataProviderSpec: QuickSpec {
                 expect(dataProvider.posts.value as? [PostMock]) == samplePosts
             }
         }
+
+        describe("fetchUser") {
+            it("fetch data from database") {
+                // arrange
+                databaseMock.timesFetchUserCalled = 0
+
+                // act
+                dataProvider.fetchUser(identifier: 1).start()
+
+                // assert
+                expect(databaseMock.timesFetchUserCalled).toEventually(equal(1))
+            }
+        }
     }
 }
 
@@ -154,6 +167,7 @@ class NetworkMock: Networking {
 final class DatabaseMock: DatabaseManaging {
     var timesSavePostsCalled: Int = 0
     var timesFetchPostsCalled: Int = 0
+    var timesFetchUserCalled: Int = 0
     var mutablePosts = MutableProperty<[PostProtocol]?>(nil)
     var posts: Property<[PostProtocol]?> {
         return Property(mutablePosts)
@@ -170,6 +184,13 @@ final class DatabaseMock: DatabaseManaging {
         return SignalProducer<Void, DatabaseError>(value: ())
             .on(started: {
                 self.timesSavePostsCalled += 1
+            })
+    }
+
+    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError> {
+        return SignalProducer<UserProtocol?, DatabaseError>(value: nil)
+            .on(started: {
+                self.timesFetchUserCalled += 1
             })
     }
 }

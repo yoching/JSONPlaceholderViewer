@@ -94,4 +94,8 @@ final class DataProviderMock: DataProviding {
                 self.timesFetchPostsStarted += 1
             })
     }
+
+    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError> {
+        return .init(value: nil)
+    }
 }

@@ -13,6 +13,7 @@ import Result
 
 enum ManagedObjectContextError: Error {
     case general(Error)
+    case unknown
 }
 
 extension NSManagedObjectContext {
@@ -21,6 +22,22 @@ extension NSManagedObjectContext {
             do {
                 let entities = try self.fetch(request)
                 observer.send(value: entities)
+                observer.sendCompleted()
+            } catch {
+                observer.send(error: .general(error))
+            }
+        }
+    }
+
+    func fetchSingleProducer<Entity>(request: NSFetchRequest<Entity>) -> SignalProducer<Entity?, ManagedObjectContextError> {
+        return .init { observer, _ in
+            do {
+                let entities = try self.fetch(request)
+                guard entities.count <= 1 else {
+                    observer.send(error: .unknown)
+                    return
+                }
+                observer.send(value: entities.first)
                 observer.sendCompleted()
             } catch {
                 observer.send(error: .general(error))

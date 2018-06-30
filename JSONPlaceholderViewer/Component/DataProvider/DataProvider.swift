@@ -15,6 +15,8 @@ protocol DataProviding {
     var posts: Property<[PostProtocol]?> { get }
 
     func fetchPosts() -> SignalProducer<Void, DataProviderError>
+
+    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError>
 }
 
 enum DataProviderError: Error {
@@ -58,5 +60,10 @@ extension DataProvider: DataProviding {
                     .savePosts(posts)
                     .mapError(DataProviderError.database)
         }
+    }
+
+    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError> {
+        return database.fetchUser(identifier: identifier)
+            .mapError(DataProviderError.database)
     }
 }

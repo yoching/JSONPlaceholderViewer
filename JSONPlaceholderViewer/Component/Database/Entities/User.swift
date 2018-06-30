@@ -9,10 +9,31 @@
 import Foundation
 import CoreData
 
-final class User: NSManagedObject {
+protocol UserProtocol {
+
+}
+
+final class User: NSManagedObject, UserProtocol {
     @NSManaged private(set) var identifier: Int64
     @NSManaged private(set) var name: String
     @NSManaged private(set) var userName: String
 
     @NSManaged private(set) var posts: Set<Post>
+
+    func configure(
+        identifier: Int64,
+        name: String,
+        userName: String,
+        posts: Set<Post>
+        ) {
+        self.identifier = identifier
+        self.name = name
+        self.userName = userName
+        self.posts = posts
+    }
+
+}
+
+extension User: Managed {
+    static let entityName: String = "User"
 }

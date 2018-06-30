@@ -21,6 +21,8 @@ protocol DatabaseManaging {
     func fetchPosts() -> SignalProducer<Void, DatabaseError>
 
     func savePosts(_ posts: [PostFromApi]) -> SignalProducer<Void, DatabaseError>
+
+    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError>
 }
 
 enum DatabaseError: Error {
@@ -93,5 +95,13 @@ extension Database: DatabaseManaging {
                     .performChangesProducer(block: operation)
                     .mapError(DatabaseError.context)
         }
+    }
+
+    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError> {
+        let predicate = NSPredicate(format: "%K == %ld", #keyPath(User.identifier), Int64(identifier))
+        return viewContext
+            .fetchSingleProducer(request: User.sortedFetchRequest(with: predicate))
+            .map { $0 }
+            .mapError(DatabaseError.context)
     }
 }

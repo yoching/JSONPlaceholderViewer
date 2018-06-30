@@ -37,4 +37,17 @@ final class CoreDataStackMock: CoreDataStack {
 
         try! viewContext.save() // swiftlint:disable:this force_try
     }
+
+    func addUser(identifier: Int64) {
+        let user: User = viewContext.insertObject()
+
+        user.configure(
+            identifier: identifier,
+            name: "",
+            userName: "",
+            posts: Set<Post>()
+        )
+
+        try! viewContext.save() // swiftlint:disable:this force_try
+    }
 }

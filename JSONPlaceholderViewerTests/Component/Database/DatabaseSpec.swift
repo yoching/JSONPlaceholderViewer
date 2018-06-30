@@ -11,6 +11,7 @@ import Quick
 import Nimble
 import JSONPlaceholderApi
 import Result
+import ReactiveSwift
 
 @testable import JSONPlaceholderViewer
 
@@ -82,6 +83,28 @@ class DatabaseSpec: QuickSpec {
                 }
             }
 
+        }
+
+        describe("fetchUser") {
+            it("fetch User from CoreData") {
+                // arrange
+                coreDataStackMock.addUser(identifier: 1)
+
+                // act
+                var fetchedUser: UserProtocol?
+                database.fetchUser(identifier: 1)
+                    .startWithResult { result in
+                        switch result {
+                        case .success(let user):
+                            fetchedUser = user
+                        case .failure:
+                            break
+                        }
+                    }
+
+                // assert
+                expect(fetchedUser).toEventuallyNot(beNil())
+            }
         }
     }
 }
