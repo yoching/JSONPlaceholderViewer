@@ -45,7 +45,6 @@ private extension PostsViewController {
 // MARK: - UITableViewDataSource
 extension PostsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("😄", viewModel.cellModels.value.count)
         return viewModel.cellModels.value.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
