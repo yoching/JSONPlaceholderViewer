@@ -40,6 +40,9 @@
 		E32C428F20DE4DE000AB328A /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32C428E20DE4DE000AB328A /* PostCell.xib */; };
 		E32C429220DE55CF00AB328A /* PostCellModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */; };
 		E32C429620DE58C700AB328A /* PostsViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C429520DE58C700AB328A /* PostsViewModelSpec.swift */; };
+		E355CD6520E0F83D00E81188 /* PostDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E355CD6420E0F83D00E81188 /* PostDetailViewController.storyboard */; };
+		E355CD6720E0F84A00E81188 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E355CD6620E0F84A00E81188 /* PostDetailViewController.swift */; };
+		E355CD6920E0F87F00E81188 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E355CD6820E0F87F00E81188 /* PostDetailViewModel.swift */; };
 		E38216CF20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E38216CD20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld */; };
 		E38216D220DA48890064B147 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D120DA48890064B147 /* Post.swift */; };
 		E38216D420DA4B970064B147 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38216D320DA4B970064B147 /* User.swift */; };
@@ -193,6 +196,9 @@
 		E32C428E20DE4DE000AB328A /* PostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellModelSpec.swift; sourceTree = "<group>"; };
 		E32C429520DE58C700AB328A /* PostsViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModelSpec.swift; sourceTree = "<group>"; };
+		E355CD6420E0F83D00E81188 /* PostDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PostDetailViewController.storyboard; sourceTree = "<group>"; };
+		E355CD6620E0F84A00E81188 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		E355CD6820E0F87F00E81188 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		E38216CE20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JSONPlaceholderViewer.xcdatamodel; sourceTree = "<group>"; };
 		E38216D120DA48890064B147 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		E38216D320DA4B970064B147 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -372,6 +378,16 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		E355CD6320E0F82900E81188 /* PostDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E355CD6420E0F83D00E81188 /* PostDetailViewController.storyboard */,
+				E355CD6620E0F84A00E81188 /* PostDetailViewController.swift */,
+				E355CD6820E0F87F00E81188 /* PostDetailViewModel.swift */,
+			);
+			path = PostDetail;
+			sourceTree = "<group>";
+		};
 		E38216C920DA42D70064B147 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +407,7 @@
 				E3F5DE5A20DBB5BF00D3AEF7 /* ViewFactory.swift */,
 				E3F5DE5E20DBBCE400D3AEF7 /* Coordinator */,
 				E32C427520DE4A9600AB328A /* Posts */,
+				E355CD6320E0F82900E81188 /* PostDetail */,
 				E32C428920DE4D7D00AB328A /* UIKitExtensions */,
 			);
 			path = UI;
@@ -803,6 +820,7 @@
 				E3FCF2BA20D4EF3500D14E3D /* Assets.xcassets in Resources */,
 				E32C428320DE4B5E00AB328A /* PostsViewController.storyboard in Resources */,
 				E32C428F20DE4DE000AB328A /* PostCell.xib in Resources */,
+				E355CD6520E0F83D00E81188 /* PostDetailViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,8 +945,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E38216DB20DA624D0064B147 /* NSManagedObject+Extension.swift in Sources */,
+				E355CD6720E0F84A00E81188 /* PostDetailViewController.swift in Sources */,
 				E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */,
 				E3F5DE6220DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift in Sources */,
+				E355CD6920E0F87F00E81188 /* PostDetailViewModel.swift in Sources */,
 				E32C428B20DE4D9600AB328A /* UITableView+Type.swift in Sources */,
 				E3F5DE6020DBBD1000D3AEF7 /* WindowCoordinator.swift in Sources */,
 				E32C428D20DE4DD700AB328A /* PostCell.swift in Sources */,
