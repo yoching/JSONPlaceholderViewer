@@ -29,7 +29,8 @@ extension NSManagedObjectContext {
         }
     }
 
-    func fetchSingleProducer<Entity>(request: NSFetchRequest<Entity>) -> SignalProducer<Entity?, ManagedObjectContextError> {
+    func fetchSingleProducer<Entity>(request: NSFetchRequest<Entity>)
+        -> SignalProducer<Entity?, ManagedObjectContextError> {
         return .init { observer, _ in
             do {
                 let entities = try self.fetch(request)

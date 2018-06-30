@@ -68,7 +68,9 @@ class DataProviderSpec: QuickSpec {
 
                 beforeEach {
                     networkMock.isReturningError = false
-                    networkMock.entityToReturn = [JSONPlaceholderApi.Post()]
+                    networkMock.entityToReturn = [
+                        JSONPlaceholderApi.Post.makeSample(identifier: 1)
+                    ]
                 }
 
                 it("saves posts in database") {
@@ -193,13 +195,6 @@ final class DatabaseMock: DatabaseManaging {
                 self.timesFetchUserCalled += 1
             })
     }
-}
 
-extension JSONPlaceholderApi.Post {
-    init() {
-        self.identifier = 1
-        self.userIdentifier = 1
-        self.title = ""
-        self.body = ""
-    }
+
 }

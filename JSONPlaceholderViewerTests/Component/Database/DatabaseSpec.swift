@@ -17,6 +17,7 @@ import ReactiveSwift
 
 class DatabaseSpec: QuickSpec {
 
+    // swiftlint:disable function_body_length
     override func spec() {
 
         var coreDataStackMock: CoreDataStackMock!
@@ -53,7 +54,11 @@ class DatabaseSpec: QuickSpec {
         }
 
         describe("savePosts") {
-            let posts = [JSONPlaceholderApi.Post(), JSONPlaceholderApi.Post(), JSONPlaceholderApi.Post()]
+            let posts = [
+                JSONPlaceholderApi.Post.makeSample(identifier: 1),
+                JSONPlaceholderApi.Post.makeSample(identifier: 2),
+                JSONPlaceholderApi.Post.makeSample(identifier: 3)
+            ]
             context("initial fetch has been already executed") {
                 it("save posts to CoreData") {
                     // arrange
@@ -117,5 +122,62 @@ extension DatabaseError {
         case .context:
             return false
         }
+    }
+}
+
+extension JSONPlaceholderApi.Post {
+    static func makeSample(identifier: Int) -> JSONPlaceholderApi.Post {
+        return Post(
+            identifier: identifier,
+            userIdentifier: 1,
+            title: "",
+            body: ""
+        )
+    }
+}
+
+extension JSONPlaceholderApi.User {
+    static func makeSample(identifier: Int) -> JSONPlaceholderApi.User {
+        return User(
+            identifier: identifier,
+            name: "",
+            userName: "",
+            email: "",
+            address: Address.makeSample(),
+            phone: "",
+            website: "",
+            company: Company.makeSample()
+        )
+    }
+}
+
+extension JSONPlaceholderApi.Company {
+    static func makeSample() -> JSONPlaceholderApi.Company {
+        return Company(
+            name: "name",
+            catchPhrase: "catchPhrase",
+            business: "business"
+        )
+    }
+}
+
+extension JSONPlaceholderApi.Address {
+    static func makeSample() -> JSONPlaceholderApi.Address {
+        return Address(
+            street: "",
+            suite: "",
+            city: "",
+            zipcode: "",
+            geo: GeoLocation.makeSample()
+        )
+    }
+}
+
+extension JSONPlaceholderApi.GeoLocation {
+    static func makeSample() -> JSONPlaceholderApi.GeoLocation {
+        return GeoLocation(
+            lat: "0.0",
+            lng: "0.0"
+        )
     }
 }

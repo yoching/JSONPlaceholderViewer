@@ -28,4 +28,24 @@ public struct User: Decodable {
         case website
         case company
     }
+
+    public init(
+        identifier: Int,
+        name: String,
+        userName: String,
+        email: String,
+        address: Address,
+        phone: String,
+        website: String,
+        company: Company
+        ) {
+        self.identifier = identifier
+        self.name = name
+        self.userName = userName
+        self.email = email
+        self.address = address
+        self.phone = phone
+        self.website = website
+        self.company = company
+    }
 }

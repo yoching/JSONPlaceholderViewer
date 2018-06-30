@@ -20,4 +20,16 @@ public struct Post: Decodable {
         case title
         case body
     }
+
+    public init(
+        identifier: Int,
+        userIdentifier: Int,
+        title: String,
+        body: String
+        ) {
+        self.identifier = identifier
+        self.userIdentifier = userIdentifier
+        self.title = title
+        self.body = body
+    }
 }
