@@ -17,6 +17,8 @@ protocol DataProviding {
     func fetchPosts() -> SignalProducer<Void, DataProviderError>
 
     func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError>
+
+    func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError>
 }
 
 enum DataProviderError: Error {
@@ -65,5 +67,15 @@ extension DataProvider: DataProviding {
     func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError> {
         return database.fetchUser(identifier: identifier)
             .mapError(DataProviderError.database)
+    }
+
+    func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {
+        return network
+            .getResponse(of: UserRequest(userIdentifier: Int(post.userProtocol.identifier)))
+            .mapError(DataProviderError.network)
+            .flatMap(.latest) { [unowned self] userFromApi -> SignalProducer<Void, DataProviderError> in
+                return self.database.populatePost(post, with: userFromApi)
+                    .mapError(DataProviderError.database)
+        }
     }
 }

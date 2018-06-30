@@ -25,7 +25,7 @@ final class CoreDataStackMock: CoreDataStack {
     }
 
     @discardableResult
-    func addPost(identifier: Int64) -> Post {
+    func addPost(identifier: Int64, user: User) -> Post {
         let post: Post = viewContext.insertObject()
 
         post.configure(
@@ -33,14 +33,15 @@ final class CoreDataStackMock: CoreDataStack {
             body: "",
             title: "",
             comments: Set<Comment>(),
-            user: nil
+            user: user
         )
 
         try! viewContext.save() // swiftlint:disable:this force_try
         return post
     }
 
-    func addUser(identifier: Int64) {
+    @discardableResult
+    func addUser(identifier: Int64) -> User {
         let user: User = viewContext.insertObject()
 
         user.configure(
@@ -51,6 +52,7 @@ final class CoreDataStackMock: CoreDataStack {
         )
 
         try! viewContext.save() // swiftlint:disable:this force_try
+        return user
     }
 
     func fetchUsers() -> [User] {

@@ -31,6 +31,7 @@ protocol DatabaseManaging {
 enum DatabaseError: Error {
     case context(ManagedObjectContextError)
     case notFetchedInitially
+    case invalidUserDataPassed
 }
 
 final class Database {
@@ -63,7 +64,12 @@ extension Database: DatabaseManaging {
     }
 
     func savePosts(_ postsToSave: [PostFromApi]) -> SignalProducer<Void, DatabaseError> {
+
+        let fetchRelatedUsers = fetchUsers(identifiers: postsToSave.map { $0.identifier })
+            .map { $0.keyedByIdentifier }
+
         return mutablePosts.producer
+            .take(first: 1)
             .promoteError(DatabaseError.self)
             .attemptMap { posts -> Result<[Post], DatabaseError> in
                 guard let posts = posts else {
@@ -71,25 +77,44 @@ extension Database: DatabaseManaging {
                 }
                 return .success(posts)
             }
-            .flatMap(.latest) { [weak self] currentPosts
-                -> SignalProducer<Void, DatabaseError> in
+            .map { currentPosts -> [Int64: Post] in
+                return Dictionary(uniqueKeysWithValues: currentPosts.map { ($0.identifier, $0) })
+            }
+            .zip(with: fetchRelatedUsers)
+            .flatMap(.latest) { [weak self] currentPosts, relatedUsers -> SignalProducer<Void, DatabaseError> in
 
                 guard let strongSelf = self else {
                     return .empty
                 }
 
-                var currentPostsDictionary = Dictionary(
-                    uniqueKeysWithValues: currentPosts.map { ($0.identifier, $0) }
-                )
-
                 let operation: (NSManagedObjectContext) -> Void = { context in
-                    for post in postsToSave {
-                        let removedValue = currentPostsDictionary.removeValue(forKey: Int64(post.identifier))
-                        let postToSave = removedValue ?? context.insertObject()
-                        postToSave.configure(post)
+
+                    var mutableCurrentPosts = currentPosts
+                    var mutableRelatedUsers = relatedUsers
+
+                    for postFromApi in postsToSave {
+
+                        let postId = Int64(postFromApi.identifier)
+                        let userId = Int64(postFromApi.userIdentifier)
+
+                        let postToConfigure: Post = mutableCurrentPosts.removeValue(forKey: postId)
+                            ?? context.insertObject()
+
+                        // user
+                        let relatedUser: User
+                        if let user = mutableRelatedUsers[userId] {
+                            relatedUser = user
+                        } else {
+                            let newUser: User = context.insertObject()
+                            newUser.configureMinimumInfo(identifier: userId)
+                            mutableRelatedUsers[userId] = newUser
+                            relatedUser = newUser
+                        }
+
+                        postToConfigure.configure(postFromApi: postFromApi, user: relatedUser)
                     }
 
-                    for (_, postToDelete) in currentPostsDictionary {
+                    for (_, postToDelete) in mutableCurrentPosts {
                         context.delete(postToDelete)
                     }
                 }
@@ -115,18 +140,40 @@ extension Database: DatabaseManaging {
             .mapError(DatabaseError.context)
     }
 
-    func populatePost(_ post: PostProtocol, with userFromApi: UserFromApi) -> SignalProducer<Void, DatabaseError> {
-        assert(post is Post)
-        return fetchUser2(identifier: userFromApi.identifier)
-            .flatMap(.latest) { [unowned self] user -> SignalProducer<Void, DatabaseError> in
-                let operation: (NSManagedObjectContext) -> Void = { context in
-                    let userToUpdate: User = user ?? context.insertObject()
-                    userToUpdate.configure(userFromApi)
-                    (post as! Post).addUser(userToUpdate) // swiftlint:disable:this force_cast (logic error)
+    func fetchUsers(identifiers: [Int]) -> SignalProducer<[User], DatabaseError> {
+        let predicate = NSPredicate(format: "%K in %@", #keyPath(User.identifier), identifiers)
+        return viewContext
+            .fetchProducer(request: User.sortedFetchRequest(with: predicate))
+            .mapError(DatabaseError.context)
+    }
+
+    func populatePost(_ post: PostProtocol, with userFromApi: UserFromApi)
+        -> SignalProducer<Void, DatabaseError> {
+            return SignalProducer<Void, DatabaseError> { observer, _ in
+                guard post.userProtocol.identifier == userFromApi.identifier else {
+                    observer.send(error: .invalidUserDataPassed)
+                    return
                 }
-                return self.viewContext
-                    .performChangesProducer(block: operation)
-                    .mapError(DatabaseError.context)
-        }
+                observer.send(value: ())
+                observer.sendCompleted()
+                }
+                .flatMap(.latest) { [unowned self] _ -> SignalProducer<Void, DatabaseError> in
+                    assert(post is Post)
+                    let postEntity = post as! Post // swiftlint:disable:this force_cast (This is a logic error.)
+
+                    let operation: (NSManagedObjectContext) -> Void = { context in
+                        postEntity.user.populate(with: userFromApi)
+                    }
+
+                    return self.viewContext
+                        .performChangesProducer(block: operation)
+                        .mapError(DatabaseError.context)
+            }
+    }
+}
+
+private extension Array where Element == User {
+    var keyedByIdentifier: [Int64: Element] {
+        return Dictionary(uniqueKeysWithValues: zip(self.map { $0.identifier }, self))
     }
 }

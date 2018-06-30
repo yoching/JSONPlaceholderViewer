@@ -34,9 +34,12 @@ class DatabaseSpec: QuickSpec {
         describe("fetchPosts") {
             it("fetch posts from CoreData") {
                 // arrange
-                coreDataStackMock.addPost(identifier: 1)
-                coreDataStackMock.addPost(identifier: 2)
-                coreDataStackMock.addPost(identifier: 3)
+                let user1 = coreDataStackMock.addUser(identifier: 1)
+                let user2 = coreDataStackMock.addUser(identifier: 2)
+                let user3 = coreDataStackMock.addUser(identifier: 3)
+                coreDataStackMock.addPost(identifier: 1, user: user1)
+                coreDataStackMock.addPost(identifier: 2, user: user2)
+                coreDataStackMock.addPost(identifier: 3, user: user3)
 
                 var fetchedPosts: [[PostProtocol]?] = []
                 database.posts.producer
@@ -119,7 +122,8 @@ class DatabaseSpec: QuickSpec {
                 expect(usersBeforeAct.count).to(equal(0))
 
                 let userEntityFromApi = User.makeSample(identifier: 1)
-                let post = coreDataStackMock.addPost(identifier: 1)
+                let originalUser = coreDataStackMock.addUser(identifier: 1)
+                let post = coreDataStackMock.addPost(identifier: 1, user: originalUser)
 
                 // act
                 database.populatePost(post, with: userEntityFromApi).start()
@@ -127,7 +131,7 @@ class DatabaseSpec: QuickSpec {
                 // assert
                 expect(coreDataStackMock.fetchUsers().count).toEventually(equal(1))
                 expect(post.user).toEventuallyNot(beNil())
-                expect(post.user?.identifier)
+                expect(post.user.identifier)
                     .toEventually(equal(coreDataStackMock.fetchUsers().first?.identifier))
             }
         }
@@ -139,7 +143,7 @@ extension DatabaseError {
         switch self {
         case .notFetchedInitially:
             return true
-        case .context:
+        case .context, .invalidUserDataPassed:
             return false
         }
     }

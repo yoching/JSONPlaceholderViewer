@@ -10,13 +10,13 @@ import Foundation
 import CoreData
 
 protocol UserProtocol {
-
+    var identifier: Int64 { get }
 }
 
 final class User: NSManagedObject, UserProtocol {
     @NSManaged private(set) var identifier: Int64
-    @NSManaged private(set) var name: String
-    @NSManaged private(set) var userName: String
+    @NSManaged private(set) var name: String?
+    @NSManaged private(set) var userName: String?
 
     @NSManaged private(set) var posts: Set<Post>
 
@@ -32,15 +32,15 @@ final class User: NSManagedObject, UserProtocol {
         self.posts = posts
     }
 
-    func configure(_ userFromApi: UserFromApi) {
-        self.configure(
-            identifier: Int64(userFromApi.identifier),
-            name: userFromApi.name,
-            userName: userFromApi.userName,
-            posts: Set<Post>()
-        )
+    func populate(with userFromApi: UserFromApi) {
+        self.name = userFromApi.name
+        self.userName = userFromApi.userName
     }
 
+    func configureMinimumInfo(identifier: Int64) {
+        self.identifier = identifier
+        self.posts = Set<Post>()
+    }
 }
 
 extension User: Managed {
