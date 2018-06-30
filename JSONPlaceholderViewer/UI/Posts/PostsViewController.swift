@@ -31,6 +31,11 @@ final class PostsViewController: UIViewController {
 
         tableView.reactive.reloadData <~ viewModel.cellModels.signal.map { _ in () }
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
+    }
 }
 
 // MARK: - Private Methods

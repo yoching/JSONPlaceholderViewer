@@ -50,16 +50,48 @@ class PostsViewModelSpec: QuickSpec {
             }
         }
 
+        describe("viewWillAppear") {
+            context("first fetch") {
+                it("fetches data from DataProvider") {
+                    // arrange
+                    dataProviderMock.timesFetchPostsStarted = 0
+
+                    // act
+                    postsViewModel.viewWillAppear()
+
+                    // assert
+                    expect(dataProviderMock.timesFetchPostsStarted) == 1
+                }
+            }
+            context("2nd fetch") {
+                it("doesn't fetch data from DataProvider") {
+                    // arrange
+                    postsViewModel.viewWillAppear()
+                    dataProviderMock.timesFetchPostsStarted = 0
+
+                    // act
+                    postsViewModel.viewWillAppear()
+
+                    // assert
+                    expect(dataProviderMock.timesFetchPostsStarted) == 0
+                }
+            }
+        }
+
     }
 }
 
 final class DataProviderMock: DataProviding {
+    var timesFetchPostsStarted: Int = 0
     var posts: Property<[PostProtocol]?> {
         return Property(mutablePosts)
     }
     let mutablePosts = MutableProperty<[PostProtocol]?>(nil)
 
     func fetchPosts() -> SignalProducer<Void, DataProviderError> {
-        return .init(value: ())
+        return SignalProducer<Void, DataProviderError>(value: ())
+            .on(started: {
+                self.timesFetchPostsStarted += 1
+            })
     }
 }
