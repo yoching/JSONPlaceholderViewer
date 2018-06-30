@@ -44,6 +44,10 @@ final class Post: NSManagedObject, PostProtocol {
         self.comments = Set<Comment>()
         self.user = nil
     }
+
+    func addUser(_ user: User) {
+        self.user = user
+    }
 }
 
 extension Post: Managed {

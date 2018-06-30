@@ -13,6 +13,7 @@ import CoreData
 import JSONPlaceholderApi
 
 typealias PostFromApi = JSONPlaceholderApi.Post
+typealias UserFromApi = JSONPlaceholderApi.User
 private typealias ContextPerformResult = Result<Void, ManagedObjectContextError>
 
 protocol DatabaseManaging {
@@ -23,6 +24,8 @@ protocol DatabaseManaging {
     func savePosts(_ posts: [PostFromApi]) -> SignalProducer<Void, DatabaseError>
 
     func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError>
+
+    func populatePost(_ post: PostProtocol, with userFromApi: UserFromApi) -> SignalProducer<Void, DatabaseError>
 }
 
 enum DatabaseError: Error {
@@ -103,5 +106,27 @@ extension Database: DatabaseManaging {
             .fetchSingleProducer(request: User.sortedFetchRequest(with: predicate))
             .map { $0 }
             .mapError(DatabaseError.context)
+    }
+
+    func fetchUser2(identifier: Int) -> SignalProducer<User?, DatabaseError> {
+        let predicate = NSPredicate(format: "%K == %ld", #keyPath(User.identifier), Int64(identifier))
+        return viewContext
+            .fetchSingleProducer(request: User.sortedFetchRequest(with: predicate))
+            .mapError(DatabaseError.context)
+    }
+
+    func populatePost(_ post: PostProtocol, with userFromApi: UserFromApi) -> SignalProducer<Void, DatabaseError> {
+        assert(post is Post)
+        return fetchUser2(identifier: userFromApi.identifier)
+            .flatMap(.latest) { [unowned self] user -> SignalProducer<Void, DatabaseError> in
+                let operation: (NSManagedObjectContext) -> Void = { context in
+                    let userToUpdate: User = user ?? context.insertObject()
+                    userToUpdate.configure(userFromApi)
+                    (post as! Post).addUser(userToUpdate) // swiftlint:disable:this force_cast (logic error)
+                }
+                return self.viewContext
+                    .performChangesProducer(block: operation)
+                    .mapError(DatabaseError.context)
+        }
     }
 }

@@ -32,6 +32,15 @@ final class User: NSManagedObject, UserProtocol {
         self.posts = posts
     }
 
+    func configure(_ userFromApi: UserFromApi) {
+        self.configure(
+            identifier: Int64(userFromApi.identifier),
+            name: userFromApi.name,
+            userName: userFromApi.userName,
+            posts: Set<Post>()
+        )
+    }
+
 }
 
 extension User: Managed {

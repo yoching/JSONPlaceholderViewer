@@ -196,5 +196,7 @@ final class DatabaseMock: DatabaseManaging {
             })
     }
 
-
+    func populatePost(_ post: PostProtocol, with userFromApi: UserFromApi) -> SignalProducer<Void, DatabaseError> {
+        return .init(value: ())
+    }
 }

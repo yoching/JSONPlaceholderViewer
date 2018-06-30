@@ -111,6 +111,26 @@ class DatabaseSpec: QuickSpec {
                 expect(fetchedUser).toEventuallyNot(beNil())
             }
         }
+
+        describe("populatePost") {
+            it("saves user & relates to post") {
+                // arrange
+                let usersBeforeAct = coreDataStackMock.fetchUsers()
+                expect(usersBeforeAct.count).to(equal(0))
+
+                let userEntityFromApi = User.makeSample(identifier: 1)
+                let post = coreDataStackMock.addPost(identifier: 1)
+
+                // act
+                database.populatePost(post, with: userEntityFromApi).start()
+
+                // assert
+                expect(coreDataStackMock.fetchUsers().count).toEventually(equal(1))
+                expect(post.user).toEventuallyNot(beNil())
+                expect(post.user?.identifier)
+                    .toEventually(equal(coreDataStackMock.fetchUsers().first?.identifier))
+            }
+        }
     }
 }
 
