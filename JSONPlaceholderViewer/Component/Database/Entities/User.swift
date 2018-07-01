@@ -11,6 +11,7 @@ import CoreData
 
 protocol UserProtocol: class {
     var identifier: Int64 { get }
+    var name: String? { get }
 }
 
 final class User: NSManagedObject, UserProtocol {

@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import ReactiveCocoa
+import ReactiveSwift
 
 final class PostDetailViewController: UIViewController {
 
     // MARK: - View Elements
+    @IBOutlet weak var userNameLabel: UILabel!
 
     // MARK: - Properties
     private var viewModel: PostDetailViewModeling!
@@ -22,7 +25,12 @@ final class PostDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        userNameLabel.reactive.text <~ viewModel.userName
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
     }
 }
 

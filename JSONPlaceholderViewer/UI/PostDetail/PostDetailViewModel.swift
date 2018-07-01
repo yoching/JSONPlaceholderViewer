@@ -12,6 +12,7 @@ import Result
 
 protocol PostDetailViewModeling {
     // View States
+    var userName: Property<String> { get }
 
     // View -> View Model
     func viewWillAppear()
@@ -32,12 +33,16 @@ final class PostDetailViewModel {
     private let post: PostProtocol
     private let dataProvider: DataProviding
 
-    private let routeSelectedPipe = Signal<PostDetailViewRoute, NoError>.pipe()
+    private let mutableUserName: MutableProperty<String>
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
+
+    private let routeSelectedPipe = Signal<PostDetailViewRoute, NoError>.pipe()
 
     init(of post: PostProtocol, dataProvider: DataProviding) {
         self.post = post
         self.dataProvider = dataProvider
+
+        mutableUserName = MutableProperty<String>(post.userProtocol.name ?? "-")
 
         viewWillAppearPipe.output
             .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
@@ -48,6 +53,7 @@ final class PostDetailViewModel {
                     .resultWrapped()
             }
             .observeValues { result in
+                self.mutableUserName.value = self.post.userProtocol.name ?? "-"
                 print(result)
         }
     }
@@ -55,6 +61,9 @@ final class PostDetailViewModel {
 
 // MARK: - PostDetailViewModeling
 extension PostDetailViewModel: PostDetailViewModeling {
+    var userName: Property<String> {
+        return Property(mutableUserName)
+    }
     func viewWillAppear() {
         viewWillAppearPipe.input.send(value: ())
     }
