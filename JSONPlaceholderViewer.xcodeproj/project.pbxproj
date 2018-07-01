@@ -25,6 +25,7 @@
 		E31854D520D92EF300D8AC89 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D420D92EF300D8AC89 /* ApiClient.swift */; };
 		E31854D820D92F6B00D8AC89 /* SessionTaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D720D92F6B00D8AC89 /* SessionTaskError.swift */; };
 		E31854DA20D92F7A00D8AC89 /* SessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D920D92F7A00D8AC89 /* SessionTask.swift */; };
+		E31DF17020E892C90095C131 /* PostDetailViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31DF16F20E892C90095C131 /* PostDetailViewModelSpec.swift */; };
 		E32C426920DDFB9D00AB328A /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426820DDFB9D00AB328A /* DataProvider.swift */; };
 		E32C426B20DDFFA400AB328A /* ResultWrappedObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */; };
 		E32C426D20DE03B000AB328A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426C20DE03B000AB328A /* Database.swift */; };
@@ -181,6 +182,7 @@
 		E31854D420D92EF300D8AC89 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		E31854D720D92F6B00D8AC89 /* SessionTaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTaskError.swift; sourceTree = "<group>"; };
 		E31854D920D92F7A00D8AC89 /* SessionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTask.swift; sourceTree = "<group>"; };
+		E31DF16F20E892C90095C131 /* PostDetailViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModelSpec.swift; sourceTree = "<group>"; };
 		E32C426820DDFB9D00AB328A /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultWrappedObservable.swift; sourceTree = "<group>"; };
 		E32C426C20DE03B000AB328A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -323,6 +325,23 @@
 			path = Requests;
 			sourceTree = "<group>";
 		};
+		E31DF16D20E892AB0095C131 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				E32C429520DE58C700AB328A /* PostsViewModelSpec.swift */,
+				E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */,
+			);
+			path = Posts;
+			sourceTree = "<group>";
+		};
+		E31DF16E20E892B70095C131 /* PostDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E31DF16F20E892C90095C131 /* PostDetailViewModelSpec.swift */,
+			);
+			path = PostDetail;
+			sourceTree = "<group>";
+		};
 		E32C426720DDFB8800AB328A /* DataProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,8 +391,8 @@
 		E32C429020DE557300AB328A /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E32C429520DE58C700AB328A /* PostsViewModelSpec.swift */,
-				E32C429120DE55CF00AB328A /* PostCellModelSpec.swift */,
+				E31DF16D20E892AB0095C131 /* Posts */,
+				E31DF16E20E892B70095C131 /* PostDetail */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -982,6 +1001,7 @@
 			files = (
 				E32C427020DE097D00AB328A /* DatabaseSpec.swift in Sources */,
 				E32C427220DE185600AB328A /* CoreDataStackMock.swift in Sources */,
+				E31DF17020E892C90095C131 /* PostDetailViewModelSpec.swift in Sources */,
 				E3FCF2C820D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift in Sources */,
 				E32C429620DE58C700AB328A /* PostsViewModelSpec.swift in Sources */,
 				E32C429220DE55CF00AB328A /* PostCellModelSpec.swift in Sources */,
