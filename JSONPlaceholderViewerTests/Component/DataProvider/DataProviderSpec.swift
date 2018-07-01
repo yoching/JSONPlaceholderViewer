@@ -68,7 +68,9 @@ class DataProviderSpec: QuickSpec {
 
                 beforeEach {
                     networkMock.isReturningError = false
-                    networkMock.entityToReturn = [JSONPlaceholderApi.Post()]
+                    networkMock.entityToReturn = [
+                        JSONPlaceholderApi.Post.makeSample(identifier: 1)
+                    ]
                 }
 
                 it("saves posts in database") {
@@ -106,9 +108,9 @@ class DataProviderSpec: QuickSpec {
             it("provides posts in database") {
                 // arrange
                 let samplePosts = [
-                    PostMock(identifier: 1, title: "1"),
-                    PostMock(identifier: 2, title: "2"),
-                    PostMock(identifier: 3, title: "3")
+                    PostMock(identifier: 1, title: "1", userProtocol: UserMock(identifier: 1)),
+                    PostMock(identifier: 2, title: "2", userProtocol: UserMock(identifier: 2)),
+                    PostMock(identifier: 3, title: "3", userProtocol: UserMock(identifier: 3))
                 ]
                 databaseMock.mutablePosts.value = samplePosts
 
@@ -116,19 +118,126 @@ class DataProviderSpec: QuickSpec {
                 expect(dataProvider.posts.value as? [PostMock]) == samplePosts
             }
         }
+
+        describe("fetchUser") {
+            it("fetch data from database") {
+                // arrange
+                databaseMock.timesFetchUserCalled = 0
+
+                // act
+                dataProvider.fetchUser(identifier: 1).start()
+
+                // assert
+                expect(databaseMock.timesFetchUserCalled).toEventually(equal(1))
+            }
+        }
+
+        describe("populate post") {
+
+            it("fetches user data from api") {
+                // arrange
+                networkMock.executedRequests = []
+                let postMock = PostMock(
+                    identifier: 1,
+                    title: "title",
+                    userProtocol: UserMock(identifier: 1)
+                )
+
+                // act
+                dataProvider.populate(postMock).start()
+
+                // assert
+                expect(networkMock.executedRequests.count).toEventually(equal(1))
+                expect(networkMock.executedRequests.last as? UserRequest).toEventuallyNot(beNil())
+            }
+
+            context("network success") {
+
+                beforeEach {
+                    networkMock.isReturningError = false
+                    networkMock.entityToReturn = JSONPlaceholderApi.User.makeSample(identifier: 1)
+                }
+
+                it("populate post in database") {
+                    // arrange
+                    databaseMock.timesPopulatePostCalled = 0
+                    let postMock = PostMock(
+                        identifier: 1,
+                        title: "title",
+                        userProtocol: UserMock(identifier: 1)
+                    )
+
+                    // act
+                    dataProvider.populate(postMock).start()
+
+                    // assert
+                    expect(databaseMock.timesPopulatePostCalled).toEventually(equal(1))
+                }
+            }
+
+            context("network fails") {
+
+                beforeEach {
+                    networkMock.isReturningError = true
+                }
+
+                it("doesn't populate post in database") {
+                    // arrange
+                    databaseMock.timesPopulatePostCalled = 0
+                    let postMock = PostMock(
+                        identifier: 1,
+                        title: "title",
+                        userProtocol: UserMock(identifier: 1)
+                    )
+
+                    // act
+                    dataProvider.populate(postMock).start()
+
+                    // assert
+                    expect(databaseMock.timesPopulatePostCalled).toEventually(equal(0))
+                }
+            }
+        }
     }
 }
 
-struct PostMock: PostProtocol, Equatable {
+class PostMock: PostProtocol, Equatable {
+    static func == (lhs: PostMock, rhs: PostMock) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+
     let identifier: Int64
     let title: String
+    let userProtocol: UserProtocol
+
+    init(
+        identifier: Int64,
+        title: String,
+        userProtocol: UserProtocol
+        ) {
+        self.identifier = identifier
+        self.title = title
+        self.userProtocol = userProtocol
+    }
+}
+
+class UserMock: UserProtocol, Equatable {
+    static func == (lhs: UserMock, rhs: UserMock) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+
+    let identifier: Int64
+
+    init(identifier: Int64) {
+        self.identifier = identifier
+    }
 }
 
 class NetworkMock: Networking {
     var isReturningError: Bool = false
     var timesGetResponseCalled = 0
     var lastRequest: Any?
-    var executedRequests = [Any]()
+    var executedRequests = [Any]() // TODO: decide which to use with lastRequest
     var entityToReturn: Any?
 
     func getResponse<RequestType: JSONPlaceholderRequest>(of request: RequestType)
@@ -154,6 +263,9 @@ class NetworkMock: Networking {
 final class DatabaseMock: DatabaseManaging {
     var timesSavePostsCalled: Int = 0
     var timesFetchPostsCalled: Int = 0
+    var timesFetchUserCalled: Int = 0
+    var timesPopulatePostCalled: Int = 0
+
     var mutablePosts = MutableProperty<[PostProtocol]?>(nil)
     var posts: Property<[PostProtocol]?> {
         return Property(mutablePosts)
@@ -172,13 +284,18 @@ final class DatabaseMock: DatabaseManaging {
                 self.timesSavePostsCalled += 1
             })
     }
-}
 
-extension JSONPlaceholderApi.Post {
-    init() {
-        self.identifier = 1
-        self.userIdentifier = 1
-        self.title = ""
-        self.body = ""
+    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError> {
+        return SignalProducer<UserProtocol?, DatabaseError>(value: nil)
+            .on(started: {
+                self.timesFetchUserCalled += 1
+            })
+    }
+
+    func populatePost(_ post: PostProtocol, with userFromApi: UserFromApi) -> SignalProducer<Void, DatabaseError> {
+        return SignalProducer<Void, DatabaseError>(value: ())
+            .on(started: {
+                self.timesPopulatePostCalled += 1
+            })
     }
 }

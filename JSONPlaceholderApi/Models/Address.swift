@@ -14,4 +14,18 @@ public struct Address: Decodable, Equatable {
     public let city: String
     public let zipcode: String
     public let geo: GeoLocation
+
+    public init(
+        street: String,
+        suite: String,
+        city: String,
+        zipcode: String,
+        geo: GeoLocation
+        ) {
+        self.street = street
+        self.suite = suite
+        self.city = city
+        self.zipcode = zipcode
+        self.geo = geo
+    }
 }

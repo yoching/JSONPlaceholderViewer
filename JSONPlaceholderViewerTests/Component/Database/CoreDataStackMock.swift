@@ -24,7 +24,8 @@ final class CoreDataStackMock: CoreDataStack {
         persistentContainer.persistentStoreDescriptions = [description]
     }
 
-    func addPost(identifier: Int64) {
+    @discardableResult
+    func addPost(identifier: Int64, user: User) -> Post {
         let post: Post = viewContext.insertObject()
 
         post.configure(
@@ -32,9 +33,29 @@ final class CoreDataStackMock: CoreDataStack {
             body: "",
             title: "",
             comments: Set<Comment>(),
-            user: nil
+            user: user
         )
 
         try! viewContext.save() // swiftlint:disable:this force_try
+        return post
+    }
+
+    @discardableResult
+    func addUser(identifier: Int64) -> User {
+        let user: User = viewContext.insertObject()
+
+        user.configure(
+            identifier: identifier,
+            name: "",
+            userName: "",
+            posts: Set<Post>()
+        )
+
+        try! viewContext.save() // swiftlint:disable:this force_try
+        return user
+    }
+
+    func fetchUsers() -> [User] {
+        return try! viewContext.fetch(User.sortedFetchRequest) // swiftlint:disable:this force_try
     }
 }

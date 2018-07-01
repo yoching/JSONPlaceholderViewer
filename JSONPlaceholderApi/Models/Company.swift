@@ -17,6 +17,15 @@ public struct Company: Decodable, Equatable {
         case name
         case catchPhrase
         case business = "bs"
-
     }
-}
+
+    public init(
+        name: String,
+        catchPhrase: String,
+        business: String
+        ) {
+        self.name = name
+        self.catchPhrase = catchPhrase
+        self.business = business
+    }
+ }

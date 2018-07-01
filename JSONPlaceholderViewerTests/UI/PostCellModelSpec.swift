@@ -19,7 +19,8 @@ class PostCellModelSpec: QuickSpec {
                 // arrange
                 let postToSet = PostMock(
                     identifier: 1,
-                    title: "test title"
+                    title: "test title",
+                    userProtocol: UserMock(identifier: 1)
                 )
 
                 // act

@@ -13,6 +13,7 @@ import JSONPlaceholderApi
 protocol PostProtocol {
     var identifier: Int64 { get }
     var title: String { get }
+    var userProtocol: UserProtocol { get } // TODO: think about name
 }
 
 final class Post: NSManagedObject, PostProtocol {
@@ -21,14 +22,14 @@ final class Post: NSManagedObject, PostProtocol {
     @NSManaged private(set) var title: String
 
     @NSManaged private(set) var comments: Set<Comment>
-    @NSManaged private(set) var user: User?
+    @NSManaged private(set) var user: User
 
     func configure(
         identifier: Int64,
         body: String,
         title: String,
         comments: Set<Comment>,
-        user: User?
+        user: User
         ) {
         self.identifier = identifier
         self.body = body
@@ -37,12 +38,16 @@ final class Post: NSManagedObject, PostProtocol {
         self.user = user
     }
 
-    func configure(_ postFromApi: JSONPlaceholderApi.Post) {
+    func configure(postFromApi: JSONPlaceholderApi.Post, user: User) {
         self.identifier = Int64(postFromApi.identifier)
         self.body = postFromApi.body
         self.title = postFromApi.title
         self.comments = Set<Comment>()
-        self.user = nil
+        self.user = user
+    }
+
+    var userProtocol: UserProtocol {
+        return user as UserProtocol
     }
 }
 
