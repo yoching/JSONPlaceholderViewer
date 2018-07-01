@@ -54,12 +54,12 @@ class PostsViewModelSpec: QuickSpec {
 }
 
 final class DataProviderMock: DataProviding {
-    var posts: Property<[PostProtocol]> {
+    var posts: Property<[PostProtocol]?> {
         return Property(mutablePosts)
     }
-    let mutablePosts = MutableProperty<[PostProtocol]>([])
+    let mutablePosts = MutableProperty<[PostProtocol]?>(nil)
 
-    func fetchPosts() {
-
+    func fetchPosts() -> SignalProducer<Void, DataProviderError> {
+        return .init(value: ())
     }
 }

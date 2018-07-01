@@ -28,14 +28,15 @@ extension NSManagedObjectContext {
         }
     }
 
-    func performProducer(block: @escaping (_ context: NSManagedObjectContext) -> Void) -> SignalProducer<Void, NoError> {
-        return .init { observer, _ in
-            self.perform {
-                block(self)
-                observer.send(value: ())
-                observer.sendCompleted()
+    func performProducer(block: @escaping (_ context: NSManagedObjectContext) -> Void)
+        -> SignalProducer<Void, NoError> {
+            return .init { observer, _ in
+                self.perform {
+                    block(self)
+                    observer.send(value: ())
+                    observer.sendCompleted()
+                }
             }
-        }
     }
 
     func saveOrRollbackProducer() -> SignalProducer<Void, ManagedObjectContextError> {
