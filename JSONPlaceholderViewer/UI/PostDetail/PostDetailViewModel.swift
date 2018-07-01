@@ -14,6 +14,7 @@ protocol PostDetailViewModeling {
     // View States
 
     // View -> View Model
+    func viewWillAppear()
 
     // View Model -> View
 }
@@ -27,12 +28,36 @@ protocol PostDetailViewRouting {
 }
 
 final class PostDetailViewModel {
+
+    private let post: PostProtocol
+    private let dataProvider: DataProviding
+
     private let routeSelectedPipe = Signal<PostDetailViewRoute, NoError>.pipe()
+    private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
+
+    init(of post: PostProtocol, dataProvider: DataProviding) {
+        self.post = post
+        self.dataProvider = dataProvider
+
+        viewWillAppearPipe.output
+            .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
+                guard let strongSelf = self else {
+                    return .empty
+                }
+                return strongSelf.dataProvider.populate(strongSelf.post)
+                    .resultWrapped()
+            }
+            .observeValues { result in
+                print(result)
+        }
+    }
 }
 
 // MARK: - PostDetailViewModeling
 extension PostDetailViewModel: PostDetailViewModeling {
-
+    func viewWillAppear() {
+        viewWillAppearPipe.input.send(value: ())
+    }
 }
 
 // MARK: - PostDetailViewRouting

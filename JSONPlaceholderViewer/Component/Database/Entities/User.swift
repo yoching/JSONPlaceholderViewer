@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-protocol UserProtocol {
+protocol UserProtocol: class {
     var identifier: Int64 { get }
 }
 

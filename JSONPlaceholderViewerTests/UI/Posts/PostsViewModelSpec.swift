@@ -83,6 +83,8 @@ class PostsViewModelSpec: QuickSpec {
 
 final class DataProviderMock: DataProviding {
     var timesFetchPostsStarted: Int = 0
+    var timesPopulatePostStarted: Int = 0
+
     var posts: Property<[PostProtocol]?> {
         return Property(mutablePosts)
     }
@@ -100,6 +102,9 @@ final class DataProviderMock: DataProviding {
     }
 
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {
-        return .init(value: ())
+        return SignalProducer<Void, DataProviderError>(value: ())
+            .on(started: {
+                self.timesPopulatePostStarted += 1
+            })
     }
 }

@@ -9,15 +9,15 @@
 import Foundation
 
 protocol PostCellModeling {
-    var postIdentifier: Int64 { get }
+    var post: PostProtocol { get }
     var title: String { get }
 }
 
 final class PostCellModel {
-    let postIdentifier: Int64
+    let post: PostProtocol
     let title: String
     init(post: PostProtocol) {
-        postIdentifier = post.identifier
+        self.post = post
         title = post.title
     }
 }

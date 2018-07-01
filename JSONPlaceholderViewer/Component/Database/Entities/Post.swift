@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import JSONPlaceholderApi
 
-protocol PostProtocol {
+protocol PostProtocol: class {
     var identifier: Int64 { get }
     var title: String { get }
     var userProtocol: UserProtocol { get } // TODO: think about name
