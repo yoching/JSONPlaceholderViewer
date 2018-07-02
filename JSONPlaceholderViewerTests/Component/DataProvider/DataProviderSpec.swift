@@ -236,6 +236,7 @@ class PostMock: PostProtocol, Equatable {
     let identifier: Int64
     let title: String
     let userProtocol: UserProtocol
+    let comments: Set<JSONPlaceholderViewer.Comment> = Set<JSONPlaceholderViewer.Comment>()
 
     init(
         identifier: Int64,

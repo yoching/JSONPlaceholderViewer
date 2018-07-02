@@ -14,6 +14,7 @@ protocol PostProtocol: class {
     var identifier: Int64 { get }
     var title: String { get }
     var userProtocol: UserProtocol { get } // TODO: think about name
+    var comments: Set<Comment> { get } // TODO: update to protocol??
 }
 
 final class Post: NSManagedObject, PostProtocol {

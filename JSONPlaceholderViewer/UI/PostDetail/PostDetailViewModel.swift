@@ -13,6 +13,7 @@ import Result
 protocol PostDetailViewModeling {
     // View States
     var userName: Property<String> { get }
+    var numberOfComments: Property<String> { get }
 
     // View -> View Model
     func viewWillAppear()
@@ -34,6 +35,7 @@ final class PostDetailViewModel {
     private let dataProvider: DataProviding
 
     private let mutableUserName: MutableProperty<String>
+    private let mutableNumberOfComments: MutableProperty<String>
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
 
     private let routeSelectedPipe = Signal<PostDetailViewRoute, NoError>.pipe()
@@ -43,6 +45,7 @@ final class PostDetailViewModel {
         self.dataProvider = dataProvider
 
         mutableUserName = MutableProperty<String>(post.userProtocol.name ?? "-")
+        mutableNumberOfComments = MutableProperty<String>("\(post.comments.count)")
 
         viewWillAppearPipe.output
             .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
@@ -52,8 +55,12 @@ final class PostDetailViewModel {
                 return strongSelf.dataProvider.populate(strongSelf.post)
                     .resultWrapped()
             }
-            .observeValues { result in
-                self.mutableUserName.value = self.post.userProtocol.name ?? "-"
+            .observeValues { [weak self] result in
+                guard let strongSelf = self else {
+                    return
+                }
+                strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name ?? "-"
+                strongSelf.mutableNumberOfComments.value = "\(strongSelf.post.comments.count)"
                 print(result)
         }
     }
@@ -63,6 +70,9 @@ final class PostDetailViewModel {
 extension PostDetailViewModel: PostDetailViewModeling {
     var userName: Property<String> {
         return Property(mutableUserName)
+    }
+    var numberOfComments: Property<String> {
+        return Property(mutableNumberOfComments)
     }
     func viewWillAppear() {
         viewWillAppearPipe.input.send(value: ())
