@@ -167,6 +167,26 @@ extension Database: DatabaseManaging {
 
                     let operation: (NSManagedObjectContext) -> Void = { context in
                         postEntity.user.populate(with: dataFromApi.user)
+
+                        let alreadyRelatedComments = postEntity.comment(
+                            identifiers: dataFromApi.comments.map { $0.identifier }
+                        )
+
+                        for commentFromApi in dataFromApi.comments {
+                            if let alreadyRelatedComment = alreadyRelatedComments[Int64(commentFromApi.identifier)] {
+                                alreadyRelatedComment.configure(commentFromApi: commentFromApi)
+                            } else {
+                                let comment: Comment = context.insertObject()
+                                comment.configure(commentFromApi: commentFromApi)
+                                if commentFromApi.postIdentifier == postEntity.identifier {
+                                    postEntity.add(comment)
+                                } else {
+                                    fatalError("logic error")
+                                }
+                            }
+                        }
+
+                        // TODO: delete unrelated comments
                     }
 
                     return self.viewContext

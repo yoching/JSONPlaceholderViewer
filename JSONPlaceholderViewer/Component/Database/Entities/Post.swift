@@ -49,6 +49,21 @@ final class Post: NSManagedObject, PostProtocol {
     var userProtocol: UserProtocol {
         return user as UserProtocol
     }
+
+    func add(_ comment: Comment) {
+        comments.insert(comment)
+    }
+
+    func comment(identifiers: [Int]) -> [Int64: Comment] {
+        let filteredComments = comments.filter { identifiers.contains(Int($0.identifier)) }
+
+        var dictionary = [Int64: Comment]()
+        for comment in filteredComments {
+            dictionary[comment.identifier] = comment
+        }
+
+        return dictionary
+    }
 }
 
 extension Post: Managed {
