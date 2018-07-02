@@ -122,11 +122,13 @@ class DatabaseSpec: QuickSpec {
                 expect(usersBeforeAct.count).to(equal(0))
 
                 let userEntityFromApi = User.makeSample(identifier: 1)
+                let commentsFromApi = [CommentFromApi.makeSample(postIdentifier: 1, identifier: 1)]
+
                 let originalUser = coreDataStackMock.addUser(identifier: 1)
                 let post = coreDataStackMock.addPost(identifier: 1, user: originalUser)
 
                 // act
-                database.populatePost(post, with: userEntityFromApi).start()
+                database.populatePost(post, with: (user: userEntityFromApi, comments: commentsFromApi)).start()
 
                 // assert
                 expect(coreDataStackMock.fetchUsers().count).toEventually(equal(1))
@@ -202,6 +204,18 @@ extension JSONPlaceholderApi.GeoLocation {
         return GeoLocation(
             lat: "0.0",
             lng: "0.0"
+        )
+    }
+}
+
+extension JSONPlaceholderApi.Comment {
+    static func makeSample(postIdentifier: Int, identifier: Int) -> JSONPlaceholderApi.Comment {
+        return Comment(
+            postIdentifier: postIdentifier,
+            identifier: identifier,
+            name: "",
+            email: "",
+            body: ""
         )
     }
 }

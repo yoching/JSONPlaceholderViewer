@@ -14,7 +14,10 @@ import JSONPlaceholderApi
 
 typealias PostFromApi = JSONPlaceholderApi.Post
 typealias UserFromApi = JSONPlaceholderApi.User
+typealias CommentFromApi = JSONPlaceholderApi.Comment
 private typealias ContextPerformResult = Result<Void, ManagedObjectContextError>
+
+typealias DataToPopulatePost = (user: UserFromApi, comments: [CommentFromApi])
 
 protocol DatabaseManaging {
     var posts: Property<[PostProtocol]?> { get }
@@ -25,7 +28,8 @@ protocol DatabaseManaging {
 
     func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError>
 
-    func populatePost(_ post: PostProtocol, with userFromApi: UserFromApi) -> SignalProducer<Void, DatabaseError>
+    func populatePost(_ post: PostProtocol, with dataFromApi: DataToPopulatePost)
+        -> SignalProducer<Void, DatabaseError>
 }
 
 enum DatabaseError: Error {
@@ -147,10 +151,10 @@ extension Database: DatabaseManaging {
             .mapError(DatabaseError.context)
     }
 
-    func populatePost(_ post: PostProtocol, with userFromApi: UserFromApi)
+    func populatePost(_ post: PostProtocol, with dataFromApi: DataToPopulatePost)
         -> SignalProducer<Void, DatabaseError> {
             return SignalProducer<Void, DatabaseError> { observer, _ in
-                guard post.userProtocol.identifier == userFromApi.identifier else {
+                guard post.userProtocol.identifier == dataFromApi.user.identifier else {
                     observer.send(error: .invalidUserDataPassed)
                     return
                 }
@@ -162,7 +166,7 @@ extension Database: DatabaseManaging {
                     let postEntity = post as! Post // swiftlint:disable:this force_cast (This is a logic error.)
 
                     let operation: (NSManagedObjectContext) -> Void = { context in
-                        postEntity.user.populate(with: userFromApi)
+                        postEntity.user.populate(with: dataFromApi.user)
                     }
 
                     return self.viewContext
