@@ -101,10 +101,14 @@ final class DataProviderMock: DataProviding {
         return .init(value: nil)
     }
 
+    var populatePost: ((PostProtocol) -> Void)?
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {
         return SignalProducer<Void, DataProviderError>(value: ())
             .on(started: {
                 self.timesPopulatePostStarted += 1
+            })
+            .on(value: {
+                self.populatePost?(post)
             })
     }
 }

@@ -12,7 +12,7 @@ import Result
 
 protocol PostDetailViewModeling {
     // View States
-    var userName: Property<String> { get }
+    var userName: Property<String?> { get }
     var body: Property<String> { get }
     var numberOfComments: Property<String> { get }
 
@@ -59,21 +59,20 @@ final class PostDetailViewModel {
                 return strongSelf.dataProvider.populate(strongSelf.post)
                     .resultWrapped()
             }
-            .observeValues { [weak self] result in
+            .observeValues { [weak self] _ in
                 guard let strongSelf = self else {
                     return
                 }
                 strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
                 strongSelf.mutableNumberOfComments.value = strongSelf.post.comments.count
-                print(result)
         }
     }
 }
 
 // MARK: - PostDetailViewModeling
 extension PostDetailViewModel: PostDetailViewModeling {
-    var userName: Property<String> {
-        return Property(mutableUserName.map { $0.map { "\($0)" } ?? "-" })
+    var userName: Property<String?> {
+        return Property(mutableUserName)
     }
     var body: Property<String> {
         return Property(mutableBody)

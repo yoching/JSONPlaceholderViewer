@@ -276,8 +276,8 @@ class UserMock: UserProtocol, Equatable {
         return lhs.identifier == rhs.identifier
     }
 
-    let identifier: Int64
-    let name: String?
+    var identifier: Int64
+    var name: String?
 
     init(identifier: Int64, name: String? = nil) {
         self.identifier = identifier

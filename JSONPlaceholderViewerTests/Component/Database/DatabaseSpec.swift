@@ -174,10 +174,10 @@ extension JSONPlaceholderApi.Post {
 }
 
 extension JSONPlaceholderApi.User {
-    static func makeSample(identifier: Int) -> JSONPlaceholderApi.User {
+    static func makeSample(identifier: Int, name: String = "") -> JSONPlaceholderApi.User {
         return User(
             identifier: identifier,
-            name: "",
+            name: name,
             userName: "",
             email: "",
             address: Address.makeSample(),
