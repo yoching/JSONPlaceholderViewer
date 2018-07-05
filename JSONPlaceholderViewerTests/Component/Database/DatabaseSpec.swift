@@ -145,7 +145,7 @@ class DatabaseSpec: QuickSpec {
 
                 // comments
                 expect(coreDataStackMock.fetchComments().count).toEventually(equal(3))
-                expect(post.comments.count).toEventually(equal(3))
+                expect(post.comments?.count).toEventually(equal(3))
             }
         }
     }

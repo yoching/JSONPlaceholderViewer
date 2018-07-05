@@ -39,9 +39,9 @@ class PostsViewModelSpec: QuickSpec {
 
                 // act
                 dataProviderMock.mutablePosts.value = [
-                    PostMock(identifier: 1, title: "1", userProtocol: UserMock(identifier: 1)),
-                    PostMock(identifier: 2, title: "2", userProtocol: UserMock(identifier: 2)),
-                    PostMock(identifier: 3, title: "3", userProtocol: UserMock(identifier: 3))
+                    PostMock(identifier: 1, userProtocol: UserMock(identifier: 1)),
+                    PostMock(identifier: 2, userProtocol: UserMock(identifier: 2)),
+                    PostMock(identifier: 3, userProtocol: UserMock(identifier: 3))
                 ]
 
                 // assert

@@ -14,6 +14,7 @@ final class PostDetailViewController: UIViewController {
 
     // MARK: - View Elements
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var numberOfCommentsLabel: UILabel!
 
     // MARK: - Properties
@@ -27,6 +28,7 @@ final class PostDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userNameLabel.reactive.text <~ viewModel.userName
+        bodyLabel.reactive.text <~ viewModel.body
         numberOfCommentsLabel.reactive.text <~ viewModel.numberOfComments
     }
 

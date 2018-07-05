@@ -13,6 +13,7 @@ import Result
 protocol PostDetailViewModeling {
     // View States
     var userName: Property<String> { get }
+    var body: Property<String> { get }
     var numberOfComments: Property<String> { get }
 
     // View -> View Model
@@ -34,8 +35,10 @@ final class PostDetailViewModel {
     private let post: PostProtocol
     private let dataProvider: DataProviding
 
-    private let mutableUserName: MutableProperty<String>
-    private let mutableNumberOfComments: MutableProperty<String>
+    private let mutableUserName: MutableProperty<String?>
+    private let mutableBody: MutableProperty<String>
+    private let mutableNumberOfComments: MutableProperty<Int?>
+
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
 
     private let routeSelectedPipe = Signal<PostDetailViewRoute, NoError>.pipe()
@@ -44,8 +47,9 @@ final class PostDetailViewModel {
         self.post = post
         self.dataProvider = dataProvider
 
-        mutableUserName = MutableProperty<String>(post.userProtocol.name ?? "-")
-        mutableNumberOfComments = MutableProperty<String>("\(post.comments.count)")
+        mutableUserName = MutableProperty<String?>(post.userProtocol.name)
+        mutableBody = MutableProperty<String>(post.body)
+        mutableNumberOfComments = MutableProperty<Int?>(post.comments.map { $0.count })
 
         viewWillAppearPipe.output
             .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
@@ -59,8 +63,8 @@ final class PostDetailViewModel {
                 guard let strongSelf = self else {
                     return
                 }
-                strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name ?? "-"
-                strongSelf.mutableNumberOfComments.value = "\(strongSelf.post.comments.count)"
+                strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
+                strongSelf.mutableNumberOfComments.value = strongSelf.post.comments?.count
                 print(result)
         }
     }
@@ -69,10 +73,13 @@ final class PostDetailViewModel {
 // MARK: - PostDetailViewModeling
 extension PostDetailViewModel: PostDetailViewModeling {
     var userName: Property<String> {
-        return Property(mutableUserName)
+        return Property(mutableUserName.map { $0.map { "\($0)" } ?? "-" })
+    }
+    var body: Property<String> {
+        return Property(mutableBody)
     }
     var numberOfComments: Property<String> {
-        return Property(mutableNumberOfComments)
+        return Property(mutableNumberOfComments.map { $0.map { "\($0)" } ?? "-" })
     }
     func viewWillAppear() {
         viewWillAppearPipe.input.send(value: ())

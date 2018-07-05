@@ -113,9 +113,9 @@ class DataProviderSpec: QuickSpec {
             it("provides posts in database") {
                 // arrange
                 let samplePosts = [
-                    PostMock(identifier: 1, title: "1", userProtocol: UserMock(identifier: 1)),
-                    PostMock(identifier: 2, title: "2", userProtocol: UserMock(identifier: 2)),
-                    PostMock(identifier: 3, title: "3", userProtocol: UserMock(identifier: 3))
+                    PostMock(identifier: 1, userProtocol: UserMock(identifier: 1)),
+                    PostMock(identifier: 2, userProtocol: UserMock(identifier: 2)),
+                    PostMock(identifier: 3, userProtocol: UserMock(identifier: 3))
                 ]
                 databaseMock.mutablePosts.value = samplePosts
 
@@ -144,8 +144,10 @@ class DataProviderSpec: QuickSpec {
                 networkMock.executedRequests = []
                 let postMock = PostMock(
                     identifier: 1,
+                    body: "body",
                     title: "title",
-                    userProtocol: UserMock(identifier: 1)
+                    userProtocol: UserMock(identifier: 1),
+                    comments: nil
                 )
 
                 // act
@@ -187,8 +189,10 @@ class DataProviderSpec: QuickSpec {
                     databaseMock.parametersPassedToPopulatePost = []
                     let postMock = PostMock(
                         identifier: 1,
+                        body: "body",
                         title: "title",
-                        userProtocol: UserMock(identifier: 1)
+                        userProtocol: UserMock(identifier: 1),
+                        comments: nil
                     )
 
                     // act
@@ -213,8 +217,10 @@ class DataProviderSpec: QuickSpec {
                     databaseMock.parametersPassedToPopulatePost = []
                     let postMock = PostMock(
                         identifier: 1,
+                        body: "body",
                         title: "title",
-                        userProtocol: UserMock(identifier: 1)
+                        userProtocol: UserMock(identifier: 1),
+                        comments: nil
                     )
 
                     // act
@@ -234,18 +240,23 @@ class PostMock: PostProtocol, Equatable {
     }
 
     let identifier: Int64
+    let body: String
     let title: String
     let userProtocol: UserProtocol
-    let comments: Set<JSONPlaceholderViewer.Comment> = Set<JSONPlaceholderViewer.Comment>()
+    let comments: Set<JSONPlaceholderViewer.Comment>?
 
     init(
         identifier: Int64,
-        title: String,
-        userProtocol: UserProtocol
+        body: String = "",
+        title: String = "",
+        userProtocol: UserProtocol,
+        comments: Set<JSONPlaceholderViewer.Comment>? = nil
         ) {
         self.identifier = identifier
+        self.body = body
         self.title = title
         self.userProtocol = userProtocol
+        self.comments = comments
     }
 }
 

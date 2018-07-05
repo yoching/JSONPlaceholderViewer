@@ -22,7 +22,7 @@ class PostDetailViewModelSpec: QuickSpec {
 
         beforeEach {
             dataProviderMock = DataProviderMock()
-            postMock = PostMock(identifier: 1, title: "title", userProtocol: UserMock(identifier: 1))
+            postMock = PostMock(identifier: 1, userProtocol: UserMock(identifier: 1))
 
             viewModel = PostDetailViewModel(of: postMock, dataProvider: dataProviderMock)
         }
