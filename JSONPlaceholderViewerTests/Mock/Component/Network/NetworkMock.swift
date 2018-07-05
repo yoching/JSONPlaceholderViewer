@@ -13,18 +13,16 @@ import APIKit
 
 @testable import JSONPlaceholderViewer
 
-class NetworkMock: Networking {
+final class NetworkMock: Networking {
     var isReturningError: Bool = false
     var timesGetResponseCalled = 0
-    var lastRequest: Any?
-    var executedRequests = [Any]() // TODO: decide which to use with lastRequest
+    var executedRequests = [Any]()
 
     var entitiesToReturn: (Any) -> Any? = { _ in return nil }
 
     func getResponse<RequestType: JSONPlaceholderRequest>(of request: RequestType)
         -> SignalProducer<RequestType.Response, NetworkError> {
             timesGetResponseCalled += 1
-            lastRequest = request
             executedRequests.append(request)
             return SignalProducer { observer, _ in
                 if self.isReturningError {

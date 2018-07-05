@@ -10,7 +10,7 @@ import Foundation
 
 @testable import JSONPlaceholderViewer
 
-class UserMock: UserProtocol, Equatable {
+final class UserMock: UserProtocol, Equatable {
     static func == (lhs: UserMock, rhs: UserMock) -> Bool {
         return lhs.identifier == rhs.identifier
     }

@@ -10,7 +10,7 @@ import Foundation
 
 @testable import JSONPlaceholderViewer
 
-class CommentMock: CommentProtocol {
+final class CommentMock: CommentProtocol {
     let identifier: Int64
     init(
         identifier: Int64

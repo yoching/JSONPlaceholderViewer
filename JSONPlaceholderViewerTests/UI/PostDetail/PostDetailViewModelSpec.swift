@@ -14,6 +14,8 @@ import ReactiveSwift
 @testable import JSONPlaceholderViewer
 
 class PostDetailViewModelSpec: QuickSpec {
+
+    // swiftlint:disable:next function_body_length
     override func spec() {
 
         var dataProviderMock: DataProviderMock!

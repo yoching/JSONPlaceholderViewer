@@ -10,7 +10,7 @@ import Foundation
 
 @testable import JSONPlaceholderViewer
 
-class PostMock: PostProtocol, Equatable {
+final class PostMock: PostProtocol, Equatable {
     static func == (lhs: PostMock, rhs: PostMock) -> Bool {
         return lhs.identifier == rhs.identifier
     }
