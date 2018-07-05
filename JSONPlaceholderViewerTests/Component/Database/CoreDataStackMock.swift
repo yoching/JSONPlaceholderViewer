@@ -32,7 +32,7 @@ final class CoreDataStackMock: CoreDataStack {
             identifier: identifier,
             body: "",
             title: "",
-            comments: Set<Comment>(),
+            comments: Set(),
             user: user
         )
 
@@ -57,5 +57,9 @@ final class CoreDataStackMock: CoreDataStack {
 
     func fetchUsers() -> [User] {
         return try! viewContext.fetch(User.sortedFetchRequest) // swiftlint:disable:this force_try
+    }
+
+    func fetchComments() -> [Comment] {
+        return try! viewContext.fetch(Comment.sortedFetchRequest) // swiftlint:disable:this force_try
     }
 }

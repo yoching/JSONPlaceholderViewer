@@ -116,23 +116,36 @@ class DatabaseSpec: QuickSpec {
         }
 
         describe("populatePost") {
-            it("saves user & relates to post") {
+            it("saves user and comments") {
                 // arrange
                 let usersBeforeAct = coreDataStackMock.fetchUsers()
                 expect(usersBeforeAct.count).to(equal(0))
+                let commentsBeforeAct = coreDataStackMock.fetchComments()
+                expect(commentsBeforeAct.count).to(equal(0))
 
                 let userEntityFromApi = User.makeSample(identifier: 1)
+                let commentsFromApi = [
+                    CommentFromApi.makeSample(postIdentifier: 1, identifier: 1),
+                    CommentFromApi.makeSample(postIdentifier: 1, identifier: 2),
+                    CommentFromApi.makeSample(postIdentifier: 1, identifier: 3)
+                ]
+
                 let originalUser = coreDataStackMock.addUser(identifier: 1)
                 let post = coreDataStackMock.addPost(identifier: 1, user: originalUser)
 
                 // act
-                database.populatePost(post, with: userEntityFromApi).start()
+                database.populatePost(post, with: (user: userEntityFromApi, comments: commentsFromApi)).start()
 
                 // assert
+                // user
                 expect(coreDataStackMock.fetchUsers().count).toEventually(equal(1))
                 expect(post.user).toEventuallyNot(beNil())
                 expect(post.user.identifier)
                     .toEventually(equal(coreDataStackMock.fetchUsers().first?.identifier))
+
+                // comments
+                expect(coreDataStackMock.fetchComments().count).toEventually(equal(3))
+                expect(post.comments.count).toEventually(equal(3))
             }
         }
     }
@@ -161,10 +174,10 @@ extension JSONPlaceholderApi.Post {
 }
 
 extension JSONPlaceholderApi.User {
-    static func makeSample(identifier: Int) -> JSONPlaceholderApi.User {
+    static func makeSample(identifier: Int, name: String = "") -> JSONPlaceholderApi.User {
         return User(
             identifier: identifier,
-            name: "",
+            name: name,
             userName: "",
             email: "",
             address: Address.makeSample(),
@@ -202,6 +215,18 @@ extension JSONPlaceholderApi.GeoLocation {
         return GeoLocation(
             lat: "0.0",
             lng: "0.0"
+        )
+    }
+}
+
+extension JSONPlaceholderApi.Comment {
+    static func makeSample(postIdentifier: Int, identifier: Int) -> JSONPlaceholderApi.Comment {
+        return Comment(
+            postIdentifier: postIdentifier,
+            identifier: identifier,
+            name: "",
+            email: "",
+            body: ""
         )
     }
 }

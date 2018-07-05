@@ -10,10 +10,12 @@ import Foundation
 import CoreData
 import JSONPlaceholderApi
 
-protocol PostProtocol {
+protocol PostProtocol: class {
     var identifier: Int64 { get }
+    var body: String { get }
     var title: String { get }
     var userProtocol: UserProtocol { get } // TODO: think about name
+    var commentArray: [CommentProtocol] { get }
 }
 
 final class Post: NSManagedObject, PostProtocol {
@@ -48,6 +50,26 @@ final class Post: NSManagedObject, PostProtocol {
 
     var userProtocol: UserProtocol {
         return user as UserProtocol
+    }
+
+    func add(_ comment: Comment) {
+        comments.insert(comment)
+    }
+
+    func comment(identifiers: [Int]) -> [Int64: Comment] {
+        let filteredComments = comments.filter { identifiers.contains(Int($0.identifier)) }
+
+        var dictionary = [Int64: Comment]()
+        for comment in filteredComments {
+            dictionary[comment.identifier] = comment
+        }
+
+        return dictionary
+    }
+
+    // converting to array because Set<CommentProtocol> cannot be created
+    var commentArray: [CommentProtocol] {
+        return Array(comments)
     }
 }
 

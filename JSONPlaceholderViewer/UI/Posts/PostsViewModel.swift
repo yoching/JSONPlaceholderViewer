@@ -20,7 +20,7 @@ protocol PostsViewModeling {
 }
 
 enum PostsViewRoute {
-    case postDetail(postIdentifier: Int64)
+    case postDetail(post: PostProtocol)
 }
 
 protocol PostsViewRouting {
@@ -47,7 +47,7 @@ final class PostsViewModel {
                 return cellModels[row]
             }
             .map { cellModel -> PostsViewRoute in
-                return .postDetail(postIdentifier: cellModel.postIdentifier)
+                return .postDetail(post: cellModel.post)
             }
             .start(routeSelectedPipe.input)
 

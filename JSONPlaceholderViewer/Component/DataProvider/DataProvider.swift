@@ -70,11 +70,17 @@ extension DataProvider: DataProviding {
     }
 
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {
-        return network
-            .getResponse(of: UserRequest(userIdentifier: Int(post.userProtocol.identifier)))
+
+        let userResponse = network.getResponse(of: UserRequest(userIdentifier: Int(post.userProtocol.identifier)))
+        let commentsResponse = network.getResponse(of: CommentsRequest(postIdentifier: Int(post.identifier)))
+
+        return SignalProducer.combineLatest(userResponse, commentsResponse)
             .mapError(DataProviderError.network)
-            .flatMap(.latest) { [unowned self] userFromApi -> SignalProducer<Void, DataProviderError> in
-                return self.database.populatePost(post, with: userFromApi)
+            .map { userFromApi, commentsFromApi -> DataToPopulatePost in
+                return (user: userFromApi, comments: commentsFromApi)
+            }
+            .flatMap(.latest) { [unowned self] dataFromApi -> SignalProducer<Void, DataProviderError> in
+                return self.database.populatePost(post, with: dataFromApi)
                     .mapError(DataProviderError.database)
         }
     }

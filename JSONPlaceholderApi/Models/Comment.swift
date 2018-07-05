@@ -22,4 +22,18 @@ public struct Comment: Decodable {
         case email
         case body
     }
+
+    public init(
+        postIdentifier: Int,
+        identifier: Int,
+        name: String,
+        email: String,
+        body: String
+        ) {
+        self.postIdentifier = postIdentifier
+        self.identifier = identifier
+        self.name = name
+        self.email = email
+        self.body = body
+    }
 }

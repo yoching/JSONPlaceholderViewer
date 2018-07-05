@@ -39,9 +39,9 @@ class PostsViewModelSpec: QuickSpec {
 
                 // act
                 dataProviderMock.mutablePosts.value = [
-                    PostMock(identifier: 1, title: "1", userProtocol: UserMock(identifier: 1)),
-                    PostMock(identifier: 2, title: "2", userProtocol: UserMock(identifier: 2)),
-                    PostMock(identifier: 3, title: "3", userProtocol: UserMock(identifier: 3))
+                    PostMock(identifier: 1, userProtocol: UserMock(identifier: 1)),
+                    PostMock(identifier: 2, userProtocol: UserMock(identifier: 2)),
+                    PostMock(identifier: 3, userProtocol: UserMock(identifier: 3))
                 ]
 
                 // assert
@@ -83,6 +83,8 @@ class PostsViewModelSpec: QuickSpec {
 
 final class DataProviderMock: DataProviding {
     var timesFetchPostsStarted: Int = 0
+    var timesPopulatePostStarted: Int = 0
+
     var posts: Property<[PostProtocol]?> {
         return Property(mutablePosts)
     }
@@ -99,7 +101,14 @@ final class DataProviderMock: DataProviding {
         return .init(value: nil)
     }
 
+    var populatePost: ((PostProtocol) -> Void)?
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {
-        return .init(value: ())
+        return SignalProducer<Void, DataProviderError>(value: ())
+            .on(started: {
+                self.timesPopulatePostStarted += 1
+            })
+            .on(value: {
+                self.populatePost?(post)
+            })
     }
 }

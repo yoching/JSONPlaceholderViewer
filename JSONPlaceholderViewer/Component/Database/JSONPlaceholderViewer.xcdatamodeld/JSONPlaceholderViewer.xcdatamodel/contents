@@ -21,7 +21,7 @@
     </entity>
     <elements>
         <element name="Comment" positionX="-459" positionY="18" width="128" height="103"/>
-        <element name="Post" positionX="-263" positionY="18" width="128" height="118"/>
+        <element name="Post" positionX="-263" positionY="18" width="128" height="120"/>
         <element name="User" positionX="-81" positionY="27" width="128" height="103"/>
     </elements>
 </model>
