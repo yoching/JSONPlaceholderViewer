@@ -93,6 +93,16 @@
 		E3F75CDD20EDE36A00A53424 /* DatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CDC20EDE36A00A53424 /* DatabaseMock.swift */; };
 		E3F75CDF20EDE40600A53424 /* ApiModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CDE20EDE40600A53424 /* ApiModelExtensions.swift */; };
 		E3F75CE120EDE47B00A53424 /* DataProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CE020EDE47B00A53424 /* DataProviderMock.swift */; };
+		E3F75CF320EDE91A00A53424 /* LoadingErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CE720EDE91700A53424 /* LoadingErrorView.swift */; };
+		E3F75CF420EDE91A00A53424 /* LoadingErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3F75CE820EDE91700A53424 /* LoadingErrorView.xib */; };
+		E3F75CF520EDE91A00A53424 /* LoadingErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CE920EDE91800A53424 /* LoadingErrorViewModel.swift */; };
+		E3F75CF620EDE91A00A53424 /* EmptyDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3F75CEA20EDE91800A53424 /* EmptyDataView.xib */; };
+		E3F75CF920EDE91A00A53424 /* LoadingIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3F75CED20EDE91900A53424 /* LoadingIndicatorView.xib */; };
+		E3F75CFA20EDE91A00A53424 /* EmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CEE20EDE91900A53424 /* EmptyDataView.swift */; };
+		E3F75CFB20EDE91A00A53424 /* EmptyDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CEF20EDE91900A53424 /* EmptyDataViewModel.swift */; };
+		E3F75CFC20EDE91A00A53424 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CF020EDE91900A53424 /* LoadingIndicatorView.swift */; };
+		E3F75CFE20EDE91A00A53424 /* LoadingIndicatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CF220EDE91A00A53424 /* LoadingIndicatorViewModel.swift */; };
+		E3F75D0320EDEB3600A53424 /* XibInstantiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75D0220EDEB3600A53424 /* XibInstantiatable.swift */; };
 		E3FB206620D556C400C91CB9 /* PostSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206520D556C400C91CB9 /* PostSpec.swift */; };
 		E3FB206920D558B100C91CB9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206820D558B100C91CB9 /* Post.swift */; };
 		E3FB206B20D55AEF00C91CB9 /* posts.json in Resources */ = {isa = PBXBuildFile; fileRef = E3FB206A20D55AEF00C91CB9 /* posts.json */; };
@@ -248,6 +258,16 @@
 		E3F75CDC20EDE36A00A53424 /* DatabaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMock.swift; sourceTree = "<group>"; };
 		E3F75CDE20EDE40600A53424 /* ApiModelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiModelExtensions.swift; sourceTree = "<group>"; };
 		E3F75CE020EDE47B00A53424 /* DataProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderMock.swift; sourceTree = "<group>"; };
+		E3F75CE720EDE91700A53424 /* LoadingErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingErrorView.swift; sourceTree = "<group>"; };
+		E3F75CE820EDE91700A53424 /* LoadingErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingErrorView.xib; sourceTree = "<group>"; };
+		E3F75CE920EDE91800A53424 /* LoadingErrorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingErrorViewModel.swift; sourceTree = "<group>"; };
+		E3F75CEA20EDE91800A53424 /* EmptyDataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyDataView.xib; sourceTree = "<group>"; };
+		E3F75CED20EDE91900A53424 /* LoadingIndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingIndicatorView.xib; sourceTree = "<group>"; };
+		E3F75CEE20EDE91900A53424 /* EmptyDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDataView.swift; sourceTree = "<group>"; };
+		E3F75CEF20EDE91900A53424 /* EmptyDataViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDataViewModel.swift; sourceTree = "<group>"; };
+		E3F75CF020EDE91900A53424 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
+		E3F75CF220EDE91A00A53424 /* LoadingIndicatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorViewModel.swift; sourceTree = "<group>"; };
+		E3F75D0220EDEB3600A53424 /* XibInstantiatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibInstantiatable.swift; sourceTree = "<group>"; };
 		E3FB206520D556C400C91CB9 /* PostSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSpec.swift; sourceTree = "<group>"; };
 		E3FB206820D558B100C91CB9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		E3FB206A20D55AEF00C91CB9 /* posts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = posts.json; sourceTree = "<group>"; };
@@ -395,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				E32C428A20DE4D9600AB328A /* UITableView+Type.swift */,
+				E3F75D0220EDEB3600A53424 /* XibInstantiatable.swift */,
 			);
 			path = UIKitExtensions;
 			sourceTree = "<group>";
@@ -438,6 +459,7 @@
 				E3F5DE5E20DBBCE400D3AEF7 /* Coordinator */,
 				E32C427520DE4A9600AB328A /* Posts */,
 				E355CD6320E0F82900E81188 /* PostDetail */,
+				E3F75CE620EDE7A600A53424 /* Loading */,
 				E32C428920DE4D7D00AB328A /* UIKitExtensions */,
 			);
 			path = UI;
@@ -671,6 +693,46 @@
 			path = DataProvider;
 			sourceTree = "<group>";
 		};
+		E3F75CE620EDE7A600A53424 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CFF20EDE94C00A53424 /* EmptyDataView */,
+				E3F75D0020EDE95900A53424 /* LoadingErrorView */,
+				E3F75D0120EDE97000A53424 /* LoadingIndicatorView */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		E3F75CFF20EDE94C00A53424 /* EmptyDataView */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CEA20EDE91800A53424 /* EmptyDataView.xib */,
+				E3F75CEE20EDE91900A53424 /* EmptyDataView.swift */,
+				E3F75CEF20EDE91900A53424 /* EmptyDataViewModel.swift */,
+			);
+			path = EmptyDataView;
+			sourceTree = "<group>";
+		};
+		E3F75D0020EDE95900A53424 /* LoadingErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CE820EDE91700A53424 /* LoadingErrorView.xib */,
+				E3F75CE720EDE91700A53424 /* LoadingErrorView.swift */,
+				E3F75CE920EDE91800A53424 /* LoadingErrorViewModel.swift */,
+			);
+			path = LoadingErrorView;
+			sourceTree = "<group>";
+		};
+		E3F75D0120EDE97000A53424 /* LoadingIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CED20EDE91900A53424 /* LoadingIndicatorView.xib */,
+				E3F75CF020EDE91900A53424 /* LoadingIndicatorView.swift */,
+				E3F75CF220EDE91A00A53424 /* LoadingIndicatorViewModel.swift */,
+			);
+			path = LoadingIndicatorView;
+			sourceTree = "<group>";
+		};
 		E3FB206420D556B500C91CB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -901,10 +963,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3F75CF620EDE91A00A53424 /* EmptyDataView.xib in Resources */,
 				E3FCF2BD20D4EF3500D14E3D /* LaunchScreen.storyboard in Resources */,
 				E3FCF2BA20D4EF3500D14E3D /* Assets.xcassets in Resources */,
 				E32C428320DE4B5E00AB328A /* PostsViewController.storyboard in Resources */,
 				E32C428F20DE4DE000AB328A /* PostCell.xib in Resources */,
+				E3F75CF920EDE91A00A53424 /* LoadingIndicatorView.xib in Resources */,
+				E3F75CF420EDE91A00A53424 /* LoadingErrorView.xib in Resources */,
 				E355CD6520E0F83D00E81188 /* PostDetailViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1034,12 +1099,14 @@
 				E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */,
 				E3F5DE6220DBBD4C00D3AEF7 /* HomeNavigationCoordinator.swift in Sources */,
 				E355CD6920E0F87F00E81188 /* PostDetailViewModel.swift in Sources */,
+				E3F75CFC20EDE91A00A53424 /* LoadingIndicatorView.swift in Sources */,
 				E32C428B20DE4D9600AB328A /* UITableView+Type.swift in Sources */,
 				E3F5DE6020DBBD1000D3AEF7 /* WindowCoordinator.swift in Sources */,
 				E32C428D20DE4DD700AB328A /* PostCell.swift in Sources */,
 				E3F5DE5920DBB55B00D3AEF7 /* Components.swift in Sources */,
 				E38216CF20DA44F50064B147 /* JSONPlaceholderViewer.xcdatamodeld in Sources */,
 				E38216D420DA4B970064B147 /* User.swift in Sources */,
+				E3F75CFE20EDE91A00A53424 /* LoadingIndicatorViewModel.swift in Sources */,
 				E32C428120DE4B5400AB328A /* PostsViewController.swift in Sources */,
 				E32C426920DDFB9D00AB328A /* DataProvider.swift in Sources */,
 				E38216D620DA4B9E0064B147 /* Comment.swift in Sources */,
@@ -1047,8 +1114,11 @@
 				E32C428720DE4C8500AB328A /* PostCellModel.swift in Sources */,
 				E3F5DE5B20DBB5BF00D3AEF7 /* ViewFactory.swift in Sources */,
 				E32C426B20DDFFA400AB328A /* ResultWrappedObservable.swift in Sources */,
+				E3F75D0320EDEB3600A53424 /* XibInstantiatable.swift in Sources */,
+				E3F75CFA20EDE91A00A53424 /* EmptyDataView.swift in Sources */,
 				E32C426D20DE03B000AB328A /* Database.swift in Sources */,
 				E3F5DE6720DBC45E00D3AEF7 /* Network.swift in Sources */,
+				E3F75CF320EDE91A00A53424 /* LoadingErrorView.swift in Sources */,
 				E38216D920DA4D1C0064B147 /* Managed.swift in Sources */,
 				E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */,
 				E3F5DE5720DBB54100D3AEF7 /* AppDependencies.swift in Sources */,
@@ -1056,7 +1126,9 @@
 				E32C427420DE1E2400AB328A /* NSManagedObjectContext+ReactiveSwift.swift in Sources */,
 				E32C428520DE4B7E00AB328A /* PostsViewModel.swift in Sources */,
 				E3F5DE6920DBC47D00D3AEF7 /* NetworkError.swift in Sources */,
+				E3F75CFB20EDE91A00A53424 /* EmptyDataViewModel.swift in Sources */,
 				E3F5DE6420DBBD7600D3AEF7 /* CoordinatorProtocols.swift in Sources */,
+				E3F75CF520EDE91A00A53424 /* LoadingErrorViewModel.swift in Sources */,
 				E3F5DE5D20DBB5C700D3AEF7 /* CoordinatorFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
