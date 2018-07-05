@@ -27,7 +27,11 @@ class PostDetailViewModelSpec: QuickSpec {
             dataProviderMock = DataProviderMock()
             postMock = PostMock(identifier: 1, userProtocol: UserMock(identifier: 1))
 
-            viewModel = PostDetailViewModel(of: postMock, dataProvider: dataProviderMock)
+            viewModel = PostDetailViewModel(
+                of: postMock,
+                dataProvider: dataProviderMock,
+                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
+            )
         }
 
         describe("viewWillAppear") {
@@ -40,6 +44,51 @@ class PostDetailViewModelSpec: QuickSpec {
 
                 // assert
                 expect(dataProviderMock.timesPopulatePostStarted).toEventually(equal(1))
+            }
+
+            context("cache doesn't exist") {
+                it("shows loading indicator") {
+                    // arrange
+                    var isLoadingIndicatorHiddenChanges: [Bool] = []
+                    viewModel.isLoadingIndicatorHidden.producer
+                        .startWithValues { isHidden in
+                            isLoadingIndicatorHiddenChanges.append(isHidden)
+                    }
+
+                    // act
+                    viewModel.viewWillAppear()
+
+                    // assert
+                    expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true, false, true]))
+                }
+            }
+
+            context("cache exist") {
+
+                beforeEach {
+                    let user = UserMock(identifier: 1, name: "user name") // cache
+                    postMock = PostMock(identifier: 1, userProtocol: user)
+                    viewModel = PostDetailViewModel(
+                        of: postMock,
+                        dataProvider: dataProviderMock,
+                        loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
+                    )
+                }
+
+                it("doesn't show loading indicator") {
+                    // arrange
+                    var isLoadingIndicatorHiddenChanges: [Bool] = []
+                    viewModel.isLoadingIndicatorHidden.producer
+                        .startWithValues { isHidden in
+                            isLoadingIndicatorHiddenChanges.append(isHidden)
+                    }
+
+                    // act
+                    viewModel.viewWillAppear()
+
+                    // assert
+                    expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true]))
+                }
             }
 
             context("populate succeed") {
@@ -97,6 +146,20 @@ class PostDetailViewModelSpec: QuickSpec {
                     expect(numberOfCommentsChanges[1]).toEventually(equal("3"))
                 }
 
+            }
+
+            context("populate failed") {
+                // TODO: implement
+                context("cache exist") {
+                    it("doesn't show error") {
+
+                    }
+                }
+                context("cache doesn't exit") {
+                    it("shows error") {
+
+                    }
+                }
             }
         }
     }

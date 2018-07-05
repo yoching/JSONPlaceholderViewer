@@ -74,18 +74,48 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYw-9d-cgm">
+                                <rect key="frame" x="20" y="269" width="335" height="298"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btT-QS-evO" customClass="LoadingErrorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="298"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vDK-es-5mM" customClass="LoadingIndicatorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="298"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="btT-QS-evO" secondAttribute="bottom" id="8Qy-HZ-npM"/>
+                                    <constraint firstItem="btT-QS-evO" firstAttribute="leading" secondItem="YYw-9d-cgm" secondAttribute="leading" id="Ehi-8w-aax"/>
+                                    <constraint firstItem="vDK-es-5mM" firstAttribute="leading" secondItem="YYw-9d-cgm" secondAttribute="leading" id="O0s-fK-Hyc"/>
+                                    <constraint firstItem="vDK-es-5mM" firstAttribute="top" secondItem="YYw-9d-cgm" secondAttribute="top" id="TD3-9V-x1V"/>
+                                    <constraint firstAttribute="bottom" secondItem="vDK-es-5mM" secondAttribute="bottom" id="bRM-65-Yhw"/>
+                                    <constraint firstItem="btT-QS-evO" firstAttribute="top" secondItem="YYw-9d-cgm" secondAttribute="top" id="c9F-tN-6E9"/>
+                                    <constraint firstAttribute="trailing" secondItem="vDK-es-5mM" secondAttribute="trailing" id="iJa-gq-bnk"/>
+                                    <constraint firstAttribute="trailing" secondItem="btT-QS-evO" secondAttribute="trailing" id="pAg-i2-YkW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="NfH-f2-nsY" firstAttribute="top" secondItem="5pu-3T-l2o" secondAttribute="top" constant="100" id="7Xc-2D-DSR"/>
+                            <constraint firstItem="YYw-9d-cgm" firstAttribute="top" secondItem="yIV-eS-h2m" secondAttribute="top" id="AEl-lF-D2t"/>
                             <constraint firstItem="5pu-3T-l2o" firstAttribute="bottom" secondItem="NfH-f2-nsY" secondAttribute="bottom" constant="100" id="DIy-Jl-gH0"/>
                             <constraint firstItem="5pu-3T-l2o" firstAttribute="trailing" secondItem="NfH-f2-nsY" secondAttribute="trailing" constant="20" id="Jda-BV-3ed"/>
                             <constraint firstItem="NfH-f2-nsY" firstAttribute="leading" secondItem="5pu-3T-l2o" secondAttribute="leading" constant="20" id="YTI-Dg-l3m"/>
+                            <constraint firstItem="YYw-9d-cgm" firstAttribute="trailing" secondItem="NfH-f2-nsY" secondAttribute="trailing" id="cph-6H-JW1"/>
+                            <constraint firstItem="cHF-b9-9Ki" firstAttribute="bottom" secondItem="YYw-9d-cgm" secondAttribute="bottom" id="flK-oW-sVu"/>
+                            <constraint firstItem="YYw-9d-cgm" firstAttribute="leading" secondItem="NfH-f2-nsY" secondAttribute="leading" id="qA2-Qs-eWw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5pu-3T-l2o"/>
                     </view>
                     <connections>
                         <outlet property="bodyLabel" destination="dGg-eU-WpY" id="UrX-Ad-eNC"/>
+                        <outlet property="loadingErrorView" destination="btT-QS-evO" id="LVj-Mn-jnd"/>
+                        <outlet property="loadingIndicatorView" destination="vDK-es-5mM" id="AhI-0w-idM"/>
                         <outlet property="numberOfCommentsLabel" destination="cZP-Cy-UqN" id="RQu-wf-pAI"/>
                         <outlet property="userNameLabel" destination="aph-j5-Qx8" id="hph-ue-J8n"/>
                     </connections>

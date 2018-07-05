@@ -17,6 +17,9 @@ final class PostDetailViewController: UIViewController {
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var numberOfCommentsLabel: UILabel!
 
+    @IBOutlet weak var loadingErrorView: LoadingErrorView!
+    @IBOutlet weak var loadingIndicatorView: LoadingIndicatorView!
+
     // MARK: - Properties
     private var viewModel: PostDetailViewModeling!
 
@@ -30,6 +33,8 @@ final class PostDetailViewController: UIViewController {
         userNameLabel.reactive.text <~ viewModel.userName
         bodyLabel.reactive.text <~ viewModel.body
         numberOfCommentsLabel.reactive.text <~ viewModel.numberOfComments
+        loadingIndicatorView.configure(with: viewModel.loadingIndicatorViewModel)
+        loadingIndicatorView.reactive.isHidden <~ viewModel.isLoadingIndicatorHidden
     }
 
     override func viewWillAppear(_ animated: Bool) {
