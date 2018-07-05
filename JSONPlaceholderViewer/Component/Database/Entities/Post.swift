@@ -15,7 +15,7 @@ protocol PostProtocol: class {
     var body: String { get }
     var title: String { get }
     var userProtocol: UserProtocol { get } // TODO: think about name
-    var comments: Set<Comment> { get } // TODO: update to protocol??
+    var commentArray: [CommentProtocol] { get }
 }
 
 final class Post: NSManagedObject, PostProtocol {
@@ -65,6 +65,11 @@ final class Post: NSManagedObject, PostProtocol {
         }
 
         return dictionary
+    }
+
+    // converting to array because Set<CommentProtocol> cannot be created
+    var commentArray: [CommentProtocol] {
+        return Array(comments)
     }
 }
 

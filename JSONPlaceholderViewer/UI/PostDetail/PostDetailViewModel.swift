@@ -49,7 +49,7 @@ final class PostDetailViewModel {
 
         mutableUserName = MutableProperty<String?>(post.userProtocol.name)
         mutableBody = MutableProperty<String>(post.body)
-        mutableNumberOfComments = MutableProperty<Int>(post.comments.count)
+        mutableNumberOfComments = MutableProperty<Int>(post.commentArray.count)
 
         viewWillAppearPipe.output
             .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
@@ -64,7 +64,7 @@ final class PostDetailViewModel {
                     return
                 }
                 strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
-                strongSelf.mutableNumberOfComments.value = strongSelf.post.comments.count
+                strongSelf.mutableNumberOfComments.value = strongSelf.post.commentArray.count
         }
     }
 }

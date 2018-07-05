@@ -22,7 +22,7 @@ class PostCellModelSpec: QuickSpec {
                     body: "test body",
                     title: "test title",
                     userProtocol: UserMock(identifier: 1),
-                    comments: Set()
+                    commentArray: []
                 )
 
                 // act

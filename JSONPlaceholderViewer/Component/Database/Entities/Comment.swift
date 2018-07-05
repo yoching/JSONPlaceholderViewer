@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-protocol CommentProtocol: class, Hashable {
+protocol CommentProtocol: class {
 
 }
 

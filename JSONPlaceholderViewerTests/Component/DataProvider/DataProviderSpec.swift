@@ -147,7 +147,7 @@ class DataProviderSpec: QuickSpec {
                     body: "body",
                     title: "title",
                     userProtocol: UserMock(identifier: 1),
-                    comments: Set()
+                    commentArray: []
                 )
 
                 // act
@@ -192,7 +192,7 @@ class DataProviderSpec: QuickSpec {
                         body: "body",
                         title: "title",
                         userProtocol: UserMock(identifier: 1),
-                        comments: Set()
+                        commentArray: []
                     )
 
                     // act
@@ -220,7 +220,7 @@ class DataProviderSpec: QuickSpec {
                         body: "body",
                         title: "title",
                         userProtocol: UserMock(identifier: 1),
-                        comments: Set()
+                        commentArray: []
                     )
 
                     // act
@@ -243,20 +243,29 @@ class PostMock: PostProtocol, Equatable {
     let body: String
     let title: String
     let userProtocol: UserProtocol
-    let comments: Set<JSONPlaceholderViewer.Comment>
+    var commentArray: [CommentProtocol]
 
     init(
         identifier: Int64,
         body: String = "",
         title: String = "",
         userProtocol: UserProtocol,
-        comments: Set<JSONPlaceholderViewer.Comment> = Set()
+        commentArray: [CommentProtocol] = []
         ) {
         self.identifier = identifier
         self.body = body
         self.title = title
         self.userProtocol = userProtocol
-        self.comments = comments
+        self.commentArray = commentArray
+    }
+}
+
+class CommentMock: CommentProtocol {
+    let identifier: Int64
+    init(
+        identifier: Int64
+        ) {
+        self.identifier = identifier
     }
 }
 

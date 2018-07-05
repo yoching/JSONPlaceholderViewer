@@ -66,6 +66,33 @@ class PostDetailViewModelSpec: QuickSpec {
                 }
 
                 it("updates numberOfComments") {
+                    // arrange
+                    dataProviderMock.populatePost = { post in
+                        guard let postMock = post as? PostMock else {
+                            return
+                        }
+                        let comments: [CommentProtocol] = [
+                            CommentMock(identifier: 1),
+                            CommentMock(identifier: 2),
+                            CommentMock(identifier: 3)
+                        ]
+                        postMock.commentArray = comments
+                    }
+
+                    var numberOfCommentsChanges: [String] = []
+                    viewModel.numberOfComments.producer
+                        .logEvents()
+                        .startWithValues { numberOfComments in
+                            numberOfCommentsChanges.append(numberOfComments)
+                    }
+
+                    // act
+                    viewModel.viewWillAppear()
+
+                    // assert
+                    expect(numberOfCommentsChanges.count).toEventually(equal(2))
+                    expect(numberOfCommentsChanges[0]).toEventually(equal("0"))
+                    expect(numberOfCommentsChanges[1]).toEventually(equal("3"))
                 }
 
             }
