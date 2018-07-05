@@ -16,6 +16,9 @@ protocol PostDetailViewModeling {
     var body: Property<String> { get }
     var numberOfComments: Property<String> { get }
 
+    var isLoadingErrorHidden: Property<Bool> { get }
+    var loadingErrorViewModel: LoadingErrorViewModeling { get }
+
     var isLoadingIndicatorHidden: Property<Bool> { get }
     var loadingIndicatorViewModel: LoadingIndicatorViewModeling { get }
 
@@ -44,26 +47,37 @@ final class PostDetailViewModel {
 
     private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
     let loadingIndicatorViewModel: LoadingIndicatorViewModeling
+    let loadingErrorViewModel: LoadingErrorViewModeling
+
+    private let mutableIsLoadingErrorHidden: MutableProperty<Bool>
 
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
 
     private let routeSelectedPipe = Signal<PostDetailViewRoute, NoError>.pipe()
 
-    init(of post: PostProtocol, dataProvider: DataProviding, loadingIndicatorViewModel: LoadingIndicatorViewModeling) {
+    init(
+        of post: PostProtocol,
+        dataProvider: DataProviding,
+        loadingIndicatorViewModel: LoadingIndicatorViewModeling,
+        loadingErrorViewModel: LoadingErrorViewModeling
+        ) {
         self.post = post
         self.dataProvider = dataProvider
         self.loadingIndicatorViewModel = loadingIndicatorViewModel
+        self.loadingErrorViewModel = loadingErrorViewModel
 
         mutableUserName = MutableProperty<String?>(post.userProtocol.name)
         mutableBody = MutableProperty<String>(post.body)
         mutableNumberOfComments = MutableProperty<Int>(post.commentArray.count)
 
         mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
+        mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
 
         isPostPopulated.producer
             .sample(on: viewWillAppearPipe.output)
             .on { [weak self] isPostPopulated in
                 self?.mutableIsLoadingIndicatorHidden.value = isPostPopulated
+                self?.mutableIsLoadingErrorHidden.value = true
             }
             .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
                 guard let strongSelf = self else {
@@ -73,14 +87,16 @@ final class PostDetailViewModel {
                     .resultWrapped()
             }
             .on { [weak self] result in
+                guard let strongSelf = self else {
+                    return
+                }
                 switch result {
                 case .failure(let error):
-                    // TODO: show error
-                    break
-                case .success:
-                    guard let strongSelf = self else {
-                        return
+                    if !strongSelf.isPostPopulated.value {
+                        strongSelf.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
+                        strongSelf.mutableIsLoadingErrorHidden.value = false
                     }
+                case .success:
                     strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
                     strongSelf.mutableNumberOfComments.value = strongSelf.post.commentArray.count
                 }
@@ -112,6 +128,10 @@ extension PostDetailViewModel: PostDetailViewModeling {
 
     var isLoadingIndicatorHidden: Property<Bool> {
         return Property(mutableIsLoadingIndicatorHidden).skipRepeats()
+    }
+
+    var isLoadingErrorHidden: Property<Bool> {
+        return Property(mutableIsLoadingErrorHidden).skipRepeats()
     }
 
     func viewWillAppear() {

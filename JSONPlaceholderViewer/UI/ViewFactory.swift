@@ -33,7 +33,8 @@ final class ViewFactoryImpl: ViewFactory {
         let viewModel = PostDetailViewModel(
             of: post,
             dataProvider: components.dataProvider,
-            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
+            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
+            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
         )
         viewController.configure(with: viewModel)
         return (viewController, viewModel)

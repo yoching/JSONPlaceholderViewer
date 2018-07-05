@@ -20,17 +20,20 @@ class PostDetailViewModelSpec: QuickSpec {
 
         var dataProviderMock: DataProviderMock!
         var postMock: PostMock!
+        var loadingErrorViewModelMock: LoadingErrorViewModelMock!
 
         var viewModel: PostDetailViewModel!
 
         beforeEach {
             dataProviderMock = DataProviderMock()
             postMock = PostMock(identifier: 1, userProtocol: UserMock(identifier: 1))
+            loadingErrorViewModelMock = LoadingErrorViewModelMock()
 
             viewModel = PostDetailViewModel(
                 of: postMock,
                 dataProvider: dataProviderMock,
-                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
+                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
+                loadingErrorViewModel: loadingErrorViewModelMock
             )
         }
 
@@ -46,52 +49,60 @@ class PostDetailViewModelSpec: QuickSpec {
                 expect(dataProviderMock.timesPopulatePostStarted).toEventually(equal(1))
             }
 
-            context("cache doesn't exist") {
-                it("shows loading indicator") {
-                    // arrange
-                    var isLoadingIndicatorHiddenChanges: [Bool] = []
-                    viewModel.isLoadingIndicatorHidden.producer
-                        .startWithValues { isHidden in
-                            isLoadingIndicatorHiddenChanges.append(isHidden)
+            describe("loading indicator") {
+                context("cache doesn't exist") {
+                    it("shows loading indicator") {
+                        // arrange
+                        var isLoadingIndicatorHiddenChanges: [Bool] = []
+                        viewModel.isLoadingIndicatorHidden.producer
+                            .startWithValues { isHidden in
+                                isLoadingIndicatorHiddenChanges.append(isHidden)
+                        }
+
+                        // act
+                        viewModel.viewWillAppear()
+
+                        // assert
+                        expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true, false, true]))
                     }
-
-                    // act
-                    viewModel.viewWillAppear()
-
-                    // assert
-                    expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true, false, true]))
-                }
-            }
-
-            context("cache exist") {
-
-                beforeEach {
-                    let user = UserMock(identifier: 1, name: "user name") // cache
-                    postMock = PostMock(identifier: 1, userProtocol: user)
-                    viewModel = PostDetailViewModel(
-                        of: postMock,
-                        dataProvider: dataProviderMock,
-                        loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
-                    )
                 }
 
-                it("doesn't show loading indicator") {
-                    // arrange
-                    var isLoadingIndicatorHiddenChanges: [Bool] = []
-                    viewModel.isLoadingIndicatorHidden.producer
-                        .startWithValues { isHidden in
-                            isLoadingIndicatorHiddenChanges.append(isHidden)
+                context("cache exist") {
+
+                    beforeEach {
+                        let user = UserMock(identifier: 1, name: "user name") // cache
+                        postMock = PostMock(identifier: 1, userProtocol: user)
+                        viewModel = PostDetailViewModel(
+                            of: postMock,
+                            dataProvider: dataProviderMock,
+                            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
+                            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
+                        )
                     }
 
-                    // act
-                    viewModel.viewWillAppear()
+                    it("doesn't show loading indicator") {
+                        // arrange
+                        var isLoadingIndicatorHiddenChanges: [Bool] = []
+                        viewModel.isLoadingIndicatorHidden.producer
+                            .startWithValues { isHidden in
+                                isLoadingIndicatorHiddenChanges.append(isHidden)
+                        }
 
-                    // assert
-                    expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true]))
+                        // act
+                        viewModel.viewWillAppear()
+
+                        // assert
+                        expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true]))
+                    }
                 }
             }
 
             context("populate succeed") {
+
+                beforeEach {
+                    dataProviderMock.populateShouldSucceed = true
+                }
+
                 it("updates userName") {
                     // arrange
                     dataProviderMock.populatePost = { post in
@@ -149,17 +160,69 @@ class PostDetailViewModelSpec: QuickSpec {
             }
 
             context("populate failed") {
-                // TODO: implement
-                context("cache exist") {
-                    it("doesn't show error") {
 
-                    }
+                beforeEach {
+                    dataProviderMock.populateShouldSucceed = false
                 }
+
                 context("cache doesn't exit") {
-                    it("shows error") {
+                    it("shows error view") {
+                        // arrange
+                        var isLoadingErrorHiddenChanges: [Bool] = []
+                        viewModel.isLoadingErrorHidden.producer
+                            .startWithValues { isHidden in
+                                isLoadingErrorHiddenChanges.append(isHidden)
+                        }
 
+                        // act
+                        viewModel.viewWillAppear()
+
+                        // assert
+                        expect(isLoadingErrorHiddenChanges).toEventually(equal([true, false]))
+                    }
+
+                    it("update error message") {
+                        // arrange
+                        loadingErrorViewModelMock.timesUpdateErrorMessageCalled = 0
+
+                        // act
+                        viewModel.viewWillAppear()
+
+                        // assert
+                        expect(loadingErrorViewModelMock.timesUpdateErrorMessageCalled).toEventually(equal(1))
+                    }
+
+                }
+
+                context("cache exist") {
+
+                    beforeEach {
+                        let user = UserMock(identifier: 1, name: "user name") // cache
+                        postMock = PostMock(identifier: 1, userProtocol: user)
+                        viewModel = PostDetailViewModel(
+                            of: postMock,
+                            dataProvider: dataProviderMock,
+                            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
+                            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
+                        )
+                    }
+
+                    it("doesn't show error") {
+                        // arrange
+                        var isLoadingErrorHiddenChanges: [Bool] = []
+                        viewModel.isLoadingErrorHidden.producer
+                            .startWithValues { isHidden in
+                                isLoadingErrorHiddenChanges.append(isHidden)
+                        }
+
+                        // act
+                        viewModel.viewWillAppear()
+
+                        // assert
+                        expect(isLoadingErrorHiddenChanges).toEventually(equal([true]))
                     }
                 }
+
             }
         }
     }

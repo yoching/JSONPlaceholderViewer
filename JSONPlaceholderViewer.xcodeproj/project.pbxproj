@@ -103,6 +103,7 @@
 		E3F75CFC20EDE91A00A53424 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CF020EDE91900A53424 /* LoadingIndicatorView.swift */; };
 		E3F75CFE20EDE91A00A53424 /* LoadingIndicatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CF220EDE91A00A53424 /* LoadingIndicatorViewModel.swift */; };
 		E3F75D0320EDEB3600A53424 /* XibInstantiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75D0220EDEB3600A53424 /* XibInstantiatable.swift */; };
+		E3F75D0820EDFD8700A53424 /* LoadingErrorViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75D0720EDFD8700A53424 /* LoadingErrorViewModelMock.swift */; };
 		E3FB206620D556C400C91CB9 /* PostSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206520D556C400C91CB9 /* PostSpec.swift */; };
 		E3FB206920D558B100C91CB9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206820D558B100C91CB9 /* Post.swift */; };
 		E3FB206B20D55AEF00C91CB9 /* posts.json in Resources */ = {isa = PBXBuildFile; fileRef = E3FB206A20D55AEF00C91CB9 /* posts.json */; };
@@ -268,6 +269,7 @@
 		E3F75CF020EDE91900A53424 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 		E3F75CF220EDE91A00A53424 /* LoadingIndicatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorViewModel.swift; sourceTree = "<group>"; };
 		E3F75D0220EDEB3600A53424 /* XibInstantiatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibInstantiatable.swift; sourceTree = "<group>"; };
+		E3F75D0720EDFD8700A53424 /* LoadingErrorViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingErrorViewModelMock.swift; sourceTree = "<group>"; };
 		E3FB206520D556C400C91CB9 /* PostSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSpec.swift; sourceTree = "<group>"; };
 		E3FB206820D558B100C91CB9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		E3FB206A20D55AEF00C91CB9 /* posts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = posts.json; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 			isa = PBXGroup;
 			children = (
 				E3F75CE220EDE50800A53424 /* Component */,
+				E3F75D0420EDFD5E00A53424 /* UI */,
 				E3F75CDE20EDE40600A53424 /* ApiModelExtensions.swift */,
 			);
 			path = Mock;
@@ -731,6 +734,30 @@
 				E3F75CF220EDE91A00A53424 /* LoadingIndicatorViewModel.swift */,
 			);
 			path = LoadingIndicatorView;
+			sourceTree = "<group>";
+		};
+		E3F75D0420EDFD5E00A53424 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75D0520EDFD6900A53424 /* Loading */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E3F75D0520EDFD6900A53424 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75D0620EDFD7300A53424 /* LoadingErrorView */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		E3F75D0620EDFD7300A53424 /* LoadingErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75D0720EDFD8700A53424 /* LoadingErrorViewModelMock.swift */,
+			);
+			path = LoadingErrorView;
 			sourceTree = "<group>";
 		};
 		E3FB206420D556B500C91CB9 /* Models */ = {
@@ -1149,6 +1176,7 @@
 				E32C429220DE55CF00AB328A /* PostCellModelSpec.swift in Sources */,
 				E3F5DE6D20DBC6A700D3AEF7 /* DataProviderSpec.swift in Sources */,
 				E3F75CDF20EDE40600A53424 /* ApiModelExtensions.swift in Sources */,
+				E3F75D0820EDFD8700A53424 /* LoadingErrorViewModelMock.swift in Sources */,
 				E3F75CD920EDE2AC00A53424 /* CommentMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

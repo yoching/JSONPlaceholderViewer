@@ -8,6 +8,7 @@
 
 import Foundation
 import ReactiveSwift
+import Result
 
 @testable import JSONPlaceholderViewer
 
@@ -32,13 +33,18 @@ final class DataProviderMock: DataProviding {
     }
 
     var populatePost: ((PostProtocol) -> Void)?
+    var populateShouldSucceed: Bool = true
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {
-        return SignalProducer<Void, DataProviderError>(value: ())
-            .on(started: {
-                self.timesPopulatePostStarted += 1
-            })
-            .on(value: {
+        return SignalProducer<Void, DataProviderError> { observer, _ in
+            self.timesPopulatePostStarted += 1
+
+            if self.populateShouldSucceed {
                 self.populatePost?(post)
-            })
+                observer.send(value: ())
+                observer.sendCompleted()
+            } else {
+                observer.send(error: .database(.invalidUserDataPassed))
+            }
+        }
     }
 }
