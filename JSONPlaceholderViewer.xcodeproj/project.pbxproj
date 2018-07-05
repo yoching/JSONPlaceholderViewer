@@ -86,6 +86,13 @@
 		E3F6E09420D512180069D2C1 /* PostsRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09320D512180069D2C1 /* PostsRequestSpec.swift */; };
 		E3F6E09820D514E00069D2C1 /* JSONPlaceholderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */; };
 		E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */; };
+		E3F75CD520EDE29000A53424 /* PostMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CD420EDE29000A53424 /* PostMock.swift */; };
+		E3F75CD720EDE2A300A53424 /* UserMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CD620EDE2A300A53424 /* UserMock.swift */; };
+		E3F75CD920EDE2AC00A53424 /* CommentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CD820EDE2AC00A53424 /* CommentMock.swift */; };
+		E3F75CDB20EDE31200A53424 /* NetworkMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CDA20EDE31200A53424 /* NetworkMock.swift */; };
+		E3F75CDD20EDE36A00A53424 /* DatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CDC20EDE36A00A53424 /* DatabaseMock.swift */; };
+		E3F75CDF20EDE40600A53424 /* ApiModelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CDE20EDE40600A53424 /* ApiModelExtensions.swift */; };
+		E3F75CE120EDE47B00A53424 /* DataProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F75CE020EDE47B00A53424 /* DataProviderMock.swift */; };
 		E3FB206620D556C400C91CB9 /* PostSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206520D556C400C91CB9 /* PostSpec.swift */; };
 		E3FB206920D558B100C91CB9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB206820D558B100C91CB9 /* Post.swift */; };
 		E3FB206B20D55AEF00C91CB9 /* posts.json in Resources */ = {isa = PBXBuildFile; fileRef = E3FB206A20D55AEF00C91CB9 /* posts.json */; };
@@ -97,7 +104,6 @@
 		E3FCF2B320D4EF3300D14E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2B220D4EF3300D14E3D /* AppDelegate.swift */; };
 		E3FCF2BA20D4EF3500D14E3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3FCF2B920D4EF3500D14E3D /* Assets.xcassets */; };
 		E3FCF2BD20D4EF3500D14E3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FCF2BB20D4EF3500D14E3D /* LaunchScreen.storyboard */; };
-		E3FCF2C820D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FCF2C720D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,6 +241,13 @@
 		E3F6E09320D512180069D2C1 /* PostsRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRequestSpec.swift; sourceTree = "<group>"; };
 		E3F6E09720D514E00069D2C1 /* JSONPlaceholderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderRequest.swift; sourceTree = "<group>"; };
 		E3F6E09E20D51F7A0069D2C1 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
+		E3F75CD420EDE29000A53424 /* PostMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMock.swift; sourceTree = "<group>"; };
+		E3F75CD620EDE2A300A53424 /* UserMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMock.swift; sourceTree = "<group>"; };
+		E3F75CD820EDE2AC00A53424 /* CommentMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMock.swift; sourceTree = "<group>"; };
+		E3F75CDA20EDE31200A53424 /* NetworkMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMock.swift; sourceTree = "<group>"; };
+		E3F75CDC20EDE36A00A53424 /* DatabaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMock.swift; sourceTree = "<group>"; };
+		E3F75CDE20EDE40600A53424 /* ApiModelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiModelExtensions.swift; sourceTree = "<group>"; };
+		E3F75CE020EDE47B00A53424 /* DataProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderMock.swift; sourceTree = "<group>"; };
 		E3FB206520D556C400C91CB9 /* PostSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSpec.swift; sourceTree = "<group>"; };
 		E3FB206820D558B100C91CB9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		E3FB206A20D55AEF00C91CB9 /* posts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = posts.json; sourceTree = "<group>"; };
@@ -245,7 +258,6 @@
 		E3FCF2BC20D4EF3500D14E3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3FCF2BE20D4EF3500D14E3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3FCF2C320D4EF3500D14E3D /* JSONPlaceholderViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONPlaceholderViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3FCF2C720D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderViewerTests.swift; sourceTree = "<group>"; };
 		E3FCF2C920D4EF3500D14E3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -354,7 +366,6 @@
 			isa = PBXGroup;
 			children = (
 				E32C426F20DE097D00AB328A /* DatabaseSpec.swift */,
-				E32C427120DE185600AB328A /* CoreDataStackMock.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -605,6 +616,61 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		E3F75CD220EDE26800A53424 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CE220EDE50800A53424 /* Component */,
+				E3F75CDE20EDE40600A53424 /* ApiModelExtensions.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		E3F75CD320EDE27D00A53424 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CD420EDE29000A53424 /* PostMock.swift */,
+				E3F75CD620EDE2A300A53424 /* UserMock.swift */,
+				E3F75CD820EDE2AC00A53424 /* CommentMock.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		E3F75CE220EDE50800A53424 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CE520EDE55200A53424 /* DataProvider */,
+				E3F75CE420EDE53E00A53424 /* Network */,
+				E3F75CE320EDE51800A53424 /* Database */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		E3F75CE320EDE51800A53424 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CD320EDE27D00A53424 /* Entities */,
+				E32C427120DE185600AB328A /* CoreDataStackMock.swift */,
+				E3F75CDC20EDE36A00A53424 /* DatabaseMock.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		E3F75CE420EDE53E00A53424 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CDA20EDE31200A53424 /* NetworkMock.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E3F75CE520EDE55200A53424 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				E3F75CE020EDE47B00A53424 /* DataProviderMock.swift */,
+			);
+			path = DataProvider;
+			sourceTree = "<group>";
+		};
 		E3FB206420D556B500C91CB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -667,7 +733,7 @@
 			children = (
 				E3F5DE6A20DBC68F00D3AEF7 /* Component */,
 				E32C429020DE557300AB328A /* UI */,
-				E3FCF2C720D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift */,
+				E3F75CD220EDE26800A53424 /* Mock */,
 				E3FCF2C920D4EF3500D14E3D /* Info.plist */,
 			);
 			path = JSONPlaceholderViewerTests;
@@ -1000,12 +1066,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				E32C427020DE097D00AB328A /* DatabaseSpec.swift in Sources */,
+				E3F75CD520EDE29000A53424 /* PostMock.swift in Sources */,
 				E32C427220DE185600AB328A /* CoreDataStackMock.swift in Sources */,
+				E3F75CDB20EDE31200A53424 /* NetworkMock.swift in Sources */,
 				E31DF17020E892C90095C131 /* PostDetailViewModelSpec.swift in Sources */,
-				E3FCF2C820D4EF3500D14E3D /* JSONPlaceholderViewerTests.swift in Sources */,
 				E32C429620DE58C700AB328A /* PostsViewModelSpec.swift in Sources */,
+				E3F75CE120EDE47B00A53424 /* DataProviderMock.swift in Sources */,
+				E3F75CD720EDE2A300A53424 /* UserMock.swift in Sources */,
+				E3F75CDD20EDE36A00A53424 /* DatabaseMock.swift in Sources */,
 				E32C429220DE55CF00AB328A /* PostCellModelSpec.swift in Sources */,
 				E3F5DE6D20DBC6A700D3AEF7 /* DataProviderSpec.swift in Sources */,
+				E3F75CDF20EDE40600A53424 /* ApiModelExtensions.swift in Sources */,
+				E3F75CD920EDE2AC00A53424 /* CommentMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
