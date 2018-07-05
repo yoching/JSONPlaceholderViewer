@@ -73,8 +73,13 @@ final class PostDetailViewModel {
         mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
         mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
 
+        let populateTrigger = Signal<Void, NoError>.merge(
+            viewWillAppearPipe.output,
+            loadingErrorViewModel.retryTappedOutput
+        )
+
         isPostPopulated.producer
-            .sample(on: viewWillAppearPipe.output)
+            .sample(on: populateTrigger)
             .on { [weak self] isPostPopulated in
                 self?.mutableIsLoadingIndicatorHidden.value = isPostPopulated
                 self?.mutableIsLoadingErrorHidden.value = true
@@ -123,7 +128,7 @@ extension PostDetailViewModel: PostDetailViewModeling {
         return Property(mutableBody)
     }
     var numberOfComments: Property<String> {
-        return Property(mutableNumberOfComments.map { "\($0)"  })
+        return Property(mutableNumberOfComments.map { "\($0)" })
     }
 
     var isLoadingIndicatorHidden: Property<Bool> {
