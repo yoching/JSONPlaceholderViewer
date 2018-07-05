@@ -15,7 +15,7 @@ protocol PostProtocol: class {
     var body: String { get }
     var title: String { get }
     var userProtocol: UserProtocol { get } // TODO: think about name
-    var comments: Set<Comment>? { get } // TODO: update to protocol??
+    var comments: Set<Comment> { get } // TODO: update to protocol??
 }
 
 final class Post: NSManagedObject, PostProtocol {
@@ -23,14 +23,14 @@ final class Post: NSManagedObject, PostProtocol {
     @NSManaged private(set) var body: String
     @NSManaged private(set) var title: String
 
-    @NSManaged private(set) var comments: Set<Comment>?
+    @NSManaged private(set) var comments: Set<Comment>
     @NSManaged private(set) var user: User
 
     func configure(
         identifier: Int64,
         body: String,
         title: String,
-        comments: Set<Comment>?,
+        comments: Set<Comment>,
         user: User
         ) {
         self.identifier = identifier
@@ -44,6 +44,7 @@ final class Post: NSManagedObject, PostProtocol {
         self.identifier = Int64(postFromApi.identifier)
         self.body = postFromApi.body
         self.title = postFromApi.title
+        self.comments = Set<Comment>()
         self.user = user
     }
 
@@ -52,16 +53,10 @@ final class Post: NSManagedObject, PostProtocol {
     }
 
     func add(_ comment: Comment) {
-        if comments == nil {
-            comments = Set<Comment>()
-        }
-        comments!.insert(comment)
+        comments.insert(comment)
     }
 
-    func comment(identifiers: [Int]) -> [Int64: Comment]? {
-        guard let comments = comments else {
-            return nil
-        }
+    func comment(identifiers: [Int]) -> [Int64: Comment] {
         let filteredComments = comments.filter { identifiers.contains(Int($0.identifier)) }
 
         var dictionary = [Int64: Comment]()

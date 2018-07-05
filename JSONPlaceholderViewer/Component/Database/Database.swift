@@ -173,7 +173,7 @@ extension Database: DatabaseManaging {
                         )
 
                         for commentFromApi in dataFromApi.comments {
-                            if let alreadyRelatedComment = alreadyRelatedComments?[Int64(commentFromApi.identifier)] {
+                            if let alreadyRelatedComment = alreadyRelatedComments[Int64(commentFromApi.identifier)] {
                                 alreadyRelatedComment.configure(commentFromApi: commentFromApi)
                             } else {
                                 let comment: Comment = context.insertObject()

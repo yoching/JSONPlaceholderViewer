@@ -32,7 +32,7 @@ final class CoreDataStackMock: CoreDataStack {
             identifier: identifier,
             body: "",
             title: "",
-            comments: nil,
+            comments: Set(),
             user: user
         )
 

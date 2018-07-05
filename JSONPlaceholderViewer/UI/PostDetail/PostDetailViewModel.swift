@@ -37,7 +37,7 @@ final class PostDetailViewModel {
 
     private let mutableUserName: MutableProperty<String?>
     private let mutableBody: MutableProperty<String>
-    private let mutableNumberOfComments: MutableProperty<Int?>
+    private let mutableNumberOfComments: MutableProperty<Int>
 
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
 
@@ -49,7 +49,7 @@ final class PostDetailViewModel {
 
         mutableUserName = MutableProperty<String?>(post.userProtocol.name)
         mutableBody = MutableProperty<String>(post.body)
-        mutableNumberOfComments = MutableProperty<Int?>(post.comments.map { $0.count })
+        mutableNumberOfComments = MutableProperty<Int>(post.comments.count)
 
         viewWillAppearPipe.output
             .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
@@ -64,7 +64,7 @@ final class PostDetailViewModel {
                     return
                 }
                 strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
-                strongSelf.mutableNumberOfComments.value = strongSelf.post.comments?.count
+                strongSelf.mutableNumberOfComments.value = strongSelf.post.comments.count
                 print(result)
         }
     }
@@ -79,7 +79,7 @@ extension PostDetailViewModel: PostDetailViewModeling {
         return Property(mutableBody)
     }
     var numberOfComments: Property<String> {
-        return Property(mutableNumberOfComments.map { $0.map { "\($0)" } ?? "-" })
+        return Property(mutableNumberOfComments.map { "\($0)"  })
     }
     func viewWillAppear() {
         viewWillAppearPipe.input.send(value: ())
