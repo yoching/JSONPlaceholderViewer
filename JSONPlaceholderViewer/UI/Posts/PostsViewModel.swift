@@ -70,8 +70,13 @@ final class PostsViewModel {
                 return posts?.map(PostCellModel.init) ?? []
         }
 
+        let fetchTrigger = Signal<Void, NoError>.merge(
+            viewWillAppearPipe.output,
+            loadingErrorViewModel.retryTappedOutput
+        )
+
         shouldReloadWhenAppear.producer
-            .sample(on: viewWillAppearPipe.output)
+            .sample(on: fetchTrigger)
             .filter { $0 }
             .on(value: { [weak self] _ in
                 self?.shouldReloadWhenAppear.value = false
