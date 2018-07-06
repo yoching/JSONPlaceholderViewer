@@ -22,41 +22,29 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="US1-is-kUg">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqa-zX-JQx" customClass="LoadingErrorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqa-zX-JQx" customClass="LoadingErrorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-51-7gg" customClass="LoadingIndicatorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="nqa-zX-JQx" firstAttribute="leading" secondItem="US1-is-kUg" secondAttribute="leading" id="0Ik-Cp-kuu"/>
-                                    <constraint firstItem="nqa-zX-JQx" firstAttribute="top" secondItem="US1-is-kUg" secondAttribute="top" id="EKy-43-2w7"/>
-                                    <constraint firstAttribute="trailing" secondItem="nqa-zX-JQx" secondAttribute="trailing" id="KLP-3W-gdh"/>
-                                    <constraint firstAttribute="trailing" secondItem="f4d-51-7gg" secondAttribute="trailing" id="PSa-8x-ika"/>
-                                    <constraint firstAttribute="bottom" secondItem="f4d-51-7gg" secondAttribute="bottom" id="ZJj-nQ-vy7"/>
-                                    <constraint firstAttribute="bottom" secondItem="nqa-zX-JQx" secondAttribute="bottom" id="bpV-er-shj"/>
-                                    <constraint firstItem="f4d-51-7gg" firstAttribute="leading" secondItem="US1-is-kUg" secondAttribute="leading" id="e54-5A-8E4"/>
-                                    <constraint firstItem="f4d-51-7gg" firstAttribute="top" secondItem="US1-is-kUg" secondAttribute="top" id="mZn-Kl-x3a"/>
-                                </constraints>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-51-7gg" customClass="LoadingIndicatorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="US1-is-kUg" firstAttribute="top" secondItem="Sdr-R2-ONU" secondAttribute="top" id="8DN-fQ-TF1"/>
-                            <constraint firstItem="Sdr-R2-ONU" firstAttribute="bottom" secondItem="US1-is-kUg" secondAttribute="bottom" id="ELv-Ur-sd6"/>
+                            <constraint firstItem="XCq-Co-biZ" firstAttribute="bottom" secondItem="f4d-51-7gg" secondAttribute="bottom" id="3OF-CO-l4y"/>
+                            <constraint firstItem="XCq-Co-biZ" firstAttribute="trailing" secondItem="f4d-51-7gg" secondAttribute="trailing" id="7xE-Gp-wOm"/>
                             <constraint firstItem="Sdr-R2-ONU" firstAttribute="bottom" secondItem="XCq-Co-biZ" secondAttribute="bottom" id="Gbf-Mi-ZP8"/>
-                            <constraint firstItem="Sdr-R2-ONU" firstAttribute="trailing" secondItem="US1-is-kUg" secondAttribute="trailing" id="Nbc-Yh-u0E"/>
+                            <constraint firstItem="XCq-Co-biZ" firstAttribute="leading" secondItem="nqa-zX-JQx" secondAttribute="leading" id="MB2-kW-goJ"/>
+                            <constraint firstItem="XCq-Co-biZ" firstAttribute="leading" secondItem="f4d-51-7gg" secondAttribute="leading" id="Q9j-0d-WKL"/>
                             <constraint firstItem="XCq-Co-biZ" firstAttribute="leading" secondItem="Sdr-R2-ONU" secondAttribute="leading" id="Tj5-MQ-11b"/>
                             <constraint firstItem="XCq-Co-biZ" firstAttribute="top" secondItem="Sdr-R2-ONU" secondAttribute="top" id="UPg-TD-w2i"/>
-                            <constraint firstItem="US1-is-kUg" firstAttribute="leading" secondItem="Sdr-R2-ONU" secondAttribute="leading" id="kDj-s8-hlM"/>
+                            <constraint firstItem="XCq-Co-biZ" firstAttribute="trailing" secondItem="nqa-zX-JQx" secondAttribute="trailing" id="VNZ-1v-2Mn"/>
+                            <constraint firstItem="XCq-Co-biZ" firstAttribute="bottom" secondItem="nqa-zX-JQx" secondAttribute="bottom" id="hZ9-07-M95"/>
+                            <constraint firstItem="XCq-Co-biZ" firstAttribute="top" secondItem="nqa-zX-JQx" secondAttribute="top" id="i9C-X4-XGC"/>
                             <constraint firstItem="Sdr-R2-ONU" firstAttribute="trailing" secondItem="XCq-Co-biZ" secondAttribute="trailing" id="t5f-c9-6cw"/>
+                            <constraint firstItem="XCq-Co-biZ" firstAttribute="top" secondItem="f4d-51-7gg" secondAttribute="top" id="vqG-d2-H6n"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Sdr-R2-ONU"/>
                     </view>

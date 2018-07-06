@@ -75,13 +75,25 @@ final class PostsViewModel {
             .filter { $0 }
             .on(value: { [weak self] _ in
                 self?.shouldReloadWhenAppear.value = false
+
+                self?.mutableIsLoadingErrorHidden.value = true
+                self?.mutableIsLoadingIndicatorHidden.value = false
             })
             .flatMap(.latest) { _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
                 return self.dataProvider.fetchPosts().resultWrapped()
             }
-            .startWithValues { result in
-                print(result)
-        }
+            .on(value: { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
+                    self?.mutableIsLoadingErrorHidden.value = false
+                case .success:
+                    break
+                }
+
+                self?.mutableIsLoadingIndicatorHidden.value = true
+            })
+            .start()
     }
 }
 

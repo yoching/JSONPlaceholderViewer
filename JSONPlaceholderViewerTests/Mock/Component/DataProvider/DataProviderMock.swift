@@ -21,11 +21,18 @@ final class DataProviderMock: DataProviding {
     }
     let mutablePosts = MutableProperty<[PostProtocol]?>(nil)
 
+    var fetchPostsShouldSucceed: Bool = true
     func fetchPosts() -> SignalProducer<Void, DataProviderError> {
-        return SignalProducer<Void, DataProviderError>(value: ())
-            .on(started: {
-                self.timesFetchPostsStarted += 1
-            })
+        return SignalProducer<Void, DataProviderError> { observer, _ in
+            self.timesFetchPostsStarted += 1
+
+            if self.fetchPostsShouldSucceed {
+                observer.send(value: ())
+                observer.sendCompleted()
+            } else {
+                observer.send(error: .unknown)
+            }
+        }
     }
 
     func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError> {

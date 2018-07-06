@@ -14,6 +14,8 @@ import ReactiveSwift
 @testable import JSONPlaceholderViewer
 
 class PostsViewModelSpec: QuickSpec {
+
+    // swiftlint:disable:next function_body_length
     override func spec() {
 
         var dataProviderMock: DataProviderMock!
@@ -66,6 +68,72 @@ class PostsViewModelSpec: QuickSpec {
 
                     // assert
                     expect(dataProviderMock.timesFetchPostsStarted) == 1
+                }
+
+                it("shows loading indicator") {
+                    // arrange
+                    var isLoadingIndicatorHiddenChanges: [Bool] = []
+                    postsViewModel.isLoadingIndicatorHidden.producer
+                        .startWithValues { isHidden in
+                            isLoadingIndicatorHiddenChanges.append(isHidden)
+                    }
+
+                    // act
+                    postsViewModel.viewWillAppear()
+
+                    // assert
+                    expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true, false, true]))
+                }
+
+                context("fetch succeed") {
+                    beforeEach {
+                        dataProviderMock.fetchPostsShouldSucceed = true
+                    }
+                    it("doesn't show loading error") {
+                        // arrange
+                        var isLoadingErrorHiddenChanges: [Bool] = []
+                        postsViewModel.isLoadingErrorHidden.producer
+                            .startWithValues { isHidden in
+                                isLoadingErrorHiddenChanges.append(isHidden)
+                        }
+
+                        // act
+                        postsViewModel.viewWillAppear()
+
+                        // assert
+                        expect(isLoadingErrorHiddenChanges).toEventually(equal([true]))
+                    }
+                }
+
+                context("fetch fail") {
+                    beforeEach {
+                        dataProviderMock.fetchPostsShouldSucceed = false
+                    }
+                    it("shows error view") {
+                        // arrange
+                        var isLoadingErrorHiddenChanges: [Bool] = []
+                        postsViewModel.isLoadingErrorHidden.producer
+                            .startWithValues { isHidden in
+                                isLoadingErrorHiddenChanges.append(isHidden)
+                        }
+
+                        // act
+                        postsViewModel.viewWillAppear()
+
+                        // assert
+                        expect(isLoadingErrorHiddenChanges).toEventually(equal([true, false]))
+                    }
+
+                    it("update error message") {
+                        // arrange
+                        loadingErrorViewModelMock.timesUpdateErrorMessageCalled = 0
+
+                        // act
+                        postsViewModel.viewWillAppear()
+
+                        // assert
+                        expect(loadingErrorViewModelMock.timesUpdateErrorMessageCalled).toEventually(equal(1))
+                    }
                 }
             }
             context("2nd fetch") {

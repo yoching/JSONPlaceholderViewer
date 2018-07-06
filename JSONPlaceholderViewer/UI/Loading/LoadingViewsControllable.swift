@@ -6,7 +6,7 @@
 //  Copyright © 2018 Yoshikuni Kato. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import ReactiveSwift
 
 protocol LoadingViewsControllable {

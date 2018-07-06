@@ -11,7 +11,7 @@ import ReactiveSwift
 import Result
 import ReactiveCocoa
 
-final class PostsViewController: UIViewController {
+final class PostsViewController: UIViewController, LoadingViewsContaining {
 
     // MARK: - View Elements
     @IBOutlet weak var tableView: UITableView!
@@ -32,6 +32,8 @@ final class PostsViewController: UIViewController {
         configureTableView()
 
         tableView.reactive.reloadData <~ viewModel.cellModels.signal.map { _ in () }
+
+        configureLoadingViews(with: viewModel)
     }
 
     override func viewWillAppear(_ animated: Bool) {
