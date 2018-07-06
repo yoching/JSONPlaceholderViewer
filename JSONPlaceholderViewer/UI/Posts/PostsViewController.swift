@@ -15,6 +15,8 @@ final class PostsViewController: UIViewController {
 
     // MARK: - View Elements
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadingErrorView: LoadingErrorView!
+    @IBOutlet weak var loadingIndicatorView: LoadingIndicatorView!
 
     // MARK: - Properties
     private var viewModel: PostsViewModeling!

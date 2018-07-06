@@ -23,7 +23,11 @@ final class ViewFactoryImpl: ViewFactory {
 
     func posts() -> (UIViewController, PostsViewRouting) {
         let viewController = StoryboardScene.PostsViewController.initialScene.instantiate()
-        let viewModel = PostsViewModel(dataProvider: components.dataProvider)
+        let viewModel = PostsViewModel(
+            dataProvider: components.dataProvider,
+            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
+            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
+        )
         viewController.configure(with: viewModel)
         return (viewController, viewModel)
     }

@@ -26,6 +26,7 @@
 		E31854D820D92F6B00D8AC89 /* SessionTaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D720D92F6B00D8AC89 /* SessionTaskError.swift */; };
 		E31854DA20D92F7A00D8AC89 /* SessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31854D920D92F7A00D8AC89 /* SessionTask.swift */; };
 		E31DF17020E892C90095C131 /* PostDetailViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31DF16F20E892C90095C131 /* PostDetailViewModelSpec.swift */; };
+		E325972E20EF4CC7005EF654 /* LoadingViewsControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E325972D20EF4CC7005EF654 /* LoadingViewsControllable.swift */; };
 		E32C426920DDFB9D00AB328A /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426820DDFB9D00AB328A /* DataProvider.swift */; };
 		E32C426B20DDFFA400AB328A /* ResultWrappedObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */; };
 		E32C426D20DE03B000AB328A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426C20DE03B000AB328A /* Database.swift */; };
@@ -200,6 +201,7 @@
 		E31854D720D92F6B00D8AC89 /* SessionTaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTaskError.swift; sourceTree = "<group>"; };
 		E31854D920D92F7A00D8AC89 /* SessionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTask.swift; sourceTree = "<group>"; };
 		E31DF16F20E892C90095C131 /* PostDetailViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModelSpec.swift; sourceTree = "<group>"; };
+		E325972D20EF4CC7005EF654 /* LoadingViewsControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewsControllable.swift; sourceTree = "<group>"; };
 		E32C426820DDFB9D00AB328A /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultWrappedObservable.swift; sourceTree = "<group>"; };
 		E32C426C20DE03B000AB328A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 				E3F75CFF20EDE94C00A53424 /* EmptyDataView */,
 				E3F75D0020EDE95900A53424 /* LoadingErrorView */,
 				E3F75D0120EDE97000A53424 /* LoadingIndicatorView */,
+				E325972D20EF4CC7005EF654 /* LoadingViewsControllable.swift */,
 			);
 			path = Loading;
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E325972E20EF4CC7005EF654 /* LoadingViewsControllable.swift in Sources */,
 				E38216DB20DA624D0064B147 /* NSManagedObject+Extension.swift in Sources */,
 				E355CD6720E0F84A00E81188 /* PostDetailViewController.swift in Sources */,
 				E3F6E09F20D51F7A0069D2C1 /* Storyboards.swift in Sources */,

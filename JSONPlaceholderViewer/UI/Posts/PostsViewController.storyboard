@@ -22,17 +22,47 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="US1-is-kUg">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqa-zX-JQx" customClass="LoadingErrorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-51-7gg" customClass="LoadingIndicatorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="nqa-zX-JQx" firstAttribute="leading" secondItem="US1-is-kUg" secondAttribute="leading" id="0Ik-Cp-kuu"/>
+                                    <constraint firstItem="nqa-zX-JQx" firstAttribute="top" secondItem="US1-is-kUg" secondAttribute="top" id="EKy-43-2w7"/>
+                                    <constraint firstAttribute="trailing" secondItem="nqa-zX-JQx" secondAttribute="trailing" id="KLP-3W-gdh"/>
+                                    <constraint firstAttribute="trailing" secondItem="f4d-51-7gg" secondAttribute="trailing" id="PSa-8x-ika"/>
+                                    <constraint firstAttribute="bottom" secondItem="f4d-51-7gg" secondAttribute="bottom" id="ZJj-nQ-vy7"/>
+                                    <constraint firstAttribute="bottom" secondItem="nqa-zX-JQx" secondAttribute="bottom" id="bpV-er-shj"/>
+                                    <constraint firstItem="f4d-51-7gg" firstAttribute="leading" secondItem="US1-is-kUg" secondAttribute="leading" id="e54-5A-8E4"/>
+                                    <constraint firstItem="f4d-51-7gg" firstAttribute="top" secondItem="US1-is-kUg" secondAttribute="top" id="mZn-Kl-x3a"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="US1-is-kUg" firstAttribute="top" secondItem="Sdr-R2-ONU" secondAttribute="top" id="8DN-fQ-TF1"/>
+                            <constraint firstItem="Sdr-R2-ONU" firstAttribute="bottom" secondItem="US1-is-kUg" secondAttribute="bottom" id="ELv-Ur-sd6"/>
                             <constraint firstItem="Sdr-R2-ONU" firstAttribute="bottom" secondItem="XCq-Co-biZ" secondAttribute="bottom" id="Gbf-Mi-ZP8"/>
+                            <constraint firstItem="Sdr-R2-ONU" firstAttribute="trailing" secondItem="US1-is-kUg" secondAttribute="trailing" id="Nbc-Yh-u0E"/>
                             <constraint firstItem="XCq-Co-biZ" firstAttribute="leading" secondItem="Sdr-R2-ONU" secondAttribute="leading" id="Tj5-MQ-11b"/>
                             <constraint firstItem="XCq-Co-biZ" firstAttribute="top" secondItem="Sdr-R2-ONU" secondAttribute="top" id="UPg-TD-w2i"/>
+                            <constraint firstItem="US1-is-kUg" firstAttribute="leading" secondItem="Sdr-R2-ONU" secondAttribute="leading" id="kDj-s8-hlM"/>
                             <constraint firstItem="Sdr-R2-ONU" firstAttribute="trailing" secondItem="XCq-Co-biZ" secondAttribute="trailing" id="t5f-c9-6cw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Sdr-R2-ONU"/>
                     </view>
                     <connections>
+                        <outlet property="loadingErrorView" destination="nqa-zX-JQx" id="bNk-Vs-8dO"/>
+                        <outlet property="loadingIndicatorView" destination="f4d-51-7gg" id="eHo-wv-ADZ"/>
                         <outlet property="tableView" destination="XCq-Co-biZ" id="fsR-W6-WA7"/>
                     </connections>
                 </viewController>

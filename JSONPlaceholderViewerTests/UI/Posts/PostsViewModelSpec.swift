@@ -17,13 +17,18 @@ class PostsViewModelSpec: QuickSpec {
     override func spec() {
 
         var dataProviderMock: DataProviderMock!
+        var loadingErrorViewModelMock: LoadingErrorViewModelMock!
 
         var postsViewModel: PostsViewModel!
 
         beforeEach {
             dataProviderMock = DataProviderMock()
+            loadingErrorViewModelMock = LoadingErrorViewModelMock()
+
             postsViewModel = PostsViewModel(
-                dataProvider: dataProviderMock
+                dataProvider: dataProviderMock,
+                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
+                loadingErrorViewModel: loadingErrorViewModelMock
             )
         }
 

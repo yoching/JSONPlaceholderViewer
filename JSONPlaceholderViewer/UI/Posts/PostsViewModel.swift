@@ -10,7 +10,7 @@ import Foundation
 import ReactiveSwift
 import Result
 
-protocol PostsViewModeling {
+protocol PostsViewModeling: LoadingViewsControllable {
     // View States
     var cellModels: Property<[PostCellModeling]> { get }
 
@@ -38,8 +38,22 @@ final class PostsViewModel {
 
     private let shouldReloadWhenAppear = MutableProperty<Bool>(true)
 
-    init(dataProvider: DataProviding) {
+    // LoadingViewsControllable
+    let loadingIndicatorViewModel: LoadingIndicatorViewModeling
+    let loadingErrorViewModel: LoadingErrorViewModeling
+    private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
+    private let mutableIsLoadingErrorHidden: MutableProperty<Bool>
+
+    init(
+        dataProvider: DataProviding,
+        loadingIndicatorViewModel: LoadingIndicatorViewModeling,
+        loadingErrorViewModel: LoadingErrorViewModeling
+        ) {
         self.dataProvider = dataProvider
+        self.loadingIndicatorViewModel = loadingIndicatorViewModel
+        self.loadingErrorViewModel = loadingErrorViewModel
+        mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
+        mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
 
         cellModels.producer
             .sample(with: didSelectRowPipe.output)
@@ -83,6 +97,15 @@ extension PostsViewModel: PostsViewModeling {
 
     func didSelectRow(index: Int) {
         didSelectRowPipe.input.send(value: index)
+    }
+
+    // LoadingViewsControllable
+    var isLoadingIndicatorHidden: Property<Bool> {
+        return Property(mutableIsLoadingIndicatorHidden).skipRepeats()
+    }
+
+    var isLoadingErrorHidden: Property<Bool> {
+        return Property(mutableIsLoadingErrorHidden).skipRepeats()
     }
 }
 
