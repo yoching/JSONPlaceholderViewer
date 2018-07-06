@@ -30,7 +30,12 @@ final class ViewFactoryImpl: ViewFactory {
 
     func postDetail(of post: PostProtocol) -> (UIViewController, PostDetailViewRouting) {
         let viewController = StoryboardScene.PostDetailViewController.initialScene.instantiate()
-        let viewModel = PostDetailViewModel(of: post, dataProvider: components.dataProvider)
+        let viewModel = PostDetailViewModel(
+            of: post,
+            dataProvider: components.dataProvider,
+            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
+            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
+        )
         viewController.configure(with: viewModel)
         return (viewController, viewModel)
     }
