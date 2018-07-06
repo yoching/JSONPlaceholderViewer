@@ -70,14 +70,15 @@ final class PostsViewModel {
                 return posts?.map(PostCellModel.init) ?? []
         }
 
-        let fetchTrigger = Signal<Void, NoError>.merge(
-            viewWillAppearPipe.output,
-            loadingErrorViewModel.retryTappedOutput
+        let fetchTrigger = SignalProducer<Void, NoError>.merge(
+            shouldReloadWhenAppear.producer
+                .sample(on: viewWillAppearPipe.output)
+                .filter { $0 }
+                .map { _ in () },
+            loadingErrorViewModel.retryTappedOutput.producer
         )
 
-        shouldReloadWhenAppear.producer
-            .sample(on: fetchTrigger)
-            .filter { $0 }
+        fetchTrigger
             .on(value: { [weak self] _ in
                 self?.shouldReloadWhenAppear.value = false
 
@@ -85,7 +86,7 @@ final class PostsViewModel {
                 self?.mutableIsLoadingIndicatorHidden.value = false
             })
             .flatMap(.latest) { _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
-                return self.dataProvider.fetchPosts().resultWrapped()
+                return self.dataProvider.fetchPosts().resultWrapped() // TODO: change this to Action for multiple trigger restriction?
             }
             .on(value: { [weak self] result in
                 switch result {
