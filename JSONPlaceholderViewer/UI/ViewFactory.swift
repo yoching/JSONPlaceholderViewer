@@ -22,31 +22,35 @@ final class ViewFactoryImpl: ViewFactory {
     }
 
     func posts() -> (UIViewController, PostsViewRouting) {
-        let viewController = StoryboardScene.PostsViewController.initialScene.instantiate()
         let emptyDataViewModel = EmptyDataViewModel(
             image: nil,
             message: "Posts are empty",
             isImageHidden: true,
             isRetryButtonHidden: false
         )
+        let loadingErrorViewModel = LoadingErrorViewModel(errorMessage: "error")
+        let loadingIndicatorViewModel = LoadingIndicatorViewModel(loadingMessage: "loading")
         let viewModel = PostsViewModel(
             dataProvider: components.dataProvider,
             emptyDataViewModel: emptyDataViewModel,
-            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error"),
-            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
+            loadingErrorViewModel: loadingErrorViewModel,
+            loadingIndicatorViewModel: loadingIndicatorViewModel
         )
+
+        let viewController = StoryboardScene.PostsViewController.initialScene.instantiate()
         viewController.configure(with: viewModel)
         return (viewController, viewModel)
     }
 
     func postDetail(of post: PostProtocol) -> (UIViewController, PostDetailViewRouting) {
-        let viewController = StoryboardScene.PostDetailViewController.initialScene.instantiate()
         let viewModel = PostDetailViewModel(
             of: post,
             dataProvider: components.dataProvider,
             loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
             loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
         )
+
+        let viewController = StoryboardScene.PostDetailViewController.initialScene.instantiate()
         viewController.configure(with: viewModel)
         return (viewController, viewModel)
     }
