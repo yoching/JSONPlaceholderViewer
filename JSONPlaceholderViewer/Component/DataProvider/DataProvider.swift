@@ -24,6 +24,7 @@ protocol DataProviding {
 enum DataProviderError: Error {
     case network(NetworkError)
     case database(DatabaseError)
+    case unknown
 }
 
 final class DataProvider {

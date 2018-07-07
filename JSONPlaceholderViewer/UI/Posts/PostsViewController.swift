@@ -11,10 +11,14 @@ import ReactiveSwift
 import Result
 import ReactiveCocoa
 
-final class PostsViewController: UIViewController {
+final class PostsViewController: UIViewController, LoadingAndEmptyViewsContaining {
 
     // MARK: - View Elements
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyDataView: EmptyDataView!
+    @IBOutlet weak var loadingErrorView: LoadingErrorView!
+    @IBOutlet weak var loadingIndicatorView: LoadingIndicatorView!
+    private var refreshControl = UIRefreshControl()
 
     // MARK: - Properties
     private var viewModel: PostsViewModeling!
@@ -30,6 +34,15 @@ final class PostsViewController: UIViewController {
         configureTableView()
 
         tableView.reactive.reloadData <~ viewModel.cellModels.signal.map { _ in () }
+        viewModel
+            .shouldStopRefreshControl
+            .signal
+            .observe(on: UIScheduler())
+            .observeValues { [weak self] _ in
+                self?.refreshControl.endRefreshing()
+        }
+
+        configureLoadingAndEmptyViews(with: viewModel)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +57,17 @@ private extension PostsViewController {
         tableView.registerNibForCellWithType(PostCell.self)
         tableView.dataSource = self
         tableView.delegate = self
+
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(
+            self,
+            action: #selector(refresh(sender:)),
+            for: .valueChanged
+        )
+    }
+
+    @objc func refresh(sender: UIRefreshControl) {
+        viewModel.pullToRefreshTriggered()
     }
 }
 

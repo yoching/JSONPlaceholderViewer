@@ -10,7 +10,7 @@ import UIKit
 import ReactiveCocoa
 import ReactiveSwift
 
-final class PostDetailViewController: UIViewController {
+final class PostDetailViewController: UIViewController, LoadingViewsContaining {
 
     // MARK: - View Elements
     @IBOutlet weak var userNameLabel: UILabel!
@@ -34,11 +34,7 @@ final class PostDetailViewController: UIViewController {
         bodyLabel.reactive.text <~ viewModel.body
         numberOfCommentsLabel.reactive.text <~ viewModel.numberOfComments
 
-        loadingErrorView.configure(with: viewModel.loadingErrorViewModel)
-        loadingErrorView.reactive.isHidden <~ viewModel.isLoadingErrorHidden
-
-        loadingIndicatorView.configure(with: viewModel.loadingIndicatorViewModel)
-        loadingIndicatorView.reactive.isHidden <~ viewModel.isLoadingIndicatorHidden
+        configureLoadingViews(with: viewModel)
     }
 
     override func viewWillAppear(_ animated: Bool) {

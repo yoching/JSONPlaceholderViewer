@@ -126,6 +126,9 @@ extension Database: DatabaseManaging {
                 return strongSelf.viewContext
                     .performChangesProducer(block: operation)
                     .mapError(DatabaseError.context)
+            }
+            .flatMap(.latest) { [unowned self] _ -> SignalProducer<Void, DatabaseError> in
+                return self.fetchPosts()
         }
     }
 

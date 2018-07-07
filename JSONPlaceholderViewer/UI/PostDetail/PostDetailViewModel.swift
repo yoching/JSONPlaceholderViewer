@@ -10,17 +10,11 @@ import Foundation
 import ReactiveSwift
 import Result
 
-protocol PostDetailViewModeling {
+protocol PostDetailViewModeling: LoadingViewsControllable {
     // View States
     var userName: Property<String?> { get }
     var body: Property<String> { get }
     var numberOfComments: Property<String> { get }
-
-    var isLoadingErrorHidden: Property<Bool> { get }
-    var loadingErrorViewModel: LoadingErrorViewModeling { get }
-
-    var isLoadingIndicatorHidden: Property<Bool> { get }
-    var loadingIndicatorViewModel: LoadingIndicatorViewModeling { get }
 
     // View -> View Model
     func viewWillAppear()
@@ -45,15 +39,15 @@ final class PostDetailViewModel {
     private let mutableBody: MutableProperty<String>
     private let mutableNumberOfComments: MutableProperty<Int>
 
-    private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
-    let loadingIndicatorViewModel: LoadingIndicatorViewModeling
-    let loadingErrorViewModel: LoadingErrorViewModeling
-
-    private let mutableIsLoadingErrorHidden: MutableProperty<Bool>
-
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
 
     private let routeSelectedPipe = Signal<PostDetailViewRoute, NoError>.pipe()
+
+    // LoadingViewsControllable
+    let loadingIndicatorViewModel: LoadingIndicatorViewModeling
+    let loadingErrorViewModel: LoadingErrorViewModeling
+    private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
+    private let mutableIsLoadingErrorHidden: MutableProperty<Bool>
 
     init(
         of post: PostProtocol,
@@ -131,16 +125,17 @@ extension PostDetailViewModel: PostDetailViewModeling {
         return Property(mutableNumberOfComments.map { "\($0)" })
     }
 
+    func viewWillAppear() {
+        viewWillAppearPipe.input.send(value: ())
+    }
+
+    // LoadingViewsControllable
     var isLoadingIndicatorHidden: Property<Bool> {
         return Property(mutableIsLoadingIndicatorHidden).skipRepeats()
     }
 
     var isLoadingErrorHidden: Property<Bool> {
         return Property(mutableIsLoadingErrorHidden).skipRepeats()
-    }
-
-    func viewWillAppear() {
-        viewWillAppearPipe.input.send(value: ())
     }
 }
 
