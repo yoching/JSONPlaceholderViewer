@@ -69,6 +69,7 @@ final class PostsViewModel {
         self.loadingErrorViewModel = loadingErrorViewModel
         self.loadingIndicatorViewModel = loadingIndicatorViewModel
 
+        // cell selection -> route
         cellModels.producer
             .sample(with: didSelectRowPipe.output)
             .map { cellModels, row -> PostCellModeling in
@@ -79,23 +80,16 @@ final class PostsViewModel {
             }
             .start(routeSelectedPipe.input)
 
+        // posts -> cellmodels conversion
         mutableCellModels <~ dataProvider.posts
             .map { posts -> [PostCellModeling] in
                 return posts?.map(PostCellModel.init) ?? []
         }
 
+        // EmptyDataView visibility
         mutableIsEmptyDataViewHidden <~ cellModels.map { !$0.isEmpty }
 
-        let fetchTrigger = SignalProducer<Void, NoError>.merge(
-            shouldReloadWhenAppear.producer
-                .sample(on: viewWillAppearPipe.output)
-                .filter { $0 }
-                .map { _ in () },
-            loadingErrorViewModel.retryTappedOutput.producer,
-            emptyDataViewModel.retryTappedOutput.producer,
-            pullToRefreshTriggeredPipe.output.producer
-        )
-
+        // fetch
         fetchAction = Action<Void, Void, DataProviderError> { [weak self] _
             -> SignalProducer<Void, DataProviderError> in
             guard let strongSelf = self else {
@@ -104,7 +98,15 @@ final class PostsViewModel {
             return strongSelf.dataProvider.fetchPosts()
         }
 
-        fetchAction <~ fetchTrigger
+        fetchAction <~ SignalProducer<Void, NoError>.merge(
+            shouldReloadWhenAppear.producer
+                .sample(on: viewWillAppearPipe.output)
+                .filter { $0 }
+                .map { _ in () },
+            loadingErrorViewModel.retryTappedOutput.producer,
+            emptyDataViewModel.retryTappedOutput.producer,
+            pullToRefreshTriggeredPipe.output.producer
+        )
 
         // view state when fetch start
         fetchAction.isExecuting
@@ -131,6 +133,7 @@ final class PostsViewModel {
                 self?.shouldStopRefreshControlPipe.input.send(value: ())
         }
 
+        // error
         fetchAction.errors
             .observeValues { [weak self] error in
                 self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
