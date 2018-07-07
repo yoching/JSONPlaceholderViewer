@@ -108,41 +108,52 @@ final class PostsViewModel {
             pullToRefreshTriggeredPipe.output.producer
         )
 
-        // view state when fetch start
+        // disable shouldReloadWhenAppear flag when start
         fetchAction.isExecuting
             .producer
             .skipRepeats()
             .filter { $0 } // start
             .startWithValues { [weak self] _ in
-                self?.mutableIsLoadingErrorHidden.value = true
-                if let cellModels = self?.cellModels.value,
-                    cellModels.isEmpty {
-                    self?.mutableIsLoadingIndicatorHidden.value = false
-                }
-
                 self?.shouldReloadWhenAppear.value = false
         }
 
-        // view state when fetch end
+        // stop refresh control when fetch end
         fetchAction.isExecuting
             .producer
             .skipRepeats()
             .filter { !$0 } // end
             .startWithValues { [weak self] _ in
-                self?.mutableIsLoadingIndicatorHidden.value = true
                 self?.shouldStopRefreshControlPipe.input.send(value: ())
         }
 
-        // error
+        // error description
         fetchAction.errors
             .observeValues { [weak self] error in
                 self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
-                if let strongSelf = self,
-                    strongSelf.cellModels.value.isEmpty {
-                    self?.mutableIsLoadingErrorHidden.value = false
-                }
         }
 
+        // loading indicator view state
+        mutableIsLoadingIndicatorHidden <~ SignalProducer.combineLatest(
+            cellModels.producer.map { $0.isEmpty },
+            fetchAction.isExecuting.producer
+            )
+            .map { isCellModelsEmpty, isExecuting -> Bool in
+                // display indicator when "no cells" & "fetching"
+                return !(isCellModelsEmpty && isExecuting)
+        }
+
+        // loading error view state
+        mutableIsLoadingErrorHidden <~ SignalProducer.combineLatest(
+            cellModels.producer.map { $0.isEmpty },
+            fetchAction.isExecuting.producer,
+            fetchAction.events.producer.map { $0.error != nil }
+            )
+            .map { isCellModelsEmpty, isExecuting, isLastFetchError -> Bool in
+                // display error only when "no cells" & "not fetching" & "last fetch error"
+                return !(isCellModelsEmpty && !isExecuting && isLastFetchError)
+        }
+
+        // TODO: disable retry buttons in loading views when fetching
     }
 }
 
