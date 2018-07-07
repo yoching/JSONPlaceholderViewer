@@ -40,12 +40,15 @@ final class Post: NSManagedObject, PostProtocol {
         self.user = user
     }
 
-    func configure(postFromApi: JSONPlaceholderApi.Post, user: User) {
+    func configure(postFromApi: JSONPlaceholderApi.Post, user: User, isInitial: Bool) {
         self.identifier = Int64(postFromApi.identifier)
         self.body = postFromApi.body
         self.title = postFromApi.title
-        self.comments = Set<Comment>() // TODO: is this right?
         self.user = user
+
+        if isInitial {
+            self.comments = Set<Comment>()
+        }
     }
 
     var userProtocol: UserProtocol {

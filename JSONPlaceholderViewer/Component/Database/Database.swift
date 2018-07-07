@@ -100,8 +100,15 @@ extension Database: DatabaseManaging {
                         let postId = Int64(postFromApi.identifier)
                         let userId = Int64(postFromApi.userIdentifier)
 
-                        let postToConfigure: Post = mutableCurrentPosts.removeValue(forKey: postId)
-                            ?? context.insertObject()
+                        let postToConfigure: Post
+                        let isInitialConfiguration: Bool
+                        if let post = mutableCurrentPosts.removeValue(forKey: postId) {
+                            postToConfigure = post
+                            isInitialConfiguration = false
+                        } else {
+                            postToConfigure = context.insertObject()
+                            isInitialConfiguration = true
+                        }
 
                         // user
                         let relatedUser: User
@@ -114,7 +121,11 @@ extension Database: DatabaseManaging {
                             relatedUser = newUser
                         }
 
-                        postToConfigure.configure(postFromApi: postFromApi, user: relatedUser)
+                        postToConfigure.configure(
+                            postFromApi: postFromApi,
+                            user: relatedUser,
+                            isInitial: isInitialConfiguration
+                        )
                     }
 
                     for (_, postToDelete) in mutableCurrentPosts {
