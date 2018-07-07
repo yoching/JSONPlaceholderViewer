@@ -134,7 +134,7 @@ extension DatabaseError {
         switch self {
         case .notFetchedInitially:
             return true
-        case .context, .invalidUserDataPassed:
+        case .context, .invalidUserDataPassed, .invalidCommentsDataPassed:
             return false
         }
     }

@@ -34,6 +34,7 @@ enum DatabaseError: Error {
     case context(ManagedObjectContextError)
     case notFetchedInitially
     case invalidUserDataPassed
+    case invalidCommentsDataPassed
 }
 
 final class Database {
@@ -144,6 +145,14 @@ extension Database: DatabaseManaging {
                     observer.send(error: .invalidUserDataPassed)
                     return
                 }
+
+                let postIdentifiersInComments = Set<Int>(dataFromApi.comments.map { $0.postIdentifier })
+                guard postIdentifiersInComments.count == 1,
+                    postIdentifiersInComments.first! == Int(post.identifier) else {
+                        observer.send(error: .invalidCommentsDataPassed)
+                        return
+                }
+
                 observer.send(value: ())
                 observer.sendCompleted()
                 }
@@ -152,27 +161,27 @@ extension Database: DatabaseManaging {
                     let postEntity = post as! Post // swiftlint:disable:this force_cast (This is a logic error.)
 
                     let operation: (NSManagedObjectContext) -> Void = { context in
+
+                        // user
                         postEntity.user.populate(with: dataFromApi.user)
 
-                        let alreadyRelatedComments = postEntity.comment(
-                            identifiers: dataFromApi.comments.map { $0.identifier }
-                        )
+                        // comments
+                        var alreadyRelatedComments = postEntity.commentsKeyedByIdentifier
 
                         for commentFromApi in dataFromApi.comments {
-                            if let alreadyRelatedComment = alreadyRelatedComments[Int64(commentFromApi.identifier)] {
-                                alreadyRelatedComment.configure(commentFromApi: commentFromApi)
+                            let commentId = Int64(commentFromApi.identifier)
+                            if let comment = alreadyRelatedComments.removeValue(forKey: commentId) {
+                                comment.configure(commentFromApi: commentFromApi)
                             } else {
                                 let comment: Comment = context.insertObject()
                                 comment.configure(commentFromApi: commentFromApi)
-                                if commentFromApi.postIdentifier == postEntity.identifier {
-                                    postEntity.add(comment)
-                                } else {
-                                    fatalError("logic error")
-                                }
+                                postEntity.add(comment)
                             }
                         }
 
-                        // TODO: delete unrelated comments
+                        for (_, commentToDelete) in alreadyRelatedComments {
+                            context.delete(commentToDelete)
+                        }
                     }
 
                     return self.viewContext

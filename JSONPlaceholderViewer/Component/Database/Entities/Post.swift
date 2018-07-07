@@ -44,7 +44,7 @@ final class Post: NSManagedObject, PostProtocol {
         self.identifier = Int64(postFromApi.identifier)
         self.body = postFromApi.body
         self.title = postFromApi.title
-        self.comments = Set<Comment>()
+        self.comments = Set<Comment>() // TODO: is this right?
         self.user = user
     }
 
@@ -56,14 +56,11 @@ final class Post: NSManagedObject, PostProtocol {
         comments.insert(comment)
     }
 
-    func comment(identifiers: [Int]) -> [Int64: Comment] {
-        let filteredComments = comments.filter { identifiers.contains(Int($0.identifier)) }
-
+    var commentsKeyedByIdentifier: [Int64: Comment] {
         var dictionary = [Int64: Comment]()
-        for comment in filteredComments {
+        for comment in comments {
             dictionary[comment.identifier] = comment
         }
-
         return dictionary
     }
 
