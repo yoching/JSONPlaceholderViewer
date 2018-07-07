@@ -26,10 +26,16 @@ class PostsViewModelSpec: QuickSpec {
         beforeEach {
             dataProviderMock = DataProviderMock()
             loadingErrorViewModelMock = LoadingErrorViewModelMock()
+            let emptyDataViewModel = EmptyDataViewModel(
+                image: nil,
+                message: "empty",
+                isImageHidden: true,
+                isRetryButtonHidden: false
+            )
 
             postsViewModel = PostsViewModel(
                 dataProvider: dataProviderMock,
-                emptyDataViewModel: EmptyDataViewModel(image: nil, message: "empty", isImageHidden: true, isRetryButtonHidden: false),
+                emptyDataViewModel: emptyDataViewModel,
                 loadingErrorViewModel: loadingErrorViewModelMock,
                 loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
             )

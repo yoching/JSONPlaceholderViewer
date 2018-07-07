@@ -46,6 +46,7 @@ final class PostsViewModel {
     private let mutableIsLoadingErrorHidden: MutableProperty<Bool>
     private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
 
+    // swiftlint:disable:next function_body_length
     init(
         dataProvider: DataProviding,
         emptyDataViewModel: EmptyDataViewModeling,
