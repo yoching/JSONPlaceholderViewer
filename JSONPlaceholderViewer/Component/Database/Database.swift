@@ -68,10 +68,7 @@ extension Database: DatabaseManaging {
 
     func savePosts(_ postsToSave: [PostFromApi]) -> SignalProducer<Void, DatabaseError> {
 
-        let fetchRelatedUsers = fetchUsers(identifiers: postsToSave.map { $0.identifier })
-            .map { $0.keyedByIdentifier }
-
-        return mutablePosts.producer
+        let fetchCachedPosts = mutablePosts.producer
             .take(first: 1)
             .promoteError(DatabaseError.self)
             .attemptMap { posts -> Result<[Post], DatabaseError> in
@@ -79,74 +76,90 @@ extension Database: DatabaseManaging {
                     return .failure(.notFetchedInitially)
                 }
                 return .success(posts)
-            }
-            .map { currentPosts -> [Int64: Post] in
-                return Dictionary(uniqueKeysWithValues: currentPosts.map { ($0.identifier, $0) })
-            }
-            .zip(with: fetchRelatedUsers)
-            .flatMap(.latest) { [weak self] currentPosts, relatedUsers -> SignalProducer<Void, DatabaseError> in
+        }
 
-                guard let strongSelf = self else {
-                    return .empty
-                }
+        let fetchRelatedUsers = fetchUsers(identifiers: postsToSave.map { $0.identifier })
 
-                let operation: (NSManagedObjectContext) -> Void = { context in
-
-                    var mutableCurrentPosts = currentPosts
-                    var mutableRelatedUsers = relatedUsers
-
-                    for postFromApi in postsToSave {
-
-                        let postId = Int64(postFromApi.identifier)
-                        let userId = Int64(postFromApi.userIdentifier)
-
-                        let postToConfigure: Post
-                        let isInitialConfiguration: Bool
-                        if let post = mutableCurrentPosts.removeValue(forKey: postId) {
-                            postToConfigure = post
-                            isInitialConfiguration = false
-                        } else {
-                            postToConfigure = context.insertObject()
-                            isInitialConfiguration = true
-                        }
-
-                        // user
-                        let relatedUser: User
-                        if let user = mutableRelatedUsers[userId] {
-                            relatedUser = user
-                        } else {
-                            let newUser: User = context.insertObject()
-                            newUser.configureMinimumInfo(identifier: userId)
-                            mutableRelatedUsers[userId] = newUser
-                            relatedUser = newUser
-                        }
-
-                        postToConfigure.configure(
-                            postFromApi: postFromApi,
-                            user: relatedUser,
-                            isInitial: isInitialConfiguration
-                        )
-                    }
-
-                    for (_, postToDelete) in mutableCurrentPosts {
-                        context.delete(postToDelete)
-                    }
-                }
-
-                return strongSelf.viewContext
-                    .performChangesProducer(block: operation)
-                    .mapError(DatabaseError.context)
+        return SignalProducer.zip(fetchCachedPosts, fetchRelatedUsers)
+            .flatMap(.latest) { [unowned self] cachedPosts, cachedRelatedUsers -> SignalProducer<Void, DatabaseError> in
+                return self.performChangesToPosts(
+                    postsToSave: postsToSave,
+                    cachedPosts: cachedPosts,
+                    cachedRelatedUsers: cachedRelatedUsers
+                )
             }
             .flatMap(.latest) { [unowned self] _ -> SignalProducer<Void, DatabaseError> in
                 return self.fetchPosts()
         }
     }
 
-    func fetchUsers(identifiers: [Int]) -> SignalProducer<[User], DatabaseError> {
+    private func fetchUsers(identifiers: [Int]) -> SignalProducer<[User], DatabaseError> {
         let predicate = NSPredicate(format: "%K in %@", #keyPath(User.identifier), identifiers)
         return viewContext
             .fetchProducer(request: User.sortedFetchRequest(with: predicate))
             .mapError(DatabaseError.context)
+    }
+
+    private func performChangesToPosts(postsToSave: [PostFromApi], cachedPosts: [Post], cachedRelatedUsers: [User])
+        -> SignalProducer<Void, DatabaseError> {
+
+            func getPostToConfigure(
+                identifier: Int64,
+                cachedPosts: inout [Int64: Post],
+                context: NSManagedObjectContext
+                ) -> (postToConfigure: Post, isFromCache: Bool) {
+                if let post = cachedPosts.removeValue(forKey: identifier) {
+                    return (postToConfigure: post, isFromCache: true)
+                } else {
+                    return (postToConfigure: context.insertObject(), isFromCache: false)
+                }
+            }
+
+            func getUser(
+                identifier: Int64,
+                cachedUsers: inout [Int64: User],
+                context: NSManagedObjectContext
+                ) -> User {
+                if let user = cachedUsers[identifier] {
+                    return user
+                } else {
+                    let newUser: User = context.insertObject()
+                    newUser.configureMinimumInfo(identifier: identifier)
+                    cachedUsers[identifier] = newUser
+                    return newUser
+                }
+            }
+
+            let operation: (NSManagedObjectContext) -> Void = { context in
+
+                var mutableCachedPosts = cachedPosts.keyedByIdentifier
+                var mutableCachedRelatedUsers = cachedRelatedUsers.keyedByIdentifier
+
+                for postFromApi in postsToSave {
+
+                    let relatedUser: User = getUser(
+                        identifier: Int64(postFromApi.userIdentifier),
+                        cachedUsers: &mutableCachedRelatedUsers,
+                        context: context
+                    )
+
+                    let (postToConfigure, isFromCache) = getPostToConfigure(
+                        identifier: Int64(postFromApi.identifier),
+                        cachedPosts: &mutableCachedPosts,
+                        context: context
+                    )
+
+                    postToConfigure.configure(
+                        postFromApi: postFromApi,
+                        user: relatedUser,
+                        isInitial: !isFromCache
+                    )
+                }
+
+                mutableCachedPosts.values.forEach(context.delete)
+            }
+
+            return viewContext.performChangesProducer(block: operation).mapError(DatabaseError.context)
     }
 
     func populatePost(_ post: PostProtocol, with dataFromApi: DataToPopulatePost)
@@ -203,6 +216,12 @@ extension Database: DatabaseManaging {
 }
 
 private extension Array where Element == User {
+    var keyedByIdentifier: [Int64: Element] {
+        return Dictionary(uniqueKeysWithValues: zip(self.map { $0.identifier }, self))
+    }
+}
+
+private extension Array where Element == Post {
     var keyedByIdentifier: [Int64: Element] {
         return Dictionary(uniqueKeysWithValues: zip(self.map { $0.identifier }, self))
     }
