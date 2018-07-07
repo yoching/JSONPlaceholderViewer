@@ -104,8 +104,11 @@ final class PostsViewModel {
                     self?.mutableIsLoadingIndicatorHidden.value = false
                 }
             })
-            .flatMap(.latest) { _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
-                return self.dataProvider.fetchPosts().resultWrapped() // TODO: change this to Action for multiple trigger restriction?
+            .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
+                guard let strongSelf = self else {
+                    return .empty
+                }
+                return strongSelf.dataProvider.fetchPosts().resultWrapped() // TODO: change this to Action for multiple trigger restriction?
             }
             .on(value: { [weak self] result in
                 switch result {

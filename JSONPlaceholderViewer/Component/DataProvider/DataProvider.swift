@@ -45,6 +45,7 @@ extension DataProvider: DataProviding {
     func fetchPosts() -> SignalProducer<Void, DataProviderError> {
         return database.posts
             .producer
+            .take(first: 1)
             .flatMap(.latest) { [unowned self] posts -> SignalProducer<Void, DataProviderError> in
                 if posts == nil {
                     return self.database
