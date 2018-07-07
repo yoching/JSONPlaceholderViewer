@@ -17,6 +17,10 @@ protocol PostsViewModeling: LoadingAndEmptyViewsControllable {
     // View -> View Model
     func didSelectRow(index: Int)
     func viewWillAppear()
+    func pullToRefreshTriggered()
+
+    // ViewModel -> View
+    var shouldStopRefreshControl: Signal<Void, NoError> { get }
 }
 
 enum PostsViewRoute {
@@ -30,21 +34,25 @@ protocol PostsViewRouting {
 final class PostsViewModel {
 
     private let dataProvider: DataProviding
+    private let shouldReloadWhenAppear = MutableProperty<Bool>(true)
 
+    // ViewModeling
     private let mutableCellModels = MutableProperty<[PostCellModeling]>([])
-    private let routeSelectedPipe = Signal<PostsViewRoute, NoError>.pipe()
     private let didSelectRowPipe = Signal<Int, NoError>.pipe()
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
+    private let pullToRefreshTriggeredPipe = Signal<Void, NoError>.pipe()
+    private let shouldStopRefreshControlPipe = Signal<Void, NoError>.pipe()
 
-    private let shouldReloadWhenAppear = MutableProperty<Bool>(true)
+    // ViewRouting
+    private let routeSelectedPipe = Signal<PostsViewRoute, NoError>.pipe()
 
     // LoadingViewsControllable
     let emptyDataViewModel: EmptyDataViewModeling
     let loadingErrorViewModel: LoadingErrorViewModeling
     let loadingIndicatorViewModel: LoadingIndicatorViewModeling
-    private let mutableIsEmptyDataViewHidden: MutableProperty<Bool>
-    private let mutableIsLoadingErrorHidden: MutableProperty<Bool>
-    private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
+    private let mutableIsEmptyDataViewHidden = MutableProperty<Bool>(true)
+    private let mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
+    private let mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
 
     // swiftlint:disable:next function_body_length
     init(
@@ -58,10 +66,6 @@ final class PostsViewModel {
         self.emptyDataViewModel = emptyDataViewModel
         self.loadingErrorViewModel = loadingErrorViewModel
         self.loadingIndicatorViewModel = loadingIndicatorViewModel
-
-        mutableIsEmptyDataViewHidden = MutableProperty<Bool>(true)
-        mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
-        mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
 
         cellModels.producer
             .sample(with: didSelectRowPipe.output)
@@ -86,7 +90,8 @@ final class PostsViewModel {
                 .filter { $0 }
                 .map { _ in () },
             loadingErrorViewModel.retryTappedOutput.producer,
-            emptyDataViewModel.retryTappedOutput.producer
+            emptyDataViewModel.retryTappedOutput.producer,
+            pullToRefreshTriggeredPipe.output.producer
         )
 
         cellModels.producer
@@ -115,6 +120,7 @@ final class PostsViewModel {
                 }
 
                 self?.mutableIsLoadingIndicatorHidden.value = true
+                self?.shouldStopRefreshControlPipe.input.send(value: ())
             })
             .start()
     }
@@ -125,13 +131,17 @@ extension PostsViewModel: PostsViewModeling {
     var cellModels: Property<[PostCellModeling]> {
         return Property(mutableCellModels)
     }
-
+    func didSelectRow(index: Int) {
+        didSelectRowPipe.input.send(value: index)
+    }
     func viewWillAppear() {
         viewWillAppearPipe.input.send(value: ())
     }
-
-    func didSelectRow(index: Int) {
-        didSelectRowPipe.input.send(value: index)
+    func pullToRefreshTriggered() {
+        pullToRefreshTriggeredPipe.input.send(value: ())
+    }
+    var shouldStopRefreshControl: Signal<Void, NoError> {
+        return shouldStopRefreshControlPipe.output
     }
 
     // LoadingAndEmptyViewsControllable
