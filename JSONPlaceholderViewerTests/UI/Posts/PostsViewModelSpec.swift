@@ -29,7 +29,7 @@ class PostsViewModelSpec: QuickSpec {
 
             postsViewModel = PostsViewModel(
                 dataProvider: dataProviderMock,
-                emptyDataViewModel: EmptyDataViewModel(image: nil, message: "empty", isImageHidden: true),
+                emptyDataViewModel: EmptyDataViewModel(image: nil, message: "empty", isImageHidden: true, isRetryButtonHidden: false),
                 loadingErrorViewModel: loadingErrorViewModelMock,
                 loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
             )
@@ -55,6 +55,45 @@ class PostsViewModelSpec: QuickSpec {
                 // assert
                 expect(cellModelChanges[0].count).toEventually(equal(0))
                 expect(cellModelChanges[1].count).toEventually(equal(3))
+            }
+        }
+
+        describe("isEmptyDataViewHidden") {
+            context("no CellModels") {
+                it("is false") {
+                    // arrange
+                    var isEmptyDataViewHiddenChanges: [Bool] = []
+                    postsViewModel.isEmptyDataViewHidden.producer
+                        .startWithValues { isHidden in
+                            isEmptyDataViewHiddenChanges.append(isHidden)
+                    }
+
+                    // act
+                    dataProviderMock.mutablePosts.value = []
+
+                    // assert
+                    expect(isEmptyDataViewHiddenChanges).toEventually(equal([false]))
+                }
+            }
+            context("CellModels are not empty") {
+                it("is true") {
+                    // arrange
+                    var isEmptyDataViewHiddenChanges: [Bool] = []
+                    postsViewModel.isEmptyDataViewHidden.producer
+                        .startWithValues { isHidden in
+                            isEmptyDataViewHiddenChanges.append(isHidden)
+                    }
+
+                    // act
+                    dataProviderMock.mutablePosts.value = [
+                        PostMock(identifier: 1, userProtocol: UserMock(identifier: 1)),
+                        PostMock(identifier: 2, userProtocol: UserMock(identifier: 2)),
+                        PostMock(identifier: 3, userProtocol: UserMock(identifier: 3))
+                    ]
+
+                    // assert
+                    expect(isEmptyDataViewHiddenChanges).toEventually(equal([false, true]))
+                }
             }
         }
 

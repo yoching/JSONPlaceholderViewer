@@ -77,12 +77,15 @@ final class PostsViewModel {
                 return posts?.map(PostCellModel.init) ?? []
         }
 
+        mutableIsEmptyDataViewHidden <~ cellModels.map { !$0.isEmpty }
+
         let fetchTrigger = SignalProducer<Void, NoError>.merge(
             shouldReloadWhenAppear.producer
                 .sample(on: viewWillAppearPipe.output)
                 .filter { $0 }
                 .map { _ in () },
-            loadingErrorViewModel.retryTappedOutput.producer
+            loadingErrorViewModel.retryTappedOutput.producer,
+            emptyDataViewModel.retryTappedOutput.producer
         )
 
         cellModels.producer
