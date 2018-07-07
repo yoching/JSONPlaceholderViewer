@@ -37,13 +37,6 @@ final class DatabaseMock: DatabaseManaging {
             })
     }
 
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError> {
-        return SignalProducer<UserProtocol?, DatabaseError>(value: nil)
-            .on(started: {
-                self.timesFetchUserCalled += 1
-            })
-    }
-
     func populatePost(_ post: PostProtocol, with dataFromApi: DataToPopulatePost)
         -> SignalProducer<Void, DatabaseError> {
             return SignalProducer<Void, DatabaseError>(value: ())

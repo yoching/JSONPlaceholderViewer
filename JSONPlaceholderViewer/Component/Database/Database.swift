@@ -26,8 +26,6 @@ protocol DatabaseManaging {
 
     func savePosts(_ posts: [PostFromApi]) -> SignalProducer<Void, DatabaseError>
 
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError>
-
     func populatePost(_ post: PostProtocol, with dataFromApi: DataToPopulatePost)
         -> SignalProducer<Void, DatabaseError>
 }
@@ -130,21 +128,6 @@ extension Database: DatabaseManaging {
             .flatMap(.latest) { [unowned self] _ -> SignalProducer<Void, DatabaseError> in
                 return self.fetchPosts()
         }
-    }
-
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError> {
-        let predicate = NSPredicate(format: "%K == %ld", #keyPath(User.identifier), Int64(identifier))
-        return viewContext
-            .fetchSingleProducer(request: User.sortedFetchRequest(with: predicate))
-            .map { $0 }
-            .mapError(DatabaseError.context)
-    }
-
-    func fetchUser2(identifier: Int) -> SignalProducer<User?, DatabaseError> {
-        let predicate = NSPredicate(format: "%K == %ld", #keyPath(User.identifier), Int64(identifier))
-        return viewContext
-            .fetchSingleProducer(request: User.sortedFetchRequest(with: predicate))
-            .mapError(DatabaseError.context)
     }
 
     func fetchUsers(identifiers: [Int]) -> SignalProducer<[User], DatabaseError> {

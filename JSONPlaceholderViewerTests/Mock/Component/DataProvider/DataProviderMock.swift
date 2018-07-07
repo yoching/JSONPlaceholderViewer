@@ -35,10 +35,6 @@ final class DataProviderMock: DataProviding {
         }
     }
 
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError> {
-        return .init(value: nil)
-    }
-
     var populatePost: ((PostProtocol) -> Void)?
     var populateShouldSucceed: Bool = true
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {

@@ -16,8 +16,6 @@ protocol DataProviding {
 
     func fetchPosts() -> SignalProducer<Void, DataProviderError>
 
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError>
-
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError>
 }
 
@@ -64,11 +62,6 @@ extension DataProvider: DataProviding {
                     .savePosts(posts)
                     .mapError(DataProviderError.database)
         }
-    }
-
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError> {
-        return database.fetchUser(identifier: identifier)
-            .mapError(DataProviderError.database)
     }
 
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {
