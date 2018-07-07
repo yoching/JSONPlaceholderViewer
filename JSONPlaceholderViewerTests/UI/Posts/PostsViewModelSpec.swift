@@ -70,69 +70,117 @@ class PostsViewModelSpec: QuickSpec {
                     expect(dataProviderMock.timesFetchPostsStarted) == 1
                 }
 
-                it("shows loading indicator") {
-                    // arrange
-                    var isLoadingIndicatorHiddenChanges: [Bool] = []
-                    postsViewModel.isLoadingIndicatorHidden.producer
-                        .startWithValues { isHidden in
-                            isLoadingIndicatorHiddenChanges.append(isHidden)
-                    }
-
-                    // act
-                    postsViewModel.viewWillAppear()
-
-                    // assert
-                    expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true, false, true]))
-                }
-
-                context("fetch succeed") {
+                context("cellModels are not empty") {
                     beforeEach {
-                        dataProviderMock.fetchPostsShouldSucceed = true
+                        dataProviderMock.mutablePosts.value = [
+                            PostMock(identifier: 1, userProtocol: UserMock(identifier: 1)),
+                            PostMock(identifier: 2, userProtocol: UserMock(identifier: 1)),
+                            PostMock(identifier: 3, userProtocol: UserMock(identifier: 1)),
+                            PostMock(identifier: 4, userProtocol: UserMock(identifier: 1)),
+                            PostMock(identifier: 5, userProtocol: UserMock(identifier: 1))
+                        ]
                     }
-                    it("doesn't show loading error") {
+                    it("does not show loading view") {
                         // arrange
-                        var isLoadingErrorHiddenChanges: [Bool] = []
-                        postsViewModel.isLoadingErrorHidden.producer
+                        var isLoadingIndicatorHiddenChanges: [Bool] = []
+                        postsViewModel.isLoadingIndicatorHidden.producer
                             .startWithValues { isHidden in
-                                isLoadingErrorHiddenChanges.append(isHidden)
+                                isLoadingIndicatorHiddenChanges.append(isHidden)
                         }
 
                         // act
                         postsViewModel.viewWillAppear()
 
                         // assert
-                        expect(isLoadingErrorHiddenChanges).toEventually(equal([true]))
+                        expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true]))
+                    }
+                    context("fetch fail") {
+                        beforeEach {
+                            dataProviderMock.fetchPostsShouldSucceed = false
+                        }
+                        it("does not show error view") {
+                            // arrange
+                            var isLoadingErrorHiddenChanges: [Bool] = []
+                            postsViewModel.isLoadingErrorHidden.producer
+                                .startWithValues { isHidden in
+                                    isLoadingErrorHiddenChanges.append(isHidden)
+                            }
+
+                            // act
+                            postsViewModel.viewWillAppear()
+
+                            // assert
+                            expect(isLoadingErrorHiddenChanges).toEventually(equal([true]))
+                        }
                     }
                 }
 
-                context("fetch fail") {
-                    beforeEach {
-                        dataProviderMock.fetchPostsShouldSucceed = false
-                    }
-                    it("shows error view") {
+                context("cellModels are empty") {
+
+                    it("shows loading indicator") {
                         // arrange
-                        var isLoadingErrorHiddenChanges: [Bool] = []
-                        postsViewModel.isLoadingErrorHidden.producer
+                        var isLoadingIndicatorHiddenChanges: [Bool] = []
+                        postsViewModel.isLoadingIndicatorHidden.producer
                             .startWithValues { isHidden in
-                                isLoadingErrorHiddenChanges.append(isHidden)
+                                isLoadingIndicatorHiddenChanges.append(isHidden)
                         }
 
                         // act
                         postsViewModel.viewWillAppear()
 
                         // assert
-                        expect(isLoadingErrorHiddenChanges).toEventually(equal([true, false]))
+                        expect(isLoadingIndicatorHiddenChanges).toEventually(equal([true, false, true]))
                     }
 
-                    it("update error message") {
-                        // arrange
-                        loadingErrorViewModelMock.timesUpdateErrorMessageCalled = 0
+                    context("fetch succeed") {
+                        beforeEach {
+                            dataProviderMock.fetchPostsShouldSucceed = true
+                        }
+                        it("doesn't show loading error") {
+                            // arrange
+                            var isLoadingErrorHiddenChanges: [Bool] = []
+                            postsViewModel.isLoadingErrorHidden.producer
+                                .startWithValues { isHidden in
+                                    isLoadingErrorHiddenChanges.append(isHidden)
+                            }
 
-                        // act
-                        postsViewModel.viewWillAppear()
+                            // act
+                            postsViewModel.viewWillAppear()
 
-                        // assert
-                        expect(loadingErrorViewModelMock.timesUpdateErrorMessageCalled).toEventually(equal(1))
+                            // assert
+                            expect(isLoadingErrorHiddenChanges).toEventually(equal([true]))
+                        }
+                    }
+
+                    context("fetch fail") {
+                        beforeEach {
+                            dataProviderMock.fetchPostsShouldSucceed = false
+                        }
+                        it("shows error view") {
+                            // arrange
+                            var isLoadingErrorHiddenChanges: [Bool] = []
+                            postsViewModel.isLoadingErrorHidden.producer
+                                .startWithValues { isHidden in
+                                    isLoadingErrorHiddenChanges.append(isHidden)
+                            }
+
+                            // act
+                            postsViewModel.viewWillAppear()
+
+                            // assert
+                            expect(isLoadingErrorHiddenChanges).toEventually(equal([true, false]))
+                        }
+
+                        it("update error message") {
+                            // arrange
+                            loadingErrorViewModelMock.timesUpdateErrorMessageCalled = 0
+
+                            // act
+                            postsViewModel.viewWillAppear()
+
+                            // assert
+                            expect(loadingErrorViewModelMock.timesUpdateErrorMessageCalled).toEventually(equal(1))
+                        }
                     }
                 }
             }

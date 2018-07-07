@@ -78,12 +78,15 @@ final class PostsViewModel {
             loadingErrorViewModel.retryTappedOutput.producer
         )
 
-        fetchTrigger
-            .on(value: { [weak self] _ in
+        cellModels.producer
+            .sample(on: fetchTrigger)
+            .on(value: { [weak self] cellModels in
                 self?.shouldReloadWhenAppear.value = false
 
                 self?.mutableIsLoadingErrorHidden.value = true
-                self?.mutableIsLoadingIndicatorHidden.value = false
+                if cellModels.isEmpty {
+                    self?.mutableIsLoadingIndicatorHidden.value = false
+                }
             })
             .flatMap(.latest) { _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
                 return self.dataProvider.fetchPosts().resultWrapped() // TODO: change this to Action for multiple trigger restriction?
@@ -92,7 +95,10 @@ final class PostsViewModel {
                 switch result {
                 case .failure(let error):
                     self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
-                    self?.mutableIsLoadingErrorHidden.value = false
+                    if let strongSelf = self,
+                        strongSelf.cellModels.value.isEmpty {
+                        self?.mutableIsLoadingErrorHidden.value = false
+                    }
                 case .success:
                     break
                 }
