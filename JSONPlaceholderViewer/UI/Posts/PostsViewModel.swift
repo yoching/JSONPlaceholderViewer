@@ -54,6 +54,8 @@ final class PostsViewModel {
     private let mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
     private let mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
 
+    private var fetchAction: Action<Void, Void, DataProviderError>!
+
     // swiftlint:disable:next function_body_length
     init(
         dataProvider: DataProviding,
@@ -94,38 +96,50 @@ final class PostsViewModel {
             pullToRefreshTriggeredPipe.output.producer
         )
 
-        cellModels.producer
-            .sample(on: fetchTrigger)
-            .on(value: { [weak self] cellModels in
-                self?.shouldReloadWhenAppear.value = false
+        fetchAction = Action<Void, Void, DataProviderError> { [weak self] _
+            -> SignalProducer<Void, DataProviderError> in
+            guard let strongSelf = self else {
+                return .empty
+            }
+            return strongSelf.dataProvider.fetchPosts()
+        }
 
+        fetchAction <~ fetchTrigger
+
+        // view state when fetch start
+        fetchAction.isExecuting
+            .producer
+            .skipRepeats()
+            .filter { $0 } // start
+            .startWithValues { [weak self] _ in
                 self?.mutableIsLoadingErrorHidden.value = true
-                if cellModels.isEmpty {
+                if let cellModels = self?.cellModels.value,
+                    cellModels.isEmpty {
                     self?.mutableIsLoadingIndicatorHidden.value = false
                 }
-            })
-            .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
-                guard let strongSelf = self else {
-                    return .empty
-                }
-                return strongSelf.dataProvider.fetchPosts().resultWrapped() // TODO: change this to Action for multiple trigger restriction?
-            }
-            .on(value: { [weak self] result in
-                switch result {
-                case .failure(let error):
-                    self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
-                    if let strongSelf = self,
-                        strongSelf.cellModels.value.isEmpty {
-                        self?.mutableIsLoadingErrorHidden.value = false
-                    }
-                case .success:
-                    break
-                }
 
+                self?.shouldReloadWhenAppear.value = false
+        }
+
+        // view state when fetch end
+        fetchAction.isExecuting
+            .producer
+            .skipRepeats()
+            .filter { !$0 } // end
+            .startWithValues { [weak self] _ in
                 self?.mutableIsLoadingIndicatorHidden.value = true
                 self?.shouldStopRefreshControlPipe.input.send(value: ())
-            })
-            .start()
+        }
+
+        fetchAction.errors
+            .observeValues { [weak self] error in
+                self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
+                if let strongSelf = self,
+                    strongSelf.cellModels.value.isEmpty {
+                    self?.mutableIsLoadingErrorHidden.value = false
+                }
+        }
+
     }
 }
 
