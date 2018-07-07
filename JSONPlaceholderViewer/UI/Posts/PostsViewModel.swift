@@ -10,7 +10,7 @@ import Foundation
 import ReactiveSwift
 import Result
 
-protocol PostsViewModeling: LoadingViewsControllable {
+protocol PostsViewModeling: LoadingAndEmptyViewsControllable {
     // View States
     var cellModels: Property<[PostCellModeling]> { get }
 
@@ -39,21 +39,28 @@ final class PostsViewModel {
     private let shouldReloadWhenAppear = MutableProperty<Bool>(true)
 
     // LoadingViewsControllable
-    let loadingIndicatorViewModel: LoadingIndicatorViewModeling
+    let emptyDataViewModel: EmptyDataViewModeling
     let loadingErrorViewModel: LoadingErrorViewModeling
-    private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
+    let loadingIndicatorViewModel: LoadingIndicatorViewModeling
+    private let mutableIsEmptyDataViewHidden: MutableProperty<Bool>
     private let mutableIsLoadingErrorHidden: MutableProperty<Bool>
+    private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
 
     init(
         dataProvider: DataProviding,
-        loadingIndicatorViewModel: LoadingIndicatorViewModeling,
-        loadingErrorViewModel: LoadingErrorViewModeling
+        emptyDataViewModel: EmptyDataViewModeling,
+        loadingErrorViewModel: LoadingErrorViewModeling,
+        loadingIndicatorViewModel: LoadingIndicatorViewModeling
         ) {
         self.dataProvider = dataProvider
-        self.loadingIndicatorViewModel = loadingIndicatorViewModel
+
+        self.emptyDataViewModel = emptyDataViewModel
         self.loadingErrorViewModel = loadingErrorViewModel
-        mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
+        self.loadingIndicatorViewModel = loadingIndicatorViewModel
+
+        mutableIsEmptyDataViewHidden = MutableProperty<Bool>(true)
         mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
+        mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
 
         cellModels.producer
             .sample(with: didSelectRowPipe.output)
@@ -123,13 +130,15 @@ extension PostsViewModel: PostsViewModeling {
         didSelectRowPipe.input.send(value: index)
     }
 
-    // LoadingViewsControllable
-    var isLoadingIndicatorHidden: Property<Bool> {
-        return Property(mutableIsLoadingIndicatorHidden).skipRepeats()
+    // LoadingAndEmptyViewsControllable
+    var isEmptyDataViewHidden: Property<Bool> {
+        return Property(mutableIsEmptyDataViewHidden).skipRepeats()
     }
-
     var isLoadingErrorHidden: Property<Bool> {
         return Property(mutableIsLoadingErrorHidden).skipRepeats()
+    }
+    var isLoadingIndicatorHidden: Property<Bool> {
+        return Property(mutableIsLoadingIndicatorHidden).skipRepeats()
     }
 }
 

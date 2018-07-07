@@ -16,3 +16,8 @@ protocol LoadingViewsControllable {
     var isLoadingIndicatorHidden: Property<Bool> { get }
     var loadingIndicatorViewModel: LoadingIndicatorViewModeling { get }
 }
+
+protocol LoadingAndEmptyViewsControllable: LoadingViewsControllable {
+    var isEmptyDataViewHidden: Property<Bool> { get }
+    var emptyDataViewModel: EmptyDataViewModeling { get }
+}

@@ -29,8 +29,9 @@ class PostsViewModelSpec: QuickSpec {
 
             postsViewModel = PostsViewModel(
                 dataProvider: dataProviderMock,
-                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
-                loadingErrorViewModel: loadingErrorViewModelMock
+                emptyDataViewModel: EmptyDataViewModel(image: nil, message: "empty", isImageHidden: true),
+                loadingErrorViewModel: loadingErrorViewModelMock,
+                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
             )
         }
 

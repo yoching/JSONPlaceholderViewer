@@ -11,10 +11,11 @@ import ReactiveSwift
 import Result
 import ReactiveCocoa
 
-final class PostsViewController: UIViewController, LoadingViewsContaining {
+final class PostsViewController: UIViewController, LoadingAndEmptyViewsContaining {
 
     // MARK: - View Elements
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyDataView: EmptyDataView!
     @IBOutlet weak var loadingErrorView: LoadingErrorView!
     @IBOutlet weak var loadingIndicatorView: LoadingIndicatorView!
 
@@ -33,7 +34,7 @@ final class PostsViewController: UIViewController, LoadingViewsContaining {
 
         tableView.reactive.reloadData <~ viewModel.cellModels.signal.map { _ in () }
 
-        configureLoadingViews(with: viewModel)
+        configureLoadingAndEmptyViews(with: viewModel)
     }
 
     override func viewWillAppear(_ animated: Bool) {

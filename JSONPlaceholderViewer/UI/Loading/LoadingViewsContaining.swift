@@ -23,3 +23,15 @@ extension LoadingViewsContaining {
         loadingIndicatorView.reactive.isHidden <~ controllable.isLoadingIndicatorHidden
     }
 }
+
+protocol LoadingAndEmptyViewsContaining: LoadingViewsContaining {
+    var emptyDataView: EmptyDataView! { get }
+}
+
+extension LoadingAndEmptyViewsContaining {
+    func configureLoadingAndEmptyViews(with controllable: LoadingAndEmptyViewsControllable) {
+        emptyDataView.configure(with: controllable.emptyDataViewModel)
+        emptyDataView.reactive.isHidden <~ controllable.isEmptyDataViewHidden
+        self.configureLoadingViews(with: controllable)
+    }
+}
