@@ -74,8 +74,6 @@ class DatabaseSpec: QuickSpec {
                     expect((try? coreDataStackMock.viewContext.fetch(Post.sortedFetchRequest))?.count)
                         .toEventually(equal(3))
                 }
-
-                // TODO: add update, delete test
             }
             context("initial fetch has not been executed") {
                 it("returns error") {
