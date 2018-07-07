@@ -30,6 +30,7 @@ final class PostsViewController: UIViewController, LoadingAndEmptyViewsContainin
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Posts"
 
         configureTableView()
 

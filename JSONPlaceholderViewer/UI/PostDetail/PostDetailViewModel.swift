@@ -12,6 +12,7 @@ import Result
 
 protocol PostDetailViewModeling: LoadingViewsControllable {
     // View States
+    var title: String { get }
     var userName: Property<String?> { get }
     var body: Property<String> { get }
     var numberOfComments: Property<String> { get }
@@ -115,6 +116,9 @@ private extension PostDetailViewModel {
 
 // MARK: - PostDetailViewModeling
 extension PostDetailViewModel: PostDetailViewModeling {
+    var title: String {
+        return post.title
+    }
     var userName: Property<String?> {
         return Property(mutableUserName)
     }
