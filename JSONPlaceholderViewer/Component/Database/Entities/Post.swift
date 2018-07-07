@@ -75,4 +75,7 @@ final class Post: NSManagedObject, PostProtocol {
 
 extension Post: Managed {
     static let entityName: String = "Post"
+    static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: #keyPath(identifier), ascending: true)]
+    }
 }
