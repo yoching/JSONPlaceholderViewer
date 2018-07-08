@@ -59,8 +59,8 @@ extension Database: DatabaseManaging {
     func fetchPosts() -> SignalProducer<Void, DatabaseError> {
         return viewContext
             .fetchProducer(request: Post.sortedFetchRequest)
-            .on(value: { [weak self] posts in
-                self?.mutablePosts.value = posts
+            .on(value: { [unowned self] posts in
+                self.mutablePosts.value = posts
             })
             .map { _ in () }
             .mapError(DatabaseError.context)

@@ -29,7 +29,6 @@
 		E325972E20EF4CC7005EF654 /* LoadingViewsControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E325972D20EF4CC7005EF654 /* LoadingViewsControllable.swift */; };
 		E325973020EF567D005EF654 /* LoadingViewsContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = E325972F20EF567D005EF654 /* LoadingViewsContaining.swift */; };
 		E32C426920DDFB9D00AB328A /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426820DDFB9D00AB328A /* DataProvider.swift */; };
-		E32C426B20DDFFA400AB328A /* ResultWrappedObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */; };
 		E32C426D20DE03B000AB328A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426C20DE03B000AB328A /* Database.swift */; };
 		E32C427020DE097D00AB328A /* DatabaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C426F20DE097D00AB328A /* DatabaseSpec.swift */; };
 		E32C427220DE185600AB328A /* CoreDataStackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32C427120DE185600AB328A /* CoreDataStackMock.swift */; };
@@ -205,7 +204,6 @@
 		E325972D20EF4CC7005EF654 /* LoadingViewsControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewsControllable.swift; sourceTree = "<group>"; };
 		E325972F20EF567D005EF654 /* LoadingViewsContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewsContaining.swift; sourceTree = "<group>"; };
 		E32C426820DDFB9D00AB328A /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
-		E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultWrappedObservable.swift; sourceTree = "<group>"; };
 		E32C426C20DE03B000AB328A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		E32C426F20DE097D00AB328A /* DatabaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseSpec.swift; sourceTree = "<group>"; };
 		E32C427120DE185600AB328A /* CoreDataStackMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackMock.swift; sourceTree = "<group>"; };
@@ -478,7 +476,6 @@
 				E32C426720DDFB8800AB328A /* DataProvider */,
 				E3F5DE6520DBC44500D3AEF7 /* Network */,
 				E38216CC20DA44390064B147 /* Database */,
-				E32C426A20DDFFA400AB328A /* ResultWrappedObservable.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1130,7 +1127,6 @@
 				E3F5DE5520DBAF8200D3AEF7 /* CoreDataStack.swift in Sources */,
 				E32C428720DE4C8500AB328A /* PostCellModel.swift in Sources */,
 				E3F5DE5B20DBB5BF00D3AEF7 /* ViewFactory.swift in Sources */,
-				E32C426B20DDFFA400AB328A /* ResultWrappedObservable.swift in Sources */,
 				E3F75D0320EDEB3600A53424 /* XibInstantiatable.swift in Sources */,
 				E3F75CFA20EDE91A00A53424 /* EmptyDataView.swift in Sources */,
 				E32C426D20DE03B000AB328A /* Database.swift in Sources */,
