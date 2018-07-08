@@ -13,8 +13,8 @@ import Result
 protocol PostDetailViewModeling: LoadingViewsControllable {
     // View States
     var title: String { get }
+    var body: String { get }
     var userName: Property<String?> { get }
-    var body: Property<String> { get }
     var numberOfComments: Property<String> { get }
 
     // View -> View Model
@@ -37,8 +37,8 @@ final class PostDetailViewModel {
     private let dataProvider: DataProviding
 
     private let mutableUserName: MutableProperty<String?>
-    private let mutableBody: MutableProperty<String>
     private let mutableNumberOfComments: MutableProperty<Int>
+
     private let mutableIsPopulated: MutableProperty<Bool>
 
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
@@ -63,7 +63,6 @@ final class PostDetailViewModel {
         self.dataProvider = dataProvider
 
         mutableUserName = MutableProperty<String?>(post.userProtocol.name)
-        mutableBody = MutableProperty<String>(post.body)
         mutableNumberOfComments = MutableProperty<Int>(post.commentArray.count)
         mutableIsPopulated = MutableProperty<Bool>(post.isPopulated)
 
@@ -129,11 +128,11 @@ extension PostDetailViewModel: PostDetailViewModeling {
     var title: String {
         return post.title
     }
+    var body: String {
+        return post.body
+    }
     var userName: Property<String?> {
         return Property(mutableUserName)
-    }
-    var body: Property<String> {
-        return Property(mutableBody)
     }
     var numberOfComments: Property<String> {
         return Property(mutableNumberOfComments.map { "\($0)" })
