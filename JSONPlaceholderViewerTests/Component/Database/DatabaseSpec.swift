@@ -74,8 +74,6 @@ class DatabaseSpec: QuickSpec {
                     expect((try? coreDataStackMock.viewContext.fetch(Post.sortedFetchRequest))?.count)
                         .toEventually(equal(3))
                 }
-
-                // TODO: add update, delete test
             }
             context("initial fetch has not been executed") {
                 it("returns error") {
@@ -91,28 +89,6 @@ class DatabaseSpec: QuickSpec {
                 }
             }
 
-        }
-
-        describe("fetchUser") {
-            it("fetch User from CoreData") {
-                // arrange
-                coreDataStackMock.addUser(identifier: 1)
-
-                // act
-                var fetchedUser: UserProtocol?
-                database.fetchUser(identifier: 1)
-                    .startWithResult { result in
-                        switch result {
-                        case .success(let user):
-                            fetchedUser = user
-                        case .failure:
-                            break
-                        }
-                    }
-
-                // assert
-                expect(fetchedUser).toEventuallyNot(beNil())
-            }
         }
 
         describe("populatePost") {
@@ -156,7 +132,7 @@ extension DatabaseError {
         switch self {
         case .notFetchedInitially:
             return true
-        case .context, .invalidUserDataPassed:
+        case .context, .invalidUserDataPassed, .invalidCommentsDataPassed:
             return false
         }
     }

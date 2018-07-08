@@ -31,6 +31,8 @@ final class PostsViewController: UIViewController, LoadingAndEmptyViewsContainin
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = viewModel.title
+
         configureTableView()
 
         tableView.reactive.reloadData <~ viewModel.cellModels.signal.map { _ in () }

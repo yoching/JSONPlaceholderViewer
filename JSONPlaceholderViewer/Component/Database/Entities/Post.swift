@@ -14,7 +14,7 @@ protocol PostProtocol: class {
     var identifier: Int64 { get }
     var body: String { get }
     var title: String { get }
-    var userProtocol: UserProtocol { get } // TODO: think about name
+    var userProtocol: UserProtocol { get }
     var commentArray: [CommentProtocol] { get }
 }
 
@@ -40,12 +40,15 @@ final class Post: NSManagedObject, PostProtocol {
         self.user = user
     }
 
-    func configure(postFromApi: JSONPlaceholderApi.Post, user: User) {
+    func configure(postFromApi: JSONPlaceholderApi.Post, user: User, isInitial: Bool) {
         self.identifier = Int64(postFromApi.identifier)
         self.body = postFromApi.body
         self.title = postFromApi.title
-        self.comments = Set<Comment>()
         self.user = user
+
+        if isInitial {
+            self.comments = Set<Comment>()
+        }
     }
 
     var userProtocol: UserProtocol {
@@ -56,14 +59,11 @@ final class Post: NSManagedObject, PostProtocol {
         comments.insert(comment)
     }
 
-    func comment(identifiers: [Int]) -> [Int64: Comment] {
-        let filteredComments = comments.filter { identifiers.contains(Int($0.identifier)) }
-
+    var commentsKeyedByIdentifier: [Int64: Comment] {
         var dictionary = [Int64: Comment]()
-        for comment in filteredComments {
+        for comment in comments {
             dictionary[comment.identifier] = comment
         }
-
         return dictionary
     }
 
@@ -75,4 +75,7 @@ final class Post: NSManagedObject, PostProtocol {
 
 extension Post: Managed {
     static let entityName: String = "Post"
+    static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: #keyPath(identifier), ascending: true)]
+    }
 }

@@ -17,8 +17,12 @@ final class LoadingErrorViewModelMock: LoadingErrorViewModeling {
     var errorMessage: Property<String> {
         return Property(mutableErrorMessage)
     }
+    var isRetryButtonEnabled: Property<Bool> {
+        return Property(mutableIsRetryButtonEnabled)
+    }
 
-    var mutableErrorMessage = MutableProperty<String>("")
+    let mutableErrorMessage = MutableProperty<String>("")
+    let mutableIsRetryButtonEnabled = MutableProperty<Bool>(true)
 
     func retryTappedInput() {
 
@@ -33,5 +37,7 @@ final class LoadingErrorViewModelMock: LoadingErrorViewModeling {
     var timesUpdateErrorMessageCalled = 0
     func updateErrorMessage(to message: String) {
         timesUpdateErrorMessageCalled += 1
+    }
+    func updateRetryButtonState(isEnabled: Bool) {
     }
 }

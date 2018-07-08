@@ -16,8 +16,6 @@ protocol DataProviding {
 
     func fetchPosts() -> SignalProducer<Void, DataProviderError>
 
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError>
-
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError>
 }
 
@@ -45,6 +43,7 @@ extension DataProvider: DataProviding {
     func fetchPosts() -> SignalProducer<Void, DataProviderError> {
         return database.posts
             .producer
+            .take(first: 1)
             .flatMap(.latest) { [unowned self] posts -> SignalProducer<Void, DataProviderError> in
                 if posts == nil {
                     return self.database
@@ -63,11 +62,6 @@ extension DataProvider: DataProviding {
                     .savePosts(posts)
                     .mapError(DataProviderError.database)
         }
-    }
-
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DataProviderError> {
-        return database.fetchUser(identifier: identifier)
-            .mapError(DataProviderError.database)
     }
 
     func populate(_ post: PostProtocol) -> SignalProducer<Void, DataProviderError> {

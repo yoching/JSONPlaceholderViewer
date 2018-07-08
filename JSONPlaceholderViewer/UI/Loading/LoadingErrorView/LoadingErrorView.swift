@@ -39,5 +39,6 @@ final class LoadingErrorView: UIView, XibInstantiatable {
 
     private func bind(_ viewModel: LoadingErrorViewModeling) {
         errorMessage.reactive.text <~ viewModel.errorMessage
+        retryButton.reactive.isEnabled <~ viewModel.isRetryButtonEnabled
     }
 }

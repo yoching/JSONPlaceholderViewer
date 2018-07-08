@@ -30,6 +30,9 @@ final class PostDetailViewController: UIViewController, LoadingViewsContaining {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.title = viewModel.title
+
         userNameLabel.reactive.text <~ viewModel.userName
         bodyLabel.reactive.text <~ viewModel.body
         numberOfCommentsLabel.reactive.text <~ viewModel.numberOfComments

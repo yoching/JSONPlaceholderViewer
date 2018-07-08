@@ -12,6 +12,7 @@ import Result
 
 protocol PostsViewModeling: LoadingAndEmptyViewsControllable {
     // View States
+    var title: String { get }
     var cellModels: Property<[PostCellModeling]> { get }
 
     // View -> View Model
@@ -37,6 +38,7 @@ final class PostsViewModel {
     private let shouldReloadWhenAppear = MutableProperty<Bool>(true)
 
     // ViewModeling
+    let title: String = "Posts"
     private let mutableCellModels = MutableProperty<[PostCellModeling]>([])
     private let didSelectRowPipe = Signal<Int, NoError>.pipe()
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
@@ -54,6 +56,8 @@ final class PostsViewModel {
     private let mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
     private let mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
 
+    private var fetchPosts: Action<Void, Void, DataProviderError>!
+
     // swiftlint:disable:next function_body_length
     init(
         dataProvider: DataProviding,
@@ -67,6 +71,7 @@ final class PostsViewModel {
         self.loadingErrorViewModel = loadingErrorViewModel
         self.loadingIndicatorViewModel = loadingIndicatorViewModel
 
+        // cell selection -> route
         cellModels.producer
             .sample(with: didSelectRowPipe.output)
             .map { cellModels, row -> PostCellModeling in
@@ -77,14 +82,25 @@ final class PostsViewModel {
             }
             .start(routeSelectedPipe.input)
 
+        // posts -> cellmodels conversion
         mutableCellModels <~ dataProvider.posts
             .map { posts -> [PostCellModeling] in
                 return posts?.map(PostCellModel.init) ?? []
         }
 
+        // EmptyDataView visibility
         mutableIsEmptyDataViewHidden <~ cellModels.map { !$0.isEmpty }
 
-        let fetchTrigger = SignalProducer<Void, NoError>.merge(
+        // fetch
+        fetchPosts = Action<Void, Void, DataProviderError> { [weak self] _
+            -> SignalProducer<Void, DataProviderError> in
+            guard let strongSelf = self else {
+                return .empty
+            }
+            return strongSelf.dataProvider.fetchPosts()
+        }
+
+        fetchPosts <~ SignalProducer<Void, NoError>.merge(
             shouldReloadWhenAppear.producer
                 .sample(on: viewWillAppearPipe.output)
                 .filter { $0 }
@@ -94,35 +110,57 @@ final class PostsViewModel {
             pullToRefreshTriggeredPipe.output.producer
         )
 
-        cellModels.producer
-            .sample(on: fetchTrigger)
-            .on(value: { [weak self] cellModels in
+        // disable shouldReloadWhenAppear flag when start
+        fetchPosts.isExecuting
+            .producer
+            .skipRepeats()
+            .filter { $0 } // start
+            .startWithValues { [weak self] _ in
                 self?.shouldReloadWhenAppear.value = false
+        }
 
-                self?.mutableIsLoadingErrorHidden.value = true
-                if cellModels.isEmpty {
-                    self?.mutableIsLoadingIndicatorHidden.value = false
-                }
-            })
-            .flatMap(.latest) { _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
-                return self.dataProvider.fetchPosts().resultWrapped() // TODO: change this to Action for multiple trigger restriction?
-            }
-            .on(value: { [weak self] result in
-                switch result {
-                case .failure(let error):
-                    self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
-                    if let strongSelf = self,
-                        strongSelf.cellModels.value.isEmpty {
-                        self?.mutableIsLoadingErrorHidden.value = false
-                    }
-                case .success:
-                    break
-                }
-
-                self?.mutableIsLoadingIndicatorHidden.value = true
+        // stop refresh control when fetch end
+        fetchPosts.isExecuting
+            .producer
+            .skipRepeats()
+            .filter { !$0 } // end
+            .startWithValues { [weak self] _ in
                 self?.shouldStopRefreshControlPipe.input.send(value: ())
-            })
-            .start()
+        }
+
+        // error description
+        fetchPosts.errors
+            .observeValues { [weak self] error in
+                self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
+        }
+
+        // loading indicator view state
+        mutableIsLoadingIndicatorHidden <~ SignalProducer.combineLatest(
+            cellModels.producer.map { $0.isEmpty },
+            fetchPosts.isExecuting.producer
+            )
+            .map { isCellModelsEmpty, isExecuting -> Bool in
+                // display indicator when "no cells" & "fetching"
+                return !(isCellModelsEmpty && isExecuting)
+        }
+
+        // loading error view state
+        mutableIsLoadingErrorHidden <~ SignalProducer.combineLatest(
+            cellModels.producer.map { $0.isEmpty },
+            fetchPosts.isExecuting.producer,
+            fetchPosts.events.producer.map { $0.error != nil }
+            )
+            .map { isCellModelsEmpty, isExecuting, isLastFetchError -> Bool in
+                // display error only when "no cells" & "not fetching" & "last fetch error"
+                return !(isCellModelsEmpty && !isExecuting && isLastFetchError)
+        }
+
+        // retry buttons in loading views
+        fetchPosts.isExecuting.producer
+            .startWithValues { [weak self] isExecuting in
+                self?.emptyDataViewModel.updateRetryButtonState(isEnabled: !isExecuting)
+                self?.loadingErrorViewModel.updateRetryButtonState(isEnabled: !isExecuting)
+        }
     }
 }
 

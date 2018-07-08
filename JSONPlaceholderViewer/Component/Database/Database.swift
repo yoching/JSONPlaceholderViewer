@@ -26,8 +26,6 @@ protocol DatabaseManaging {
 
     func savePosts(_ posts: [PostFromApi]) -> SignalProducer<Void, DatabaseError>
 
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError>
-
     func populatePost(_ post: PostProtocol, with dataFromApi: DataToPopulatePost)
         -> SignalProducer<Void, DatabaseError>
 }
@@ -36,6 +34,7 @@ enum DatabaseError: Error {
     case context(ManagedObjectContextError)
     case notFetchedInitially
     case invalidUserDataPassed
+    case invalidCommentsDataPassed
 }
 
 final class Database {
@@ -60,8 +59,8 @@ extension Database: DatabaseManaging {
     func fetchPosts() -> SignalProducer<Void, DatabaseError> {
         return viewContext
             .fetchProducer(request: Post.sortedFetchRequest)
-            .on(value: { [weak self] posts in
-                self?.mutablePosts.value = posts
+            .on(value: { [unowned self] posts in
+                self.mutablePosts.value = posts
             })
             .map { _ in () }
             .mapError(DatabaseError.context)
@@ -69,10 +68,7 @@ extension Database: DatabaseManaging {
 
     func savePosts(_ postsToSave: [PostFromApi]) -> SignalProducer<Void, DatabaseError> {
 
-        let fetchRelatedUsers = fetchUsers(identifiers: postsToSave.map { $0.identifier })
-            .map { $0.keyedByIdentifier }
-
-        return mutablePosts.producer
+        let fetchCachedPosts = mutablePosts.producer
             .take(first: 1)
             .promoteError(DatabaseError.self)
             .attemptMap { posts -> Result<[Post], DatabaseError> in
@@ -80,116 +76,119 @@ extension Database: DatabaseManaging {
                     return .failure(.notFetchedInitially)
                 }
                 return .success(posts)
-            }
-            .map { currentPosts -> [Int64: Post] in
-                return Dictionary(uniqueKeysWithValues: currentPosts.map { ($0.identifier, $0) })
-            }
-            .zip(with: fetchRelatedUsers)
-            .flatMap(.latest) { [weak self] currentPosts, relatedUsers -> SignalProducer<Void, DatabaseError> in
+        }
 
-                guard let strongSelf = self else {
-                    return .empty
-                }
+        let fetchRelatedUsers = fetchUsers(identifiers: postsToSave.map { $0.identifier })
 
-                let operation: (NSManagedObjectContext) -> Void = { context in
-
-                    var mutableCurrentPosts = currentPosts
-                    var mutableRelatedUsers = relatedUsers
-
-                    for postFromApi in postsToSave {
-
-                        let postId = Int64(postFromApi.identifier)
-                        let userId = Int64(postFromApi.userIdentifier)
-
-                        let postToConfigure: Post = mutableCurrentPosts.removeValue(forKey: postId)
-                            ?? context.insertObject()
-
-                        // user
-                        let relatedUser: User
-                        if let user = mutableRelatedUsers[userId] {
-                            relatedUser = user
-                        } else {
-                            let newUser: User = context.insertObject()
-                            newUser.configureMinimumInfo(identifier: userId)
-                            mutableRelatedUsers[userId] = newUser
-                            relatedUser = newUser
-                        }
-
-                        postToConfigure.configure(postFromApi: postFromApi, user: relatedUser)
-                    }
-
-                    for (_, postToDelete) in mutableCurrentPosts {
-                        context.delete(postToDelete)
-                    }
-                }
-
-                return strongSelf.viewContext
-                    .performChangesProducer(block: operation)
-                    .mapError(DatabaseError.context)
+        return SignalProducer.zip(fetchCachedPosts, fetchRelatedUsers)
+            .flatMap(.latest) { [unowned self] cachedPosts, cachedRelatedUsers -> SignalProducer<Void, DatabaseError> in
+                return self.performChangesToPosts(
+                    postsToSave: postsToSave,
+                    cachedPosts: cachedPosts,
+                    cachedRelatedUsers: cachedRelatedUsers
+                )
             }
             .flatMap(.latest) { [unowned self] _ -> SignalProducer<Void, DatabaseError> in
                 return self.fetchPosts()
         }
     }
 
-    func fetchUser(identifier: Int) -> SignalProducer<UserProtocol?, DatabaseError> {
-        let predicate = NSPredicate(format: "%K == %ld", #keyPath(User.identifier), Int64(identifier))
-        return viewContext
-            .fetchSingleProducer(request: User.sortedFetchRequest(with: predicate))
-            .map { $0 }
-            .mapError(DatabaseError.context)
-    }
-
-    func fetchUser2(identifier: Int) -> SignalProducer<User?, DatabaseError> {
-        let predicate = NSPredicate(format: "%K == %ld", #keyPath(User.identifier), Int64(identifier))
-        return viewContext
-            .fetchSingleProducer(request: User.sortedFetchRequest(with: predicate))
-            .mapError(DatabaseError.context)
-    }
-
-    func fetchUsers(identifiers: [Int]) -> SignalProducer<[User], DatabaseError> {
+    private func fetchUsers(identifiers: [Int]) -> SignalProducer<[User], DatabaseError> {
         let predicate = NSPredicate(format: "%K in %@", #keyPath(User.identifier), identifiers)
         return viewContext
             .fetchProducer(request: User.sortedFetchRequest(with: predicate))
             .mapError(DatabaseError.context)
     }
 
+    private func performChangesToPosts(postsToSave: [PostFromApi], cachedPosts: [Post], cachedRelatedUsers: [User])
+        -> SignalProducer<Void, DatabaseError> {
+
+            func getPostToConfigure(
+                identifier: Int64,
+                cachedPosts: inout [Int64: Post],
+                context: NSManagedObjectContext
+                ) -> (postToConfigure: Post, isFromCache: Bool) {
+                if let post = cachedPosts.removeValue(forKey: identifier) {
+                    return (postToConfigure: post, isFromCache: true)
+                } else {
+                    return (postToConfigure: context.insertObject(), isFromCache: false)
+                }
+            }
+
+            func getUser(
+                identifier: Int64,
+                cachedUsers: inout [Int64: User],
+                context: NSManagedObjectContext
+                ) -> User {
+                if let user = cachedUsers[identifier] {
+                    return user
+                } else {
+                    let newUser: User = context.insertObject()
+                    newUser.configureMinimumInfo(identifier: identifier)
+                    cachedUsers[identifier] = newUser
+                    return newUser
+                }
+            }
+
+            let operation: (NSManagedObjectContext) -> Void = { context in
+
+                var mutableCachedPosts = cachedPosts.keyedByIdentifier
+                var mutableCachedRelatedUsers = cachedRelatedUsers.keyedByIdentifier
+
+                for postFromApi in postsToSave {
+
+                    let relatedUser: User = getUser(
+                        identifier: Int64(postFromApi.userIdentifier),
+                        cachedUsers: &mutableCachedRelatedUsers,
+                        context: context
+                    )
+
+                    let (postToConfigure, isFromCache) = getPostToConfigure(
+                        identifier: Int64(postFromApi.identifier),
+                        cachedPosts: &mutableCachedPosts,
+                        context: context
+                    )
+
+                    postToConfigure.configure(
+                        postFromApi: postFromApi,
+                        user: relatedUser,
+                        isInitial: !isFromCache
+                    )
+                }
+
+                mutableCachedPosts.values.forEach(context.delete)
+            }
+
+            return viewContext.performChangesProducer(block: operation).mapError(DatabaseError.context)
+    }
+
     func populatePost(_ post: PostProtocol, with dataFromApi: DataToPopulatePost)
         -> SignalProducer<Void, DatabaseError> {
-            return SignalProducer<Void, DatabaseError> { observer, _ in
-                guard post.userProtocol.identifier == dataFromApi.user.identifier else {
-                    observer.send(error: .invalidUserDataPassed)
-                    return
-                }
-                observer.send(value: ())
-                observer.sendCompleted()
-                }
+            return validateIdentity(post: post, dataFromApi: dataFromApi)
                 .flatMap(.latest) { [unowned self] _ -> SignalProducer<Void, DatabaseError> in
                     assert(post is Post)
                     let postEntity = post as! Post // swiftlint:disable:this force_cast (This is a logic error.)
 
                     let operation: (NSManagedObjectContext) -> Void = { context in
+
+                        // user
                         postEntity.user.populate(with: dataFromApi.user)
 
-                        let alreadyRelatedComments = postEntity.comment(
-                            identifiers: dataFromApi.comments.map { $0.identifier }
-                        )
+                        // comments
+                        var alreadyRelatedComments = postEntity.commentsKeyedByIdentifier
 
                         for commentFromApi in dataFromApi.comments {
-                            if let alreadyRelatedComment = alreadyRelatedComments[Int64(commentFromApi.identifier)] {
-                                alreadyRelatedComment.configure(commentFromApi: commentFromApi)
+                            let commentId = Int64(commentFromApi.identifier)
+                            if let comment = alreadyRelatedComments.removeValue(forKey: commentId) {
+                                comment.configure(commentFromApi: commentFromApi)
                             } else {
                                 let comment: Comment = context.insertObject()
                                 comment.configure(commentFromApi: commentFromApi)
-                                if commentFromApi.postIdentifier == postEntity.identifier {
-                                    postEntity.add(comment)
-                                } else {
-                                    fatalError("logic error")
-                                }
+                                postEntity.add(comment)
                             }
                         }
 
-                        // TODO: delete unrelated comments
+                        alreadyRelatedComments.values.forEach(context.delete)
                     }
 
                     return self.viewContext
@@ -197,9 +196,35 @@ extension Database: DatabaseManaging {
                         .mapError(DatabaseError.context)
             }
     }
+
+    private func validateIdentity(post: PostProtocol, dataFromApi: DataToPopulatePost)
+        -> SignalProducer<Void, DatabaseError> {
+            return SignalProducer<Void, DatabaseError> { observer, _ in
+                guard post.userProtocol.identifier == dataFromApi.user.identifier else {
+                    observer.send(error: .invalidUserDataPassed)
+                    return
+                }
+
+                let postIdentifiersInComments = Set<Int>(dataFromApi.comments.map { $0.postIdentifier })
+                guard postIdentifiersInComments.count == 1,
+                    postIdentifiersInComments.first! == Int(post.identifier) else {
+                        observer.send(error: .invalidCommentsDataPassed)
+                        return
+                }
+
+                observer.send(value: ())
+                observer.sendCompleted()
+            }
+    }
 }
 
 private extension Array where Element == User {
+    var keyedByIdentifier: [Int64: Element] {
+        return Dictionary(uniqueKeysWithValues: zip(self.map { $0.identifier }, self))
+    }
+}
+
+private extension Array where Element == Post {
     var keyedByIdentifier: [Int64: Element] {
         return Dictionary(uniqueKeysWithValues: zip(self.map { $0.identifier }, self))
     }

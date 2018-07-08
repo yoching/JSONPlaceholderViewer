@@ -124,19 +124,6 @@ class DataProviderSpec: QuickSpec {
             }
         }
 
-        describe("fetchUser") {
-            it("fetch data from database") {
-                // arrange
-                databaseMock.timesFetchUserCalled = 0
-
-                // act
-                dataProvider.fetchUser(identifier: 1).start()
-
-                // assert
-                expect(databaseMock.timesFetchUserCalled).toEventually(equal(1))
-            }
-        }
-
         describe("populate post") {
 
             it("fetches user & comments from network") {
