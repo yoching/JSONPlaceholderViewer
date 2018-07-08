@@ -39,6 +39,7 @@ final class PostDetailViewModel {
     private let mutableUserName: MutableProperty<String?>
     private let mutableBody: MutableProperty<String>
     private let mutableNumberOfComments: MutableProperty<Int>
+    private let mutableIsPopulated: MutableProperty<Bool>
 
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
 
@@ -64,6 +65,7 @@ final class PostDetailViewModel {
         mutableUserName = MutableProperty<String?>(post.userProtocol.name)
         mutableBody = MutableProperty<String>(post.body)
         mutableNumberOfComments = MutableProperty<Int>(post.commentArray.count)
+        mutableIsPopulated = MutableProperty<Bool>(post.isPopulated)
 
         self.loadingErrorViewModel = loadingErrorViewModel
         self.loadingIndicatorViewModel = loadingIndicatorViewModel
@@ -90,6 +92,7 @@ final class PostDetailViewModel {
                 }
                 strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
                 strongSelf.mutableNumberOfComments.value = strongSelf.post.commentArray.count
+                strongSelf.mutableIsPopulated.value = strongSelf.post.isPopulated
         }
 
         // error description
@@ -100,7 +103,7 @@ final class PostDetailViewModel {
 
         // loading indicator view state
         mutableIsLoadingIndicatorHidden <~ SignalProducer.combineLatest(
-            isPostPopulated.producer,
+            mutableIsPopulated.producer,
             populatePost.isExecuting.producer
             )
             .map { isPostPopulated, isExecuting -> Bool in
@@ -109,7 +112,7 @@ final class PostDetailViewModel {
 
         // loading error view state
         mutableIsLoadingErrorHidden <~ SignalProducer.combineLatest(
-            isPostPopulated.producer,
+            mutableIsPopulated.producer,
             populatePost.isExecuting,
             populatePost.events.producer.map { $0.error != nil }
             )
@@ -118,12 +121,6 @@ final class PostDetailViewModel {
                 return !(!isPostPopulated && !isExecuting && isLastEventError)
         }
 
-    }
-}
-
-private extension PostDetailViewModel {
-    var isPostPopulated: Property<Bool> {
-        return userName.map { $0 != nil }
     }
 }
 

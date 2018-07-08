@@ -70,8 +70,8 @@ class PostDetailViewModelSpec: QuickSpec {
                 context("cache exist") {
 
                     beforeEach {
-                        let user = UserMock(identifier: 1, name: "user name") // cache
-                        postMock = PostMock(identifier: 1, userProtocol: user)
+                        let user = UserMock(identifier: 1, name: "user name")
+                        postMock = PostMock(identifier: 1, userProtocol: user, isPopulated: true)
                         viewModel = PostDetailViewModel(
                             of: postMock,
                             dataProvider: dataProviderMock,
@@ -197,8 +197,8 @@ class PostDetailViewModelSpec: QuickSpec {
                 context("cache exist") {
 
                     beforeEach {
-                        let user = UserMock(identifier: 1, name: "user name") // cache
-                        postMock = PostMock(identifier: 1, userProtocol: user)
+                        let user = UserMock(identifier: 1, name: "user name")
+                        postMock = PostMock(identifier: 1, userProtocol: user, isPopulated: true)
                         viewModel = PostDetailViewModel(
                             of: postMock,
                             dataProvider: dataProviderMock,
