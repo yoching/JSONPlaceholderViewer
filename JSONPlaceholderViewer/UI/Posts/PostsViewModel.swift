@@ -54,7 +54,7 @@ final class PostsViewModel {
     private let mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
     private let mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
 
-    private var fetchAction: Action<Void, Void, DataProviderError>!
+    private var fetchPosts: Action<Void, Void, DataProviderError>!
 
     // swiftlint:disable:next function_body_length
     init(
@@ -90,7 +90,7 @@ final class PostsViewModel {
         mutableIsEmptyDataViewHidden <~ cellModels.map { !$0.isEmpty }
 
         // fetch
-        fetchAction = Action<Void, Void, DataProviderError> { [weak self] _
+        fetchPosts = Action<Void, Void, DataProviderError> { [weak self] _
             -> SignalProducer<Void, DataProviderError> in
             guard let strongSelf = self else {
                 return .empty
@@ -98,7 +98,7 @@ final class PostsViewModel {
             return strongSelf.dataProvider.fetchPosts()
         }
 
-        fetchAction <~ SignalProducer<Void, NoError>.merge(
+        fetchPosts <~ SignalProducer<Void, NoError>.merge(
             shouldReloadWhenAppear.producer
                 .sample(on: viewWillAppearPipe.output)
                 .filter { $0 }
@@ -109,7 +109,7 @@ final class PostsViewModel {
         )
 
         // disable shouldReloadWhenAppear flag when start
-        fetchAction.isExecuting
+        fetchPosts.isExecuting
             .producer
             .skipRepeats()
             .filter { $0 } // start
@@ -118,7 +118,7 @@ final class PostsViewModel {
         }
 
         // stop refresh control when fetch end
-        fetchAction.isExecuting
+        fetchPosts.isExecuting
             .producer
             .skipRepeats()
             .filter { !$0 } // end
@@ -127,7 +127,7 @@ final class PostsViewModel {
         }
 
         // error description
-        fetchAction.errors
+        fetchPosts.errors
             .observeValues { [weak self] error in
                 self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
         }
@@ -135,7 +135,7 @@ final class PostsViewModel {
         // loading indicator view state
         mutableIsLoadingIndicatorHidden <~ SignalProducer.combineLatest(
             cellModels.producer.map { $0.isEmpty },
-            fetchAction.isExecuting.producer
+            fetchPosts.isExecuting.producer
             )
             .map { isCellModelsEmpty, isExecuting -> Bool in
                 // display indicator when "no cells" & "fetching"
@@ -145,8 +145,8 @@ final class PostsViewModel {
         // loading error view state
         mutableIsLoadingErrorHidden <~ SignalProducer.combineLatest(
             cellModels.producer.map { $0.isEmpty },
-            fetchAction.isExecuting.producer,
-            fetchAction.events.producer.map { $0.error != nil }
+            fetchPosts.isExecuting.producer,
+            fetchPosts.events.producer.map { $0.error != nil }
             )
             .map { isCellModelsEmpty, isExecuting, isLastFetchError -> Bool in
                 // display error only when "no cells" & "not fetching" & "last fetch error"
@@ -154,7 +154,7 @@ final class PostsViewModel {
         }
 
         // retry buttons in loading views
-        fetchAction.isExecuting.producer
+        fetchPosts.isExecuting.producer
             .startWithValues { [weak self] isExecuting in
                 self?.emptyDataViewModel.updateRetryButtonState(isEnabled: !isExecuting)
                 self?.loadingErrorViewModel.updateRetryButtonState(isEnabled: !isExecuting)
