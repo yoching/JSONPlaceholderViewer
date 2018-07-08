@@ -8,19 +8,24 @@
 
 import UIKit
 import ReactiveSwift
-import ReactiveCocoa
 import Result
 
 protocol EmptyDataViewModeling {
-
+    // View States
     var image: UIImage? { get }
     var message: String { get }
     var isImageHidden: Bool { get }
     var isRetryButtonHidden: Bool { get }
+    var isRetryButtonEnabled: Property<Bool> { get }
 
+    // View -> ViewModel
     func retryTappedInput()
 
+    // ViewModel -> Other Objects
     var retryTappedOutput: Signal<Void, NoError> { get }
+
+    // Other Objects -> ViewModel
+    func updateRetryButtonState(isEnabled: Bool)
 }
 
 final class EmptyDataViewModel {
@@ -31,6 +36,7 @@ final class EmptyDataViewModel {
     let isRetryButtonHidden: Bool
 
     private let retryTappedPipe = Signal<Void, NoError>.pipe()
+    private let mutableIsRetryButtonEnabled = MutableProperty<Bool>(true)
 
     init(
         image: UIImage?,
@@ -47,10 +53,16 @@ final class EmptyDataViewModel {
 
 // MARK: - EmptyDataViewModeling
 extension EmptyDataViewModel: EmptyDataViewModeling {
+    var isRetryButtonEnabled: Property<Bool> {
+        return Property(mutableIsRetryButtonEnabled)
+    }
     func retryTappedInput() {
         retryTappedPipe.input.send(value: ())
     }
     var retryTappedOutput: Signal<Void, NoError> {
         return retryTappedPipe.output
+    }
+    func updateRetryButtonState(isEnabled: Bool) {
+        mutableIsRetryButtonEnabled.value = isEnabled
     }
 }

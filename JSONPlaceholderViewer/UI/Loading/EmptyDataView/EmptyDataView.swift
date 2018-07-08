@@ -43,5 +43,6 @@ final class EmptyDataView: UIView, XibInstantiatable {
         messageLabel.text = viewModel.message
         iconImageView.isHidden = viewModel.isImageHidden
         retryButton.isHidden = viewModel.isRetryButtonHidden
+        retryButton.reactive.isEnabled <~ viewModel.isRetryButtonEnabled
     }
 }

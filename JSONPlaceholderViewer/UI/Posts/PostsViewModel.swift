@@ -153,7 +153,12 @@ final class PostsViewModel {
                 return !(isCellModelsEmpty && !isExecuting && isLastFetchError)
         }
 
-        // TODO: disable retry buttons in loading views when fetching
+        // retry buttons in loading views
+        fetchAction.isExecuting.producer
+            .startWithValues { [weak self] isExecuting in
+                self?.emptyDataViewModel.updateRetryButtonState(isEnabled: !isExecuting)
+                self?.loadingErrorViewModel.updateRetryButtonState(isEnabled: !isExecuting)
+        }
     }
 }
 
