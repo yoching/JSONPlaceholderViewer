@@ -32,8 +32,8 @@ class PostDetailViewModelSpec: QuickSpec {
             viewModel = PostDetailViewModel(
                 of: postMock,
                 dataProvider: dataProviderMock,
-                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
-                loadingErrorViewModel: loadingErrorViewModelMock
+                loadingErrorViewModel: loadingErrorViewModelMock,
+                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
             )
         }
 
@@ -75,8 +75,8 @@ class PostDetailViewModelSpec: QuickSpec {
                         viewModel = PostDetailViewModel(
                             of: postMock,
                             dataProvider: dataProviderMock,
-                            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
-                            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
+                            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error"),
+                            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
                         )
                     }
 
@@ -202,8 +202,8 @@ class PostDetailViewModelSpec: QuickSpec {
                         viewModel = PostDetailViewModel(
                             of: postMock,
                             dataProvider: dataProviderMock,
-                            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
-                            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
+                            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error"),
+                            loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
                         )
                     }
 

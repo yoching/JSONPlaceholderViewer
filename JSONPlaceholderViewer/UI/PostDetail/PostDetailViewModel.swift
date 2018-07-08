@@ -44,67 +44,80 @@ final class PostDetailViewModel {
 
     private let routeSelectedPipe = Signal<PostDetailViewRoute, NoError>.pipe()
 
+    private var populatePost: Action<Void, Void, DataProviderError>!
+
     // LoadingViewsControllable
-    let loadingIndicatorViewModel: LoadingIndicatorViewModeling
     let loadingErrorViewModel: LoadingErrorViewModeling
-    private let mutableIsLoadingIndicatorHidden: MutableProperty<Bool>
-    private let mutableIsLoadingErrorHidden: MutableProperty<Bool>
+    let loadingIndicatorViewModel: LoadingIndicatorViewModeling
+    private let mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
+    private let mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
 
     init(
         of post: PostProtocol,
         dataProvider: DataProviding,
-        loadingIndicatorViewModel: LoadingIndicatorViewModeling,
-        loadingErrorViewModel: LoadingErrorViewModeling
+        loadingErrorViewModel: LoadingErrorViewModeling,
+        loadingIndicatorViewModel: LoadingIndicatorViewModeling
         ) {
         self.post = post
         self.dataProvider = dataProvider
-        self.loadingIndicatorViewModel = loadingIndicatorViewModel
-        self.loadingErrorViewModel = loadingErrorViewModel
 
         mutableUserName = MutableProperty<String?>(post.userProtocol.name)
         mutableBody = MutableProperty<String>(post.body)
         mutableNumberOfComments = MutableProperty<Int>(post.commentArray.count)
 
-        mutableIsLoadingIndicatorHidden = MutableProperty<Bool>(true)
-        mutableIsLoadingErrorHidden = MutableProperty<Bool>(true)
+        self.loadingErrorViewModel = loadingErrorViewModel
+        self.loadingIndicatorViewModel = loadingIndicatorViewModel
 
-        let populateTrigger = Signal<Void, NoError>.merge(
+        // fetch
+        populatePost = Action<Void, Void, DataProviderError> { [weak self] _
+            -> SignalProducer<Void, DataProviderError> in
+            guard let strongSelf = self else {
+                return .empty
+            }
+            return strongSelf.dataProvider.populate(strongSelf.post)
+        }
+
+        populatePost <~ Signal<Void, NoError>.merge(
             viewWillAppearPipe.output,
             loadingErrorViewModel.retryTappedOutput
         )
 
-        isPostPopulated.producer
-            .sample(on: populateTrigger)
-            .on { [weak self] isPostPopulated in
-                self?.mutableIsLoadingIndicatorHidden.value = isPostPopulated
-                self?.mutableIsLoadingErrorHidden.value = true
-            }
-            .flatMap(.latest) { [weak self] _ -> SignalProducer<Result<Void, DataProviderError>, NoError> in
-                guard let strongSelf = self else {
-                    return .empty
-                }
-                return strongSelf.dataProvider.populate(strongSelf.post)
-                    .resultWrapped()
-            }
-            .on { [weak self] result in
+        // update view after populate succeeded
+        populatePost.values
+            .observeValues { [weak self] _ in
                 guard let strongSelf = self else {
                     return
                 }
-                switch result {
-                case .failure(let error):
-                    if !strongSelf.isPostPopulated.value {
-                        strongSelf.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
-                        strongSelf.mutableIsLoadingErrorHidden.value = false
-                    }
-                case .success:
-                    strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
-                    strongSelf.mutableNumberOfComments.value = strongSelf.post.commentArray.count
-                }
-            }
-            .on { [weak self] _ in
-                self?.mutableIsLoadingIndicatorHidden.value = true
-            }
-            .start()
+                strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
+                strongSelf.mutableNumberOfComments.value = strongSelf.post.commentArray.count
+        }
+
+        // error description
+        populatePost.errors
+            .observeValues { [weak self] error in
+                self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
+        }
+
+        // loading indicator view state
+        mutableIsLoadingIndicatorHidden <~ SignalProducer.combineLatest(
+            isPostPopulated.producer,
+            populatePost.isExecuting.producer
+            )
+            .map { isPostPopulated, isExecuting -> Bool in
+                return !(!isPostPopulated && isExecuting)
+        }
+
+        // loading error view state
+        mutableIsLoadingErrorHidden <~ SignalProducer.combineLatest(
+            isPostPopulated.producer,
+            populatePost.isExecuting,
+            populatePost.events.producer.map { $0.error != nil }
+            )
+            .map { isPostPopulated, isExecuting, isLastEventError -> Bool in
+                // display when "not populated" & "not executing" & "last event error"
+                return !(!isPostPopulated && !isExecuting && isLastEventError)
+        }
+
     }
 }
 
@@ -134,12 +147,11 @@ extension PostDetailViewModel: PostDetailViewModeling {
     }
 
     // LoadingViewsControllable
-    var isLoadingIndicatorHidden: Property<Bool> {
-        return Property(mutableIsLoadingIndicatorHidden).skipRepeats()
-    }
-
     var isLoadingErrorHidden: Property<Bool> {
         return Property(mutableIsLoadingErrorHidden).skipRepeats()
+    }
+    var isLoadingIndicatorHidden: Property<Bool> {
+        return Property(mutableIsLoadingIndicatorHidden).skipRepeats()
     }
 }
 
