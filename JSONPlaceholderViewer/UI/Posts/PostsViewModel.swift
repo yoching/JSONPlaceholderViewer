@@ -12,6 +12,7 @@ import Result
 
 protocol PostsViewModeling: LoadingAndEmptyViewsControllable {
     // View States
+    var title: String { get }
     var cellModels: Property<[PostCellModeling]> { get }
 
     // View -> View Model
@@ -37,6 +38,7 @@ final class PostsViewModel {
     private let shouldReloadWhenAppear = MutableProperty<Bool>(true)
 
     // ViewModeling
+    let title: String = "Posts"
     private let mutableCellModels = MutableProperty<[PostCellModeling]>([])
     private let didSelectRowPipe = Signal<Int, NoError>.pipe()
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
