@@ -14,7 +14,7 @@ protocol PostProtocol: class {
     var identifier: Int64 { get }
     var body: String { get }
     var title: String { get }
-    var userProtocol: UserProtocol { get } // TODO: think about name
+    var userProtocol: UserProtocol { get }
     var commentArray: [CommentProtocol] { get }
 }
 
