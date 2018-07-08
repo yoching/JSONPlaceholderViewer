@@ -189,6 +189,9 @@ extension Database: DatabaseManaging {
                         }
 
                         alreadyRelatedComments.values.forEach(context.delete)
+
+                        // post
+                        postEntity.isPopulated = true
                     }
 
                     return self.viewContext

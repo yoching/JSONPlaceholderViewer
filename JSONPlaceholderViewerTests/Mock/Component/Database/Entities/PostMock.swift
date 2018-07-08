@@ -20,18 +20,21 @@ final class PostMock: PostProtocol, Equatable {
     let title: String
     let userProtocol: UserProtocol
     var commentArray: [CommentProtocol]
+    let isPopulated: Bool
 
     init(
         identifier: Int64,
         body: String = "",
         title: String = "",
         userProtocol: UserProtocol,
-        commentArray: [CommentProtocol] = []
+        commentArray: [CommentProtocol] = [],
+        isPopulated: Bool = false
         ) {
         self.identifier = identifier
         self.body = body
         self.title = title
         self.userProtocol = userProtocol
         self.commentArray = commentArray
+        self.isPopulated = isPopulated
     }
 }

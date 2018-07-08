@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingErrorView" customModule="PagingManagerSample" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingErrorView" customModule="JSONPlaceholderViewer" customModuleProvider="target">
             <connections>
                 <outlet property="errorMessage" destination="xCM-po-9qc" id="kYz-uK-cAc"/>
                 <outlet property="retryButton" destination="lkh-bR-DXk" id="BS9-IP-EdA"/>
@@ -22,16 +22,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="v0e-xL-VBm">
-                    <rect key="frame" x="0.0" y="303.5" width="375" height="60.5"/>
+                    <rect key="frame" x="20" y="303.5" width="335" height="60.5"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Error Message&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCM-po-9qc">
-                            <rect key="frame" x="121.5" y="0.0" width="132.5" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Error Message&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCM-po-9qc">
+                            <rect key="frame" x="101.5" y="0.0" width="132.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkh-bR-DXk">
-                            <rect key="frame" x="169" y="30.5" width="37" height="30"/>
+                            <rect key="frame" x="149" y="30.5" width="37" height="30"/>
                             <state key="normal" title="Retry"/>
                             <connections>
                                 <action selector="retryButtonTapped:" destination="-1" eventType="touchUpInside" id="09T-fI-Li3"/>
@@ -42,9 +42,9 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="v0e-xL-VBm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1Uh-lV-CrX"/>
+                <constraint firstItem="v0e-xL-VBm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="1Uh-lV-CrX"/>
                 <constraint firstItem="v0e-xL-VBm" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cQ6-dI-H36"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="v0e-xL-VBm" secondAttribute="trailing" id="vZA-uD-ipZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="v0e-xL-VBm" secondAttribute="trailing" constant="20" id="vZA-uD-ipZ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
         </view>

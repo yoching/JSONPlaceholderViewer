@@ -32,9 +32,9 @@ final class PostDetailViewController: UIViewController, LoadingViewsContaining {
         super.viewDidLoad()
 
         self.title = viewModel.title
+        bodyLabel.text = viewModel.body
 
         userNameLabel.reactive.text <~ viewModel.userName
-        bodyLabel.reactive.text <~ viewModel.body
         numberOfCommentsLabel.reactive.text <~ viewModel.numberOfComments
 
         configureLoadingViews(with: viewModel)

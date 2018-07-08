@@ -16,6 +16,7 @@ protocol PostProtocol: class {
     var title: String { get }
     var userProtocol: UserProtocol { get }
     var commentArray: [CommentProtocol] { get }
+    var isPopulated: Bool { get }
 }
 
 final class Post: NSManagedObject, PostProtocol {
@@ -25,6 +26,7 @@ final class Post: NSManagedObject, PostProtocol {
 
     @NSManaged private(set) var comments: Set<Comment>
     @NSManaged private(set) var user: User
+    @NSManaged var isPopulated: Bool
 
     func configure(
         identifier: Int64,
