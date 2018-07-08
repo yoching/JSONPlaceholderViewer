@@ -164,22 +164,7 @@ extension Database: DatabaseManaging {
 
     func populatePost(_ post: PostProtocol, with dataFromApi: DataToPopulatePost)
         -> SignalProducer<Void, DatabaseError> {
-            return SignalProducer<Void, DatabaseError> { observer, _ in
-                guard post.userProtocol.identifier == dataFromApi.user.identifier else {
-                    observer.send(error: .invalidUserDataPassed)
-                    return
-                }
-
-                let postIdentifiersInComments = Set<Int>(dataFromApi.comments.map { $0.postIdentifier })
-                guard postIdentifiersInComments.count == 1,
-                    postIdentifiersInComments.first! == Int(post.identifier) else {
-                        observer.send(error: .invalidCommentsDataPassed)
-                        return
-                }
-
-                observer.send(value: ())
-                observer.sendCompleted()
-                }
+            return validateIdentity(post: post, dataFromApi: dataFromApi)
                 .flatMap(.latest) { [unowned self] _ -> SignalProducer<Void, DatabaseError> in
                     assert(post is Post)
                     let postEntity = post as! Post // swiftlint:disable:this force_cast (This is a logic error.)
@@ -203,14 +188,32 @@ extension Database: DatabaseManaging {
                             }
                         }
 
-                        for (_, commentToDelete) in alreadyRelatedComments {
-                            context.delete(commentToDelete)
-                        }
+                        alreadyRelatedComments.values.forEach(context.delete)
                     }
 
                     return self.viewContext
                         .performChangesProducer(block: operation)
                         .mapError(DatabaseError.context)
+            }
+    }
+
+    private func validateIdentity(post: PostProtocol, dataFromApi: DataToPopulatePost)
+        -> SignalProducer<Void, DatabaseError> {
+            return SignalProducer<Void, DatabaseError> { observer, _ in
+                guard post.userProtocol.identifier == dataFromApi.user.identifier else {
+                    observer.send(error: .invalidUserDataPassed)
+                    return
+                }
+
+                let postIdentifiersInComments = Set<Int>(dataFromApi.comments.map { $0.postIdentifier })
+                guard postIdentifiersInComments.count == 1,
+                    postIdentifiersInComments.first! == Int(post.identifier) else {
+                        observer.send(error: .invalidCommentsDataPassed)
+                        return
+                }
+
+                observer.send(value: ())
+                observer.sendCompleted()
             }
     }
 }
