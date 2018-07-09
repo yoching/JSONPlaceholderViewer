@@ -9,6 +9,11 @@ Please remove RunScripts if it is impossible to change the version of the tools.
 - SwiftLint v0.26.0
 - SwiftGen v5.3.0
 
+## Installation
+
+```
+carthage bootstrap --platform iOS
+```
 
 ## Architecture
 - MVVM-C based
