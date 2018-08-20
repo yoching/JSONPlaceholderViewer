@@ -24,4 +24,7 @@ carthage bootstrap --platform iOS
 
 
 ## Reference
-- [App Architecture By Manual DI](https://speakerdeck.com/yoching/app-architecture-by-manual-di): my past presentation about the architecture used in this project.
+### About this architecture
+- [App Architecture By Manual DI - Yoshikuni Kato - Tokyo iOS Meetup : July 21, 2018 (video)](https://www.youtube.com/watch?v=Z3tiYtq5oio)
+- [App Architecture By Manual DI
+ (slides)](https://speakerdeck.com/yoching/app-architecture-by-manual-di-1)
