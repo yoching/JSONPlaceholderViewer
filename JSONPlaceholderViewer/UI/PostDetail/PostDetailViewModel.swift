@@ -19,8 +19,6 @@ protocol PostDetailViewModeling: LoadingViewsControllable {
 
     // View -> View Model
     func viewWillAppear()
-
-    // View Model -> View
 }
 
 enum PostDetailViewRoute {
@@ -80,7 +78,7 @@ final class PostDetailViewModel {
 
         populatePost <~ Signal<Void, NoError>.merge(
             viewWillAppearPipe.output,
-            loadingErrorViewModel.retryTappedOutput
+            loadingErrorViewModel.retry.values
         )
 
         // update view after populate succeeded

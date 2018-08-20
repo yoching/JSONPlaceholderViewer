@@ -18,10 +18,6 @@ final class LoadingErrorView: UIView, XibInstantiatable {
     @IBOutlet weak var errorMessage: UILabel!
     @IBOutlet weak var retryButton: UIButton!
 
-    @IBAction func retryButtonTapped(_ sender: UIButton) {
-        viewModel?.retryTappedInput()
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         instantiate()
@@ -39,6 +35,7 @@ final class LoadingErrorView: UIView, XibInstantiatable {
 
     private func bind(_ viewModel: LoadingErrorViewModeling) {
         errorMessage.reactive.text <~ viewModel.errorMessage
-        retryButton.reactive.isEnabled <~ viewModel.isRetryButtonEnabled
+
+        retryButton.reactive.pressed = CocoaAction(viewModel.retry)
     }
 }

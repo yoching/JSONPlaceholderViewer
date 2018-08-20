@@ -19,10 +19,6 @@ final class EmptyDataView: UIView, XibInstantiatable {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var retryButton: UIButton!
 
-    @IBAction func retryButtonTapped(_ sender: UIButton) {
-        viewModel?.retryTappedInput()
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         instantiate()
@@ -43,6 +39,7 @@ final class EmptyDataView: UIView, XibInstantiatable {
         messageLabel.text = viewModel.message
         iconImageView.isHidden = viewModel.isImageHidden
         retryButton.isHidden = viewModel.isRetryButtonHidden
-        retryButton.reactive.isEnabled <~ viewModel.isRetryButtonEnabled
+
+        retryButton.reactive.pressed = CocoaAction(viewModel.retry)
     }
 }

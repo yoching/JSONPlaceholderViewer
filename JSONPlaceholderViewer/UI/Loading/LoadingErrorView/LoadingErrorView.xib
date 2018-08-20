@@ -33,9 +33,6 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkh-bR-DXk">
                             <rect key="frame" x="149" y="30.5" width="37" height="30"/>
                             <state key="normal" title="Retry"/>
-                            <connections>
-                                <action selector="retryButtonTapped:" destination="-1" eventType="touchUpInside" id="09T-fI-Li3"/>
-                            </connections>
                         </button>
                     </subviews>
                 </stackView>
