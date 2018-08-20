@@ -45,11 +45,11 @@ final class PostsViewController: UIViewController, LoadingAndEmptyViewsContainin
         }
 
         configureLoadingAndEmptyViews(with: viewModel)
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.viewWillAppear()
+        self.reactive.trigger(for: #selector(UIViewController.viewWillAppear(_:)))
+            .observeValues { [weak self] _ in
+                self?.viewModel.viewWillAppear()
+        }
     }
 }
 

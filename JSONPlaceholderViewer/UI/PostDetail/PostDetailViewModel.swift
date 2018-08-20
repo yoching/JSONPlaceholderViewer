@@ -16,11 +16,9 @@ protocol PostDetailViewModeling: LoadingViewsControllable {
     var body: String { get }
     var userName: Property<String?> { get }
     var numberOfComments: Property<String> { get }
-
+    
     // View -> View Model
     func viewWillAppear()
-
-    // View Model -> View
 }
 
 enum PostDetailViewRoute {

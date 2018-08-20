@@ -38,11 +38,11 @@ final class PostDetailViewController: UIViewController, LoadingViewsContaining {
         numberOfCommentsLabel.reactive.text <~ viewModel.numberOfComments
 
         configureLoadingViews(with: viewModel)
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.viewWillAppear()
+        self.reactive.trigger(for: #selector(UIViewController.viewWillAppear(_:)))
+            .observeValues { [weak self] _ in
+                self?.viewModel.viewWillAppear()
+        }
     }
 }
 
