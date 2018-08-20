@@ -80,7 +80,7 @@ final class PostDetailViewModel {
 
         populatePost <~ Signal<Void, NoError>.merge(
             viewWillAppearPipe.output,
-            loadingErrorViewModel.retryTappedOutput
+            loadingErrorViewModel.retry.values
         )
 
         // update view after populate succeeded

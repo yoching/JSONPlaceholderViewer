@@ -16,13 +16,8 @@ protocol EmptyDataViewModeling {
     var message: String { get }
     var isImageHidden: Bool { get }
     var isRetryButtonHidden: Bool { get }
-    var isRetryButtonEnabled: Property<Bool> { get }
 
-    // View -> ViewModel
-    func retryTappedInput()
-
-    // ViewModel -> Other Objects
-    var retryTappedOutput: Signal<Void, NoError> { get }
+    var retry: Action<Void, Void, NoError> { get }
 
     // Other Objects -> ViewModel
     func updateRetryButtonState(isEnabled: Bool)
@@ -35,7 +30,8 @@ final class EmptyDataViewModel {
     let isImageHidden: Bool
     let isRetryButtonHidden: Bool
 
-    private let retryTappedPipe = Signal<Void, NoError>.pipe()
+    let retry: Action<Void, Void, NoError>
+
     private let mutableIsRetryButtonEnabled = MutableProperty<Bool>(true)
 
     init(
@@ -48,20 +44,16 @@ final class EmptyDataViewModel {
         self.message = message
         self.isImageHidden = isImageHidden
         self.isRetryButtonHidden = isRetryButtonHidden
+
+        retry = Action<Void, Void, NoError>(enabledIf: mutableIsRetryButtonEnabled) { _
+            -> SignalProducer<Void, NoError> in
+            return .init(value: ())
+        }
     }
 }
 
 // MARK: - EmptyDataViewModeling
 extension EmptyDataViewModel: EmptyDataViewModeling {
-    var isRetryButtonEnabled: Property<Bool> {
-        return Property(mutableIsRetryButtonEnabled)
-    }
-    func retryTappedInput() {
-        retryTappedPipe.input.send(value: ())
-    }
-    var retryTappedOutput: Signal<Void, NoError> {
-        return retryTappedPipe.output
-    }
     func updateRetryButtonState(isEnabled: Bool) {
         mutableIsRetryButtonEnabled.value = isEnabled
     }

@@ -105,8 +105,8 @@ final class PostsViewModel {
                 .sample(on: viewWillAppearPipe.output)
                 .filter { $0 }
                 .map { _ in () },
-            loadingErrorViewModel.retryTappedOutput.producer,
-            emptyDataViewModel.retryTappedOutput.producer,
+            loadingErrorViewModel.retry.values.producer,
+            emptyDataViewModel.retry.values.producer,
             pullToRefreshTriggeredPipe.output.producer
         )
 

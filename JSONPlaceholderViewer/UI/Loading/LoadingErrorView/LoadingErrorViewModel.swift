@@ -13,13 +13,8 @@ import Result
 protocol LoadingErrorViewModeling {
     // View States
     var errorMessage: Property<String> { get }
-    var isRetryButtonEnabled: Property<Bool> { get }
 
-    // View -> ViewModel
-    func retryTappedInput()
-
-    // ViewModel -> Other Objects
-    var retryTappedOutput: Signal<Void, NoError> { get }
+    var retry: Action<Void, Void, NoError> { get }
 
     // Other Objects -> ViewModel
     func updateErrorMessage(to message: String)
@@ -31,24 +26,22 @@ final class LoadingErrorViewModel {
     private let retryTappedPipe = Signal<Void, NoError>.pipe()
     private let mutableIsRetryButtonEnabled = MutableProperty<Bool>(true)
 
+    let retry: Action<Void, Void, NoError>
+
     init(errorMessage: String) {
         self._errorMessage.value = errorMessage
+
+        retry = Action<Void, Void, NoError>(enabledIf: mutableIsRetryButtonEnabled) { _
+            -> SignalProducer<Void, NoError> in
+            return .init(value: ())
+        }
     }
 }
 
 // MARK: - LoadingErrorViewModeling
 extension LoadingErrorViewModel: LoadingErrorViewModeling {
-    var isRetryButtonEnabled: Property<Bool> {
-        return Property(mutableIsRetryButtonEnabled)
-    }
     var errorMessage: Property<String> {
         return Property(_errorMessage)
-    }
-    func retryTappedInput() {
-        retryTappedPipe.input.send(value: ())
-    }
-    var retryTappedOutput: Signal<Void, NoError> {
-        return retryTappedPipe.output
     }
     func updateErrorMessage(to message: String) {
         _errorMessage.value = message
