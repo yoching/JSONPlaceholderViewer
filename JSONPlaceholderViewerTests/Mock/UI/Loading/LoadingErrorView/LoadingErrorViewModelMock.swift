@@ -14,25 +14,14 @@ import Result
 
 final class LoadingErrorViewModelMock: LoadingErrorViewModeling {
 
+    let mutableErrorMessage = MutableProperty<String>("")
     var errorMessage: Property<String> {
         return Property(mutableErrorMessage)
     }
-    var isRetryButtonEnabled: Property<Bool> {
-        return Property(mutableIsRetryButtonEnabled)
+
+    let retry = Action<Void, Void, NoError> { _ -> SignalProducer<Void, NoError> in
+        return .init(value: ())
     }
-
-    let mutableErrorMessage = MutableProperty<String>("")
-    let mutableIsRetryButtonEnabled = MutableProperty<Bool>(true)
-
-    func retryTappedInput() {
-
-    }
-
-    var retryTappedOutput: Signal<Void, NoError> {
-        return retryTappedPipe.output
-    }
-
-    var retryTappedPipe = Signal<Void, NoError>.pipe()
 
     var timesUpdateErrorMessageCalled = 0
     func updateErrorMessage(to message: String) {
