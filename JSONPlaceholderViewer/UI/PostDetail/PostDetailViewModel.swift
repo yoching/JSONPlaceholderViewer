@@ -70,10 +70,10 @@ final class PostDetailViewModel {
         // fetch
         populatePost = Action<Void, Void, DataProviderError> { [weak self] _
             -> SignalProducer<Void, DataProviderError> in
-            guard let strongSelf = self else {
+            guard let self = self else {
                 return .empty
             }
-            return strongSelf.dataProvider.populate(strongSelf.post)
+            return self.dataProvider.populate(self.post)
         }
 
         populatePost <~ Signal<Void, NoError>.merge(
@@ -84,12 +84,12 @@ final class PostDetailViewModel {
         // update view after populate succeeded
         populatePost.values
             .observeValues { [weak self] _ in
-                guard let strongSelf = self else {
+                guard let self = self else {
                     return
                 }
-                strongSelf.mutableUserName.value = strongSelf.post.userProtocol.name
-                strongSelf.mutableNumberOfComments.value = strongSelf.post.commentArray.count
-                strongSelf.mutableIsPopulated.value = strongSelf.post.isPopulated
+                self.mutableUserName.value = self.post.userProtocol.name
+                self.mutableNumberOfComments.value = self.post.commentArray.count
+                self.mutableIsPopulated.value = self.post.isPopulated
         }
 
         // error description
