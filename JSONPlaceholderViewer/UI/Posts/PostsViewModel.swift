@@ -94,10 +94,10 @@ final class PostsViewModel {
         // fetch
         fetchPosts = Action<Void, Void, DataProviderError> { [weak self] _
             -> SignalProducer<Void, DataProviderError> in
-            guard let strongSelf = self else {
+            guard let self = self else {
                 return .empty
             }
-            return strongSelf.dataProvider.fetchPosts()
+            return self.dataProvider.fetchPosts()
         }
 
         fetchPosts <~ SignalProducer<Void, NoError>.merge(
